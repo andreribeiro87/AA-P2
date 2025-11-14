@@ -1,0 +1,57 @@
+\section{Conclusão}\label{sec:conclusao}
+
+Este trabalho apresentou uma análise formal e experimental completa de dois algoritmos baseline para resolver o problema Maximum Weight Clique.
+As principais conclusões são sintetizadas abaixo.
+
+\subsection{Principais Descobertas}
+
+\begin{enumerate}
+    \item \textbf{Validação da complexidade teórica:} Os resultados experimentais confirmam completamente as análises teóricas de complexidade.
+          O algoritmo exaustivo (Algoritmo 1) apresenta crescimento exponencial $O(2^n \times n^2)$, enquanto a heurística gulosa (Algoritmo 2) mantém crescimento polinomial (pior caso $O(n^4)$).
+    \item \textbf{Limitações práticas do baseline exaustivo:} O algoritmo exaustivo torna-se impraticável para grafos com mais de aproximadamente 20 vértices. Esta é uma limitação da força bruta, não da resolução exata SOTA.
+    \item \textbf{Eficiência da heurística baseline:} A heurística gulosa multi-início oferece excelente qualidade de solução (média >99\%) nos benchmarks aleatórios testados, com complexidade polinomial.
+    \item \textbf{Escalabilidade:} A heurística gulosa demonstra excelente escalabilidade, com factores de aceleração superiores a 2,000x para grafos de 20 vértices em relação ao algoritmo exaustivo.
+
+    \item \textbf{Impacto da densidade:} A densidade do grafo tem impacto moderado no desempenho de ambos os algoritmos, mas não afecta significativamente a qualidade das soluções da heurística.
+\end{enumerate}
+
+\subsection{Comparação entre Análise Formal e Experimental}
+
+A comparação entre as análises formais apresentadas na Secção~\ref{sec:algoritmos} e os resultados experimentais da Secção~\ref{sec:testes} revela uma concordância notável:
+
+\begin{itemize}
+    \item \textbf{Algoritmo exaustivo:} A análise teórica prevê $2^n$ configurações testadas, confirmado exactamente pelos resultados experimentais (Figura~\ref{fig:configurations_tested}).
+          O crescimento exponencial em tempo e operações também está totalmente de acordo com a previsão teórica.
+    \item \textbf{Heurística gulosa:} A análise teórica prevê crescimento polinomial, confirmado pelos resultados experimentais que mostram crescimento muito mais lento que exponencial.
+    \item \textbf{Espaço:} Ambos os algoritmos utilizam espaço $O(n)$ conforme previsto.
+\end{itemize}
+
+Esta concordância valida a correcção das análises formais e a eficácia das implementações dos algoritmos baseline.
+\subsection{Recomendações Práticas}
+
+Com base na análise experimental, as seguintes recomendações são propostas:
+
+\begin{itemize}
+    \item \textbf{Para grafos pequenos ($n \leq 20$):} Utilizar o algoritmo exaustivo (Algoritmo 1) para garantir a solução ótima, se o tempo de execução for aceitável.
+    \item \textbf{Para grafos médios e grandes ($n > 20$):} A heurística gulosa (Algoritmo 2) é a única opção viável implementada, oferecendo excelente qualidade de solução (94-100\%) com tempo de execução muito baixo.
+    \item \textbf{Para Investigação Futura:} Implementar algoritmos SOTA (e.g., \texttt{MWCRedu} \cite{erhardt2023improved} ou \texttt{MaxCliqueWeight} \cite{konc2025efficient}) para obter soluções ótimas para $n > 20$.
+\end{itemize}
+
+\subsection{Trabalho Futuro}
+
+Com base no estado-da-arte (SOTA) da investigação recente, as extensões futuras devem focar-se em superar os baselines aqui implementados:
+\begin{enumerate}
+    \item \textbf{Implementação de Heurísticas SOTA:} Substituir a abordagem de ``multi-início'' por meta-heurísticas mais robustas para escapar a ótimos locais. As implementações prioritárias incluem:
+          \begin{itemize}
+              \item \textbf{GRASP:} Modificar o Algoritmo 2 para usar uma \textit{Restricted Candidate List} (RCL) com seleção aleatória, em vez de uma seleção puramente gulosa \cite{hao2023metaheuristic}.
+              \item \textbf{Iterated Local Search (ILS):} Adicionar uma fase de ``busca local'' pós-construção (e.g., \textit{swaps} de vértices) e um mecanismo de ``perturbação'' para saltar para outras bacias de atração \cite{hao2023metaheuristic}.
+              \item \textbf{Simulated Annealing (SA):} Implementar SA, que permite movimentos piores com probabilidade decrescente, comparando-o com variantes SOTA como \textit{Adaptive Population-based} SA \cite{sun2024adaptive}.
+          \end{itemize}
+    \item \textbf{Implementação de Algoritmos Exatos SOTA:} Substituir o Algoritmo 1 (força bruta) por uma abordagem SOTA para resolver instâncias maiores:
+          \begin{itemize}
+              \item \textbf{Branch-and-Bound (B\&B):} Implementar um solver B\&B com upper bounds baseados em coloração ponderada, seguindo a abordagem de \cite{konc2025efficient}.
+              \item \textbf{Algoritmos Híbridos (Redução):} Implementar as regras de redução de dados (e.g., remoção de vértices dominados) propostas por \cite{erhardt2023improved} como um passo de pré-processamento. Medir a redução $n \rightarrow n'$ e o speedup resultante no Algoritmo 1.
+          \end{itemize}
+    \item \textbf{Validação em Benchmarks SOTA:} Validar a alta precisão (99\%) do Algoritmo 2 contra os benchmarks académicos standard (e.g., grafos de bioinformática ou map labeling \cite{erhardt2023improved, konc2025efficient}), em vez de apenas grafos aleatórios.
+    \item \textbf{Exploração de ML para Redução:} Investigar a abordagem SOTA de usar Machine Learning para prever a probabilidade de um vértice pertencer à MWC, usando essa predição para uma redução de grafo \cite{sun2021ml}.
+\end{enumerate}

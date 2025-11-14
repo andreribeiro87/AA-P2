@@ -1,0 +1,23 @@
+\section{Introdução}
+
+Este relatório apresenta uma análise formal e experimental completa dos algoritmos implementados para resolver o \textbf{Problema 12: Maximum Weight Clique}.
+O problema consiste em encontrar uma clique (subgrafo completo) de peso máximo num grafo não orientado $G(V,E)$, onde cada vértice possui um peso positivo.
+O problema Maximum Weight Clique é um problema de otimização combinatória NP-difícil com aplicações práticas em diversas áreas. Estas incluem a computação social (identificação de comunidades influentes em big data) e a bioinformática, especificamente na análise de locais de ligação de proteínas \cite{konc2025efficient} e na predição de complexos de RNA \cite{rcpred2019}.
+A versão \textit{weighted} do problema clássico da clique máxima adiciona uma dimensão adicional de complexidade, tornando-o particularmente relevante para cenários onde os vértices possuem valores ou importâncias distintas.
+Neste trabalho, foram comparadas duas abordagens fundamentais para resolver este problema:
+
+\begin{itemize}
+    \item \textbf{Pesquisa exaustiva} (solução ótima baseline): enumera sistematicamente todos os possíveis subconjuntos de vértices e identifica o clique de maior peso;
+          garante otimalidade, mas possui complexidade exponencial $O(2^n \times n^2)$. Esta abordagem serve como um baseline fundamental, mas é superada em ordens de magnitude por algoritmos exatos estado-da-arte (SOTA) que utilizam técnicas de branch-and-bound e redução de dados \cite{erhardt2023improved, konc2025efficient}.
+    \item \textbf{Heurística gulosa multi-início} (solução aproximada baseline): constrói cliques incrementalmente, começando a partir de cada vértice e selecionando iterativamente o vértice compatível de maior peso;
+          oferece complexidade polinomial (pior caso $O(n^4)$, caso médio $O(n^3)$) e produz soluções de alta qualidade. Esta é uma heurística de construção robusta, mas a investigação recente foca-se em meta-heurísticas (como Iterated Local Search ou Simulated Annealing) e abordagens híbridas para explorar o espaço de soluções de forma mais eficaz \cite{hao2023metaheuristic, sun2024adaptive}.
+\end{itemize}
+
+Os objetivos específicos deste trabalho incluem: (i) definir formalmente o problema Maximum Weight Clique;
+(ii) descrever detalhadamente ambas as abordagens baseline com análise rigorosa da sua complexidade computacional;
+(iii) realizar uma avaliação experimental abrangente comparando tempo de execução, número de operações básicas e qualidade das soluções;
+(iv) verificar empiricamente as análises teóricas de complexidade; (v) contextualizar estes algoritmos baseline com o estado-da-arte (SOTA) da investigação recente; e (vi) discutir os compromissos entre qualidade e desempenho, sobre quando utilizar cada método.
+Este relatório está estruturado da seguinte forma: a Secção~\ref{sec:problema} apresenta a definição formal do problema;
+a Secção~\ref{sec:algoritmos} descreve os algoritmos implementados com análise formal de complexidade;
+a Secção~\ref{sec:testes} apresenta a metodologia experimental e os resultados obtidos, incluindo a comparação entre análise teórica e experimental;
+finalmente, a Secção~\ref{sec:conclusao} sintetiza as conclusões e recomendações, seguida da bibliografia revista.

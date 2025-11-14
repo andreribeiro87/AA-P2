@@ -1,0 +1,95 @@
+\subsection{Heurística Gulosa Multi-início (Baseline Aproximado)}\label{subsec:heuristica}
+
+A heurística gulosa utiliza uma estratégia de construção incremental com múltiplos pontos de partida para evitar ótimos locais.
+Para cada vértice do grafo, constrói um clique começando por esse vértice e adicionando iterativamente o vértice compatível de maior peso.
+\begin{minipage}{0.5\textwidth}
+    \begin{algorithm}[H]
+        \caption{Heurística Gulosa Multi-início para Maximum Weight Clique}
+        \begin{algorithmic}[1]
+            \Require  Grafo $G(V,E)$ com pesos positivos nos vértices $w: V \to \mathbb{R}^+$
+            \Ensure Clique de peso máximo aproximado $(best\_clique, best\_weight)$ e métricas $(total\_operations, total\_configurations)$
+            \Statex
+            \Statex $best\_clique \leftarrow \emptyset$ \hspace{1em} $best\_weight \leftarrow 0$
+            \Statex $total\_operations \leftarrow 0$ \hspace{1em} $total\_configurations \leftarrow 0$
+            \For{cada vértice $v \in V$}
+            \State $clique \leftarrow \{v\}$
+            \State $operations \leftarrow 0$
+            \State $configurations \leftarrow 1$
+            \While{existe vértice compatível}
+            \State $compatible \leftarrow \emptyset$
+            \For{cada vértice $u \in V \setminus clique$}
+
+            \State $is\_adjacent\_to\_all \leftarrow$ verdadeiro
+            \For{cada vértice $c \in clique$}
+            \State $operations \leftarrow operations + 1$
+            \If{$\{u, c\} \notin E$}
+            \State $is\_adjacent\_to\_all \leftarrow$ falso
+
+            \State \textbf{break}
+            \EndIf
+            \EndFor
+            \If{$is\_adjacent\_to\_all$}
+            \State $compatible \leftarrow compatible \cup \{u\}$
+            \EndIf
+            \EndFor
+
+            \If{$compatible \neq \emptyset$}
+            \State $u \leftarrow \arg\max_{u \in compatible} w(u)$
+            \State $clique \leftarrow clique \cup \{u\}$
+            \State $configurations \leftarrow configurations + 1$
+            \Else
+            \State \textbf{break}
+            \EndIf
+            \EndWhile
+            \State $weight \leftarrow \sum_{v \in clique}
+                w(v)$
+            \If{$weight > best\_weight$}
+            \State $best\_clique \leftarrow clique$
+            \State $best\_weight \leftarrow weight$
+            \EndIf
+            \State $total\_operations \leftarrow total\_operations + operations$
+            \State $total\_configurations \leftarrow total\_configurations + configurations$
+            \EndFor
+            \\
+            \Return $(best\_clique, best\_weight,$ \par
+            \hspace{1.5em} $total\_operations, total\_configurations )$
+        \end{algorithmic}
+    \end{algorithm}
+\end{minipage}
+
+\vspace{1em}
+A estratégia multi-início consiste em iniciar a construção de um clique a partir de cada vértice do grafo.
+Para cada início, o algoritmo adiciona iterativamente o vértice compatível (adjacente a todos os vértices já na clique) com maior peso.
+Quando não existem mais vértices compatíveis, o algoritmo passa para o próximo vértice de início.
+A melhor solução encontrada entre todos os inícios é retornada.
+\subsubsection{Análise de Complexidade}
+
+\textbf{Complexidade Temporal:} $O(n^4)$ (Pior Caso), $O(n^3)$ (Prático)
+
+\begin{itemize}
+    \item O ciclo externo percorre $n$ vértices (um por início).
+    \item Para cada início, o ciclo interno pode executar até $n$ iterações (adicionando um vértice por vez).
+    \item Em cada iteração, verifica-se a compatibilidade de até $n$ vértices candidatos.
+    \item Para cada candidato, verifica-se adjacência com todos os vértices do clique actual (no máximo $n$ verificações, linhas 7-18).
+    \item Portanto, o tempo total é $O(n \times n \times (n \times n)) = O(n^4)$. Esta complexidade de pior caso $O(n^4)$ é atingida em grafos densos. Em grafos esparsos, a complexidade prática aproxima-se de $O(n^3)$.
+\end{itemize}
+
+\textbf{Complexidade Espacial:} $O(n)$
+
+O espaço necessário é para armazenar a clique atual e os candidatos compatíveis, ambos limitados por $n$ vértices.
+\textbf{Justificação da Estratégia Multi-início:}
+
+\begin{itemize}
+    \item Uma heurística gulosa com início único pode ficar presa em ótimos locais.
+    \item A abordagem multi-início explora múltiplos caminhos de construção, aumentando a probabilidade de encontrar soluções de alta qualidade.
+    \item Iniciar de diferentes vértices ajuda a descobrir cliques que podem não ser alcançáveis a partir de um único ponto de partida.
+    \item O custo adicional de testar $n$ inícios é compensado pela melhoria na qualidade das soluções, mantendo complexidade polinomial.
+\end{itemize}
+
+\subsubsection{Abordagens Heurísticas Estado-da-Arte (SOTA)}
+O Algoritmo 2 é uma heurística de construção determinística. A investigação SOTA foca-se em superar os ótimos locais através de estocasticidade e busca local:
+\begin{itemize}
+    \item \textbf{GRASP (Greedy Randomized Adaptive Search Procedure):} Uma modificação direta do Algoritmo 2. Em vez de escolher deterministicamente o `arg max`, o GRASP constrói uma 'Restricted Candidate List' (RCL) com os melhores candidatos e escolhe um aleatoriamente da lista. A abordagem multi-início é substituída por múltiplas execuções aleatórias \cite{hao2023metaheuristic}.
+    \item \textbf{Busca Local e Meta-heurísticas:} Após a construção de uma clique inicial (e.g., pelo Algoritmo 2), algoritmos como Iterated Local Search (ILS) \cite{hao2023metaheuristic} ou Simulated Annealing (SA) \cite{sun2024adaptive} aplicam movimentos de "swap" (troca) para escapar de ótimos locais e explorar a vizinhança da solução.
+    \item \textbf{Abordagens Híbridas:} O SOTA combina técnicas. O algoritmo \texttt{MWCPeel} \cite{erhardt2023improved} intercala a construção gulosa com as mesmas regras de redução de dados do solver exato. Abordagens mais recentes utilizam Machine Learning para prever a probabilidade de um vértice pertencer à MWC, removendo heuristicamente vértices de baixa probabilidade antes de executar o solver \cite{sun2021ml}.
+\end{itemize}

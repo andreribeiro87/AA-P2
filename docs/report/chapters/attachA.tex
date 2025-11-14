@@ -1,0 +1,283 @@
+\section*{Anexo A: Guia de Utilização do Código}
+
+Este anexo apresenta um guia completo para utilização do código implementado para resolver o problema Maximum Weight Clique.
+
+\subsection{Instalação e Configuração}
+
+O projeto utiliza \texttt{uv} para gestão de dependências e do ambiente Python. O \texttt{uv} é um gestor de pacotes Python moderno e rápido que simplifica a instalação e gestão de dependências.
+
+\subsubsection{Pré-requisitos}
+
+\begin{itemize}
+    \item Python $\geq$ 3.13
+    \item \texttt{uv} instalado (disponível em \url{https://github.com/astral-sh/uv}) ou numa \textit{virtual environment} com o \texttt{uv} instalado
+\end{itemize}
+
+\subsubsection{Instalação das Dependências}
+
+Para instalar todas as dependências do projeto, execute:
+
+\begin{verbatim}
+uv sync # OU 
+python3 -m venv .venv && source .venv/bin/activate && pip install uv && uv sync
+\end{verbatim}
+
+Este comando irá:
+\begin{itemize}
+    \item Criar um ambiente virtual Python isolado
+    \item Instalar todas as dependências especificadas em \texttt{pyproject.toml}
+    \item Gerar o ficheiro \texttt{uv.lock} com versões exactas das dependências
+\end{itemize}
+
+As principais dependências incluem:
+\begin{itemize}
+    \item \textbf{NetworkX}: Manipulação de estruturas de dados de grafos
+    \item \textbf{Matplotlib}: Visualização de grafos e resultados
+    \item \textbf{NumPy}: Operações numéricas para análise de dados
+    \item \textbf{Typer}: Interface de linha de comandos
+\end{itemize}
+
+\subsubsection{Activação do Ambiente Virtual}
+
+Após a instalação, o ambiente virtual pode ser activado com:
+
+\begin{verbatim}
+source .venv/bin/activate  # Linux/Mac
+# ou
+.venv\Scripts\activate      # Windows
+\end{verbatim}
+
+Alternativamente, pode executar comandos directamente com \texttt{uv run}:
+
+\begin{verbatim}
+uv run python main.py <comando>
+\end{verbatim}
+
+\subsection{Estrutura do Projeto}
+
+O projeto está organizado da seguinte forma:
+
+\begin{verbatim}
+projeto1/
+  src/
+    algorithms.py         # Implementacao dos algoritmos
+    benchmark.py          # Infraestrutura de benchmarking
+    graph_generator.py    # Geracao de grafos aleatorios
+    visualizer.py         # Visualizacao de resultados
+  main.py                 # Interface de linha de comandos
+  pyproject.toml          # Configuracao do projeto e dependencias
+  uv.lock                 # Lock file das dependencias
+  experiments/
+    graphs/              # Grafos gerados (.graphml)
+    results/             # Resultados dos benchmarks (.csv, .json)
+    plots/               # Graficos de analise (.png)
+  docs/
+    report/              # Relatorio em LaTeX
+\end{verbatim}
+
+\subsubsection{Descrição dos Módulos}
+
+\begin{itemize}
+    \item \textbf{\texttt{src/algorithms.py}}: Contém a implementação do algoritmo exaustivo e da heurística gulosa multi-início, incluindo a classe \texttt{MaxWeightCliqueSolver}.
+
+    \item \textbf{\texttt{src/benchmark.py}}: Fornece a classe \texttt{BenchmarkRunner} para executar benchmarks em séries de grafos e recolher métricas de desempenho.
+
+    \item \textbf{\texttt{src/graph\_generator.py}}: Implementa a classe \texttt{GraphGenerator} para gerar grafos aleatórios com vértices representados como pontos 2D e densidades de arestas configuráveis.
+
+    \item \textbf{\texttt{src/visualizer.py}}: Contém classes para visualização de grafos (\texttt{GraphVisualizer}) e resultados experimentais (\texttt{ResultsVisualizer}).
+
+    \item \textbf{\texttt{main.py}}: Interface de linha de comandos que expõe todas as funcionalidades através de comandos \texttt{typer}.
+\end{itemize}
+
+\subsection{Comandos Disponíveis}
+
+O projecto expõe quatro comandos principais através da interface de linha de comandos:
+
+\subsubsection{Geração de Grafos}
+
+Gera grafos aleatórios para experimentação:
+
+\begin{verbatim}
+uv run python main.py generate [opções]
+\end{verbatim}
+
+\textbf{Opções:}
+\begin{itemize}
+    \item \texttt{--seed <número>}: Seed aleatória para reprodutibilidade (padrão: 112974)
+    \item \texttt{--min-vertices <n>}: Número mínimo de vértices (padrão: 4)
+    \item \texttt{--max-vertices <n>}: Número máximo de vértices (padrão: 12)
+    \item \texttt{--densities <lista>}: Percentagens de densidade de arestas (padrão: 12.5 25.0 50.0 75.0)
+    \item \texttt{--output-dir <directoria>}: Directoria de saída (padrão: experiments/graphs)
+\end{itemize}
+
+\textbf{Exemplo:}
+\begin{verbatim}
+uv run python main.py generate \
+    --seed 112974 \
+    --min-vertices 4 \
+    --max-vertices 20 \
+    --densities 12.5 25.0 50.0 75.0
+\end{verbatim}
+
+Este comando gera grafos com tamanhos de 4 a 20 vértices, cada um com quatro densidades diferentes, totalizando 68 grafos.
+
+\subsubsection{Resolver um Grafo}
+
+Resolve o problema Maximum Weight Clique para um grafo específico:
+
+\begin{verbatim}
+uv run python main.py solve <caminho_grafo> [opções]
+\end{verbatim}
+
+\textbf{Opções:}
+\begin{itemize}
+    \item \texttt{---visualize}: Gera visualização do grafo com o clique destacado
+    \item \texttt{---no-show}: Guarda a visualização sem a mostrar
+    \item \texttt{---mode <modo>}: Modo de execução: \texttt{both}, \texttt{exhaustive} ou \texttt{heuristic} (padrão: both)
+\end{itemize}
+
+\textbf{Exemplo:}
+\begin{verbatim}
+uv run python main.py solve \
+    experiments/graphs/graph_n10_d50.graphml \
+    --visualize \
+    --mode both
+\end{verbatim}
+
+\subsubsection{Executar Benchmarks}
+
+Executa benchmarks em séries de grafos e recolhe métricas de desempenho:
+
+\begin{verbatim}
+uv run python main.py benchmark [opções]
+\end{verbatim}
+
+\textbf{Opções:}
+\begin{itemize}
+    \item \texttt{---graphs-dir <directoria>}: Directoria com grafos (padrão: experiments/graphs)
+    \item \texttt{---output-dir <directoria>}: Directoria de saída (padrão: experiments/results)
+    \item \texttt{---exhaustive <intervalo>}: Intervalo de vértices para algoritmo exaustivo (ex: \texttt{4..15} ou \texttt{all})
+    \item \texttt{---heuristic <intervalo>}: Intervalo de vértices para heurística gulosa (ex: \texttt{4..100} ou \texttt{all})
+    \item \texttt{---plot}: Gera gráficos após o benchmarking
+    \item \texttt{---verbose}: Mostra progresso detalhado (padrão: True)
+\end{itemize}
+
+\textbf{Exemplo com intervalos separados:}
+\begin{verbatim}
+uv run python main.py benchmark \
+    --exhaustive 4..20 \
+    --heuristic 4..500 \
+    --plot
+\end{verbatim}
+
+Este comando executa o algoritmo exaustivo em grafos com 4 a 20 vértices e a heurística gulosa em grafos com 4 a 500 vértices, gerando gráficos no final.
+
+\textbf{Exemplo simples:}
+\begin{verbatim}
+uv run python main.py benchmark --plot
+\end{verbatim}
+
+Executa ambos os algoritmos em todos os grafos disponíveis.
+
+\subsubsection{Visualizar Resultados}
+
+Gera gráficos a partir de resultados de benchmarks existentes:
+
+\begin{verbatim}
+uv run python main.py visualize [caminho_resultados] [opções]
+\end{verbatim}
+
+\textbf{Opções:}
+\begin{itemize}
+    \item \texttt{<caminho\_resultados>}: Caminho para ficheiro JSON de resultados (padrão: \texttt{experiments/results/benchmark\_results.json})
+    \item \texttt{--output-dir <directoria>}: Directoria de saída para gráficos (padrão: experiments/plots)
+\end{itemize}
+
+\textbf{Exemplo:}
+\begin{verbatim}
+uv run python main.py visualize \
+    experiments/results/benchmark_results.json \
+    --output-dir experiments/plots
+\end{verbatim}
+
+Gera os seguintes gráficos:
+\begin{itemize}
+    \item \texttt{execution\_time.png}: Tempo de execução vs. número de vértices
+    \item \texttt{operations\_count.png}: Número de operações vs. número de vértices
+    \item \texttt{configurations\_tested.png}: Configurações testadas vs. número de vértices
+    \item \texttt{heuristic\_precision.png}: Precisão da heurística vs. número de vértices
+\end{itemize}
+
+\subsection{Fluxo de Trabalho Recomendado}
+
+Um fluxo de trabalho típico para experimentação:
+
+\begin{enumerate}
+    \item \textbf{Gerar grafos:}
+          \begin{verbatim}
+    uv run python main.py generate \
+        --seed 112974 \
+        --min-vertices 4 \
+        --max-vertices 20
+    \end{verbatim}
+
+    \item \textbf{Executar benchmarks:}
+          \begin{verbatim}
+    uv run python main.py benchmark \
+        --exhaustive 4..20 \
+        --heuristic 4..500 \
+        --plot
+    \end{verbatim}
+
+    \item \textbf{Visualizar um grafo específico:}
+          \begin{verbatim}
+    uv run python main.py solve \
+        experiments/graphs/graph_n10_d50.graphml \
+        --visualize
+    \end{verbatim}
+
+    \item \textbf{Gerar gráficos adicionais:}
+          \begin{verbatim}
+    uv run python main.py visualize
+    \end{verbatim}
+\end{enumerate}
+
+\subsection{Formato dos Dados}
+
+\subsubsection{Grafos (GraphML)}
+
+Os grafos são guardados no formato GraphML, que preserva:
+\begin{itemize}
+    \item Coordenadas 2D dos vértices (\texttt{x}, \texttt{y})
+    \item Pesos dos vértices (\texttt{weight})
+    \item Estrutura de arestas
+\end{itemize}
+
+\subsubsection{Resultados de Benchmarks}
+
+Os resultados são guardados em dois formatos:
+
+\begin{itemize}
+    \item \textbf{CSV}: Formato tabular para análise em folhas de cálculo
+    \item \textbf{JSON}: Formato estruturado para processamento programático
+\end{itemize}
+
+Cada resultado contém:
+\begin{itemize}
+    \item Propriedades do grafo (número de vértices, arestas, densidade)
+    \item Métricas do algoritmo exaustivo (clique, peso, tempo, operações, configurações)
+    \item Métricas da heurística gulosa (clique, peso, tempo, operações, configurações)
+    \item Métricas de comparação (precisão, factor de aceleração)
+\end{itemize}
+
+\subsection{Notas de Implementação}
+
+\begin{itemize}
+    \item O algoritmo exaustivo testa todos os $2^n$ subconjuntos possíveis de vértices, garantindo optimalidade mas com complexidade exponencial.
+
+    \item A heurística gulosa utiliza uma estratégia multi-início, iniciando a construção de um clique a partir de cada vértice e seleccionando iterativamente o vértice compatível de maior peso.
+
+    \item As métricas de operações básicas contam verificações de adjacência, sendo independentes do hardware e úteis para análise de complexidade.
+
+    \item O gerador de grafos garante uma distância mínima entre vértices para evitar sobreposição espacial e utiliza seeds para reprodutibilidade.
+\end{itemize}
