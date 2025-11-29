@@ -217,6 +217,113 @@ class BenchmarkGraphLoader:
 
         return graph
 
+    def load_adjacency_matrix(self, filepath: Path) -> nx.Graph:
+        """
+        Load a graph from adjacency matrix format (like BD/Random Graph dataset).
+
+        Format specification:
+        - Line 1: Number of vertices (n)
+        - Line 2: Number of edges
+        - Lines 3 to n+2: Adjacency matrix (n x n), space-separated 0s and 1s
+
+        Note: Matrix should be symmetric for undirected graphs.
+        Note: Vertex weights are assigned randomly since this format doesn't include them.
+
+        Args:
+            filepath: Path to adjacency matrix file
+
+        Returns:
+            NetworkX undirected graph with random vertex weights
+        """
+        graph = nx.Graph()
+
+        with open(filepath, "r") as f:
+            lines = [line.strip() for line in f.readlines() if line.strip()]
+
+        if len(lines) < 3:
+            raise ValueError(
+                f"Invalid adjacency matrix file: {filepath} - insufficient lines"
+            )
+
+        try:
+            n_vertices = int(lines[0])
+            n_edges = int(lines[1])
+        except (ValueError, IndexError) as e:
+            raise ValueError(f"Invalid adjacency matrix header in {filepath}") from e
+
+        # Initialize vertices with random weights
+        for v in range(n_vertices):
+            weight = random.uniform(
+                self.default_weight_range[0], self.default_weight_range[1]
+            )
+            graph.add_node(v, weight=weight)
+
+        # Parse adjacency matrix
+        matrix_lines = lines[2 : 2 + n_vertices]
+
+        if len(matrix_lines) < n_vertices:
+            raise ValueError(f"Adjacency matrix incomplete in {filepath}")
+
+        for i, line in enumerate(matrix_lines):
+            # Parse the row - handle both space-separated and tab-separated
+            row = line.split()
+
+            if len(row) < n_vertices:
+                raise ValueError(f"Row {i} has insufficient columns in {filepath}")
+
+            for j in range(i + 1, n_vertices):  # Only upper triangle (undirected)
+                try:
+                    value = int(row[j])
+                    if value == 1:
+                        graph.add_edge(i, j)
+                except (ValueError, IndexError):
+                    continue
+
+        return graph
+
+    def _detect_txt_format(self, filepath: Path) -> str:
+        """
+        Detect the format of a .txt graph file.
+
+        Returns:
+            One of: "sw" (Sedgewick & Wayne), "adjacency_matrix", "unknown"
+        """
+        with open(filepath, "r") as f:
+            lines = [line.strip() for line in f.readlines() if line.strip()]
+
+        if len(lines) < 4:
+            return "unknown"
+
+        # SW format: first two lines are 0 or 1 (boolean flags)
+        try:
+            line0 = int(lines[0])
+            line1 = int(lines[1])
+            line2 = int(lines[2])
+            line3 = int(lines[3])
+
+            # SW format: line0 and line1 are boolean (0 or 1)
+            # line2 is vertex count, line3 is edge count
+            if line0 in (0, 1) and line1 in (0, 1) and line2 > 0 and line3 >= 0:
+                # Check if line 5+ looks like edges (two or three space-separated numbers)
+                if len(lines) > 4:
+                    edge_line = lines[4].split()
+                    if len(edge_line) >= 2 and len(edge_line) <= 3:
+                        return "sw"
+
+            # Adjacency matrix format: line0 is vertex count, line1 is edge count
+            # line2+ is the matrix (many space-separated values per line)
+            if line0 > 1:  # More than 1 vertex
+                # Check if third line looks like a matrix row
+                if len(lines) > 2:
+                    row = lines[2].split()
+                    if len(row) >= line0:  # Row length matches vertex count
+                        return "adjacency_matrix"
+
+        except ValueError:
+            pass
+
+        return "unknown"
+
     def load_graph(self, filepath: Path) -> nx.Graph:
         """
         Load a graph from file, auto-detecting format.
@@ -237,8 +344,24 @@ class BenchmarkGraphLoader:
         elif suffix in [".clq", ".dimacs", ".col"]:
             return self.load_dimacs(filepath)
         elif suffix == ".txt":
-            # Try SW format for .txt files
-            return self.load_sw_txt(filepath)
+            # Auto-detect TXT format
+            txt_format = self._detect_txt_format(filepath)
+            if txt_format == "sw":
+                return self.load_sw_txt(filepath)
+            elif txt_format == "adjacency_matrix":
+                return self.load_adjacency_matrix(filepath)
+            else:
+                # Try SW first, then adjacency matrix
+                try:
+                    return self.load_sw_txt(filepath)
+                except Exception:
+                    try:
+                        return self.load_adjacency_matrix(filepath)
+                    except Exception as e:
+                        raise ValueError(
+                            f"Could not load TXT file {filepath}. "
+                            f"Tried SW and adjacency matrix formats."
+                        ) from e
         else:
             # Try different formats in order
             try:
@@ -288,8 +411,16 @@ class BenchmarkGraphLoader:
 
         # Filter for common graph file extensions
         extensions = {".graphml", ".clq", ".dimacs", ".col", ".txt"}
+
+        # Filenames to exclude (documentation/metadata files)
+        excluded_filenames = {"readme.txt", "license.txt", "changelog.txt", "notes.txt"}
+
         graph_files = [
-            f for f in all_files if f.is_file() and f.suffix.lower() in extensions
+            f
+            for f in all_files
+            if f.is_file()
+            and f.suffix.lower() in extensions
+            and f.name.lower() not in excluded_filenames
         ]
 
         # Filter by vertex count if specified (parse from filename)

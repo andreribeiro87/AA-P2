@@ -1,0 +1,675 @@
+Experiment run started at Sat Nov 29 14:19:57 WET 2025
+Seed: 112974
+Mode: FULL
+
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m▶[0m Checking Prerequisites
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+[0;32m[✓][0m uv found: uv 0.9.8
+[0;32m[✓][0m Python found
+[0;32m[✓][0m Project structure verified
+
+[0;36m╔════════════════════════════════════════════════════════════╗[0m
+[0;36m║[0m [0;35mSCALABILITY TESTS (1..1000000 vertices)[0m
+[0;36m╚════════════════════════════════════════════════════════════╝[0m
+
+[0;34m[INFO][0m Running algorithms (except exhaustive) on graphs with 1..1000000 vertices
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m▶[0m Testing greedy (scalability)
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+[0;36m[→][0m Running greedy (1..1000000 vertices)...
+Found 12 graph files in experiments/graphs_large
+Running 1 algorithm(s): greedy
+
+============================================================
+Running GREEDY
+============================================================
+
+============================================================
+BENCHMARKING 12 GRAPHS - GREEDY HEURISTIC
+============================================================
+
+[1/12] Grafo499-baBDpn.txt
+Benchmarking graph (greedy heuristic): 1096 vertices, 531243 edges (75.0% density)
+  Running greedy heuristic... ✓ (72.4198s)
+  Time: 72.4198s
+
+[2/12] Grafo499.txt
+Benchmarking graph (greedy heuristic): 1096 vertices, 531243 edges (75.0% density)
+  Running greedy heuristic... ✓ (71.6949s)
+  Time: 71.6949s
+
+[3/12] Grafo500-8JFQIR.txt
+Benchmarking graph (greedy heuristic): 1098 vertices, 533220 edges (75.0% density)
+  Running greedy heuristic... ✓ (76.2796s)
+  Time: 76.2796s
+
+[4/12] Grafo500.txt
+Benchmarking graph (greedy heuristic): 1098 vertices, 533220 edges (75.0% density)
+  Running greedy heuristic... ✓ (71.2643s)
+  Time: 71.2643s
+
+[5/12] SW10000EWD.txt
+Benchmarking graph (greedy heuristic): 10000 vertices, 61731 edges (12.5% density)
+  Running greedy heuristic... ✓ (119.0834s)
+  Time: 119.0834s
+
+[6/12] SW1000EWD.txt
+Benchmarking graph (greedy heuristic): 1000 vertices, 8433 edges (12.5% density)
+  Running greedy heuristic... ✓ (1.1661s)
+  Time: 1.1661s
+
+[7/12] SWmediumEWD.txt
+Benchmarking graph (greedy heuristic): 250 vertices, 1273 edges (12.5% density)
+  Running greedy heuristic... ✓ (0.0593s)
+  Time: 0.0593s
+
+[8/12] graph_n496_d75.graphml
+Benchmarking graph (greedy heuristic): 496 vertices, 92070 edges (75.0% density)
+  Running greedy heuristic... ✓ (1.6736s)
+  Time: 1.6736s
+
+[9/12] graph_n497_d75.graphml
+Benchmarking graph (greedy heuristic): 497 vertices, 92442 edges (75.0% density)
+  Running greedy heuristic... ✓ (1.5945s)
+  Time: 1.5945s
+
+[10/12] graph_n498_d75.graphml
+Benchmarking graph (greedy heuristic): 498 vertices, 92814 edges (75.0% density)
+  Running greedy heuristic... ✓ (1.6132s)
+  Time: 1.6132s
+
+[11/12] graph_n499_d75.graphml
+Benchmarking graph (greedy heuristic): 499 vertices, 93188 edges (75.0% density)
+  Running greedy heuristic... ✓ (1.6411s)
+  Time: 1.6411s
+
+[12/12] graph_n500_d75.graphml
+Benchmarking graph (greedy heuristic): 500 vertices, 93562 edges (75.0% density)
+  Running greedy heuristic... ✓ (1.6110s)
+  Time: 1.6110s
+
+✓ Results saved to results/large_graphs/scalability/greedy/greedy/benchmark_results.csv
+✓ Results saved to results/large_graphs/scalability/greedy/greedy/benchmark_results.json
+✓ greedy: Processed 12 graphs
+
+============================================================
+BENCHMARK SUMMARY
+============================================================
+  greedy: 12 graphs processed
+
+Results saved to: results/large_graphs/scalability/greedy
+[0;32m[✓][0m greedy scalability test completed
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m▶[0m Testing random_construction (scalability)
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+[0;36m[→][0m Running random_construction (1..1000000 vertices)...
+Found 12 graph files in experiments/graphs_large
+Running 1 algorithm(s): random_construction
+
+============================================================
+Running RANDOM_CONSTRUCTION
+============================================================
+
+============================================================
+BENCHMARKING 12 GRAPHS - RANDOMIZED ALGORITHM
+============================================================
+
+[1/12] Grafo499-baBDpn.txt
+Benchmarking graph (randomized algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running random_construction... ✓ (313.9204s)
+  Time: 313.9204s
+
+[2/12] Grafo499.txt
+Benchmarking graph (randomized algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running random_construction... ✓ (308.1417s)
+  Time: 308.1417s
+
+[3/12] Grafo500-8JFQIR.txt
+Benchmarking graph (randomized algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running random_construction... ✓ (309.3433s)
+  Time: 309.3433s
+
+[4/12] Grafo500.txt
+Benchmarking graph (randomized algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running random_construction... ✓ (308.2578s)
+  Time: 308.2578s
+
+[5/12] SW10000EWD.txt
+Benchmarking graph (randomized algorithm): 10000 vertices, 61731 edges (12.5% density)
+  Running random_construction... ✓ (58.5103s)
+  Time: 58.5103s
+
+[6/12] SW1000EWD.txt
+Benchmarking graph (randomized algorithm): 1000 vertices, 8433 edges (12.5% density)
+  Running random_construction... ✓ (5.7927s)
+  Time: 5.7927s
+
+[7/12] SWmediumEWD.txt
+Benchmarking graph (randomized algorithm): 250 vertices, 1273 edges (12.5% density)
+  Running random_construction... ✓ (1.0438s)
+  Time: 1.0438s
+
+[8/12] graph_n496_d75.graphml
+Benchmarking graph (randomized algorithm): 496 vertices, 92070 edges (75.0% density)
+  Running random_construction... ✓ (14.8721s)
+  Time: 14.8721s
+
+[9/12] graph_n497_d75.graphml
+Benchmarking graph (randomized algorithm): 497 vertices, 92442 edges (75.0% density)
+  Running random_construction... ✓ (15.3033s)
+  Time: 15.3033s
+
+[10/12] graph_n498_d75.graphml
+Benchmarking graph (randomized algorithm): 498 vertices, 92814 edges (75.0% density)
+  Running random_construction... ✓ (15.1413s)
+  Time: 15.1413s
+
+[11/12] graph_n499_d75.graphml
+Benchmarking graph (randomized algorithm): 499 vertices, 93188 edges (75.0% density)
+  Running random_construction... ✓ (15.7611s)
+  Time: 15.7611s
+
+[12/12] graph_n500_d75.graphml
+Benchmarking graph (randomized algorithm): 500 vertices, 93562 edges (75.0% density)
+  Running random_construction... ✓ (16.1820s)
+  Time: 16.1820s
+
+✓ Results saved to results/large_graphs/scalability/random_construction/random_construction/benchmark_results.csv
+✓ Results saved to results/large_graphs/scalability/random_construction/random_construction/benchmark_results.json
+✓ random_construction: Processed 12 graphs
+
+============================================================
+BENCHMARK SUMMARY
+============================================================
+  random_construction: 12 graphs processed
+
+Results saved to: results/large_graphs/scalability/random_construction
+[0;32m[✓][0m random_construction scalability test completed
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m▶[0m Testing random_greedy_hybrid (scalability)
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+[0;36m[→][0m Running random_greedy_hybrid (1..1000000 vertices)...
+Found 12 graph files in experiments/graphs_large
+Running 1 algorithm(s): random_greedy_hybrid
+
+============================================================
+Running RANDOM_GREEDY_HYBRID
+============================================================
+
+============================================================
+BENCHMARKING 12 GRAPHS - RANDOMIZED ALGORITHM
+============================================================
+
+[1/12] Grafo499-baBDpn.txt
+Benchmarking graph (randomized algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.7673s)
+  Time: 0.7673s
+
+[2/12] Grafo499.txt
+Benchmarking graph (randomized algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.6257s)
+  Time: 0.6257s
+
+[3/12] Grafo500-8JFQIR.txt
+Benchmarking graph (randomized algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.6511s)
+  Time: 0.6511s
+
+[4/12] Grafo500.txt
+Benchmarking graph (randomized algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.6371s)
+  Time: 0.6371s
+
+[5/12] SW10000EWD.txt
+Benchmarking graph (randomized algorithm): 10000 vertices, 61731 edges (12.5% density)
+  Running random_greedy_hybrid... ✓ (0.1265s)
+  Time: 0.1265s
+
+[6/12] SW1000EWD.txt
+Benchmarking graph (randomized algorithm): 1000 vertices, 8433 edges (12.5% density)
+  Running random_greedy_hybrid... ✓ (0.0142s)
+  Time: 0.0142s
+
+[7/12] SWmediumEWD.txt
+Benchmarking graph (randomized algorithm): 250 vertices, 1273 edges (12.5% density)
+  Running random_greedy_hybrid... ✓ (0.0022s)
+  Time: 0.0022s
+
+[8/12] graph_n496_d75.graphml
+Benchmarking graph (randomized algorithm): 496 vertices, 92070 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0353s)
+  Time: 0.0353s
+
+[9/12] graph_n497_d75.graphml
+Benchmarking graph (randomized algorithm): 497 vertices, 92442 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0350s)
+  Time: 0.0350s
+
+[10/12] graph_n498_d75.graphml
+Benchmarking graph (randomized algorithm): 498 vertices, 92814 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0353s)
+  Time: 0.0353s
+
+[11/12] graph_n499_d75.graphml
+Benchmarking graph (randomized algorithm): 499 vertices, 93188 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0350s)
+  Time: 0.0350s
+
+[12/12] graph_n500_d75.graphml
+Benchmarking graph (randomized algorithm): 500 vertices, 93562 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0340s)
+  Time: 0.0340s
+
+✓ Results saved to results/large_graphs/scalability/random_greedy_hybrid/random_greedy_hybrid/benchmark_results.csv
+✓ Results saved to results/large_graphs/scalability/random_greedy_hybrid/random_greedy_hybrid/benchmark_results.json
+✓ random_greedy_hybrid: Processed 12 graphs
+
+============================================================
+BENCHMARK SUMMARY
+============================================================
+  random_greedy_hybrid: 12 graphs processed
+
+Results saved to: results/large_graphs/scalability/random_greedy_hybrid
+[0;32m[✓][0m random_greedy_hybrid scalability test completed
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m▶[0m Testing iterative_random_search (scalability)
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+[0;36m[→][0m Running iterative_random_search (1..1000000 vertices)...
+Found 12 graph files in experiments/graphs_large
+Running 1 algorithm(s): iterative_random_search
+
+============================================================
+Running ITERATIVE_RANDOM_SEARCH
+============================================================
+
+============================================================
+BENCHMARKING 12 GRAPHS - RANDOMIZED ALGORITHM
+============================================================
+
+[1/12] Grafo499-baBDpn.txt
+Benchmarking graph (randomized algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running iterative_random_search... ✓ (1.2538s)
+  Time: 1.2538s
+
+[2/12] Grafo499.txt
+Benchmarking graph (randomized algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running iterative_random_search... ✓ (1.2409s)
+  Time: 1.2409s
+
+[3/12] Grafo500-8JFQIR.txt
+Benchmarking graph (randomized algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running iterative_random_search... ✓ (1.2877s)
+  Time: 1.2877s
+
+[4/12] Grafo500.txt
+Benchmarking graph (randomized algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running iterative_random_search... ✓ (1.2739s)
+  Time: 1.2739s
+
+[5/12] SW10000EWD.txt
+Benchmarking graph (randomized algorithm): 10000 vertices, 61731 edges (12.5% density)
+  Running iterative_random_search... ✓ (12.0612s)
+  Time: 12.0612s
+
+[6/12] SW1000EWD.txt
+Benchmarking graph (randomized algorithm): 1000 vertices, 8433 edges (12.5% density)
+  Running iterative_random_search... ✓ (1.1108s)
+  Time: 1.1108s
+
+[7/12] SWmediumEWD.txt
+Benchmarking graph (randomized algorithm): 250 vertices, 1273 edges (12.5% density)
+  Running iterative_random_search... ✓ (0.2078s)
+  Time: 0.2078s
+
+[8/12] graph_n496_d75.graphml
+Benchmarking graph (randomized algorithm): 496 vertices, 92070 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.5472s)
+  Time: 0.5472s
+
+[9/12] graph_n497_d75.graphml
+Benchmarking graph (randomized algorithm): 497 vertices, 92442 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.5570s)
+  Time: 0.5570s
+
+[10/12] graph_n498_d75.graphml
+Benchmarking graph (randomized algorithm): 498 vertices, 92814 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.5691s)
+  Time: 0.5691s
+
+[11/12] graph_n499_d75.graphml
+Benchmarking graph (randomized algorithm): 499 vertices, 93188 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.5561s)
+  Time: 0.5561s
+
+[12/12] graph_n500_d75.graphml
+Benchmarking graph (randomized algorithm): 500 vertices, 93562 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.5873s)
+  Time: 0.5873s
+
+✓ Results saved to results/large_graphs/scalability/iterative_random_search/iterative_random_search/benchmark_results.csv
+✓ Results saved to results/large_graphs/scalability/iterative_random_search/iterative_random_search/benchmark_results.json
+✓ iterative_random_search: Processed 12 graphs
+
+============================================================
+BENCHMARK SUMMARY
+============================================================
+  iterative_random_search: 12 graphs processed
+
+Results saved to: results/large_graphs/scalability/iterative_random_search
+[0;32m[✓][0m iterative_random_search scalability test completed
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m▶[0m Testing monte_carlo (scalability)
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+[0;36m[→][0m Running monte_carlo (1..1000000 vertices)...
+Found 12 graph files in experiments/graphs_large
+Running 1 algorithm(s): monte_carlo
+
+============================================================
+Running MONTE_CARLO
+============================================================
+
+============================================================
+BENCHMARKING 12 GRAPHS - RANDOMIZED ALGORITHM
+============================================================
+
+[1/12] Grafo499-baBDpn.txt
+Benchmarking graph (randomized algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running monte_carlo... ✓ (30.0686s)
+  Time: 30.0686s
+
+[2/12] Grafo499.txt
+Benchmarking graph (randomized algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running monte_carlo... ✓ (30.0346s)
+  Time: 30.0346s
+
+[3/12] Grafo500-8JFQIR.txt
+Benchmarking graph (randomized algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running monte_carlo... ✓ (30.0332s)
+  Time: 30.0332s
+
+[4/12] Grafo500.txt
+Benchmarking graph (randomized algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running monte_carlo... ✓ (30.0623s)
+  Time: 30.0623s
+
+[5/12] SW10000EWD.txt
+Benchmarking graph (randomized algorithm): 10000 vertices, 61731 edges (12.5% density)
+  Running monte_carlo... ✓ (30.0319s)
+  Time: 30.0319s
+
+[6/12] SW1000EWD.txt
+Benchmarking graph (randomized algorithm): 1000 vertices, 8433 edges (12.5% density)
+  Running monte_carlo... ✓ (20.7073s)
+  Time: 20.7073s
+
+[7/12] SWmediumEWD.txt
+Benchmarking graph (randomized algorithm): 250 vertices, 1273 edges (12.5% density)
+  Running monte_carlo... ✓ (3.6270s)
+  Time: 3.6270s
+
+[8/12] graph_n496_d75.graphml
+Benchmarking graph (randomized algorithm): 496 vertices, 92070 edges (75.0% density)
+  Running monte_carlo... ✓ (29.9334s)
+  Time: 29.9334s
+
+[9/12] graph_n497_d75.graphml
+Benchmarking graph (randomized algorithm): 497 vertices, 92442 edges (75.0% density)
+  Running monte_carlo... ✓ (29.9423s)
+  Time: 29.9423s
+
+[10/12] graph_n498_d75.graphml
+Benchmarking graph (randomized algorithm): 498 vertices, 92814 edges (75.0% density)
+  Running monte_carlo... ✓ (29.6931s)
+  Time: 29.6931s
+
+[11/12] graph_n499_d75.graphml
+Benchmarking graph (randomized algorithm): 499 vertices, 93188 edges (75.0% density)
+  Running monte_carlo... ✓ (29.2672s)
+  Time: 29.2672s
+
+[12/12] graph_n500_d75.graphml
+Benchmarking graph (randomized algorithm): 500 vertices, 93562 edges (75.0% density)
+  Running monte_carlo... ✓ (29.2117s)
+  Time: 29.2117s
+
+✓ Results saved to results/large_graphs/scalability/monte_carlo/monte_carlo/benchmark_results.csv
+✓ Results saved to results/large_graphs/scalability/monte_carlo/monte_carlo/benchmark_results.json
+✓ monte_carlo: Processed 12 graphs
+
+============================================================
+BENCHMARK SUMMARY
+============================================================
+  monte_carlo: 12 graphs processed
+
+Results saved to: results/large_graphs/scalability/monte_carlo
+[0;32m[✓][0m monte_carlo scalability test completed
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m▶[0m Testing las_vegas (scalability)
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+[0;36m[→][0m Running las_vegas (1..1000000 vertices)...
+Found 12 graph files in experiments/graphs_large
+Running 1 algorithm(s): las_vegas
+
+============================================================
+Running LAS_VEGAS
+============================================================
+
+============================================================
+BENCHMARKING 12 GRAPHS - RANDOMIZED ALGORITHM
+============================================================
+
+[1/12] Grafo499-baBDpn.txt
+Benchmarking graph (randomized algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running las_vegas... ✓ (30.0305s)
+  Time: 30.0305s
+
+[2/12] Grafo499.txt
+Benchmarking graph (randomized algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running las_vegas... ✓ (30.0281s)
+  Time: 30.0281s
+
+[3/12] Grafo500-8JFQIR.txt
+Benchmarking graph (randomized algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running las_vegas... ✓ (30.0011s)
+  Time: 30.0011s
+
+[4/12] Grafo500.txt
+Benchmarking graph (randomized algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running las_vegas... ✓ (30.0173s)
+  Time: 30.0173s
+
+[5/12] SW10000EWD.txt
+Benchmarking graph (randomized algorithm): 10000 vertices, 61731 edges (12.5% density)
+  Running las_vegas... ✓ (30.0016s)
+  Time: 30.0016s
+
+[6/12] SW1000EWD.txt
+Benchmarking graph (randomized algorithm): 1000 vertices, 8433 edges (12.5% density)
+  Running las_vegas... ✓ (9.4727s)
+  Time: 9.4727s
+
+[7/12] SWmediumEWD.txt
+Benchmarking graph (randomized algorithm): 250 vertices, 1273 edges (12.5% density)
+  Running las_vegas... ✓ (1.6174s)
+  Time: 1.6174s
+
+[8/12] graph_n496_d75.graphml
+Benchmarking graph (randomized algorithm): 496 vertices, 92070 edges (75.0% density)
+  Running las_vegas... ✓ (16.5139s)
+  Time: 16.5139s
+
+[9/12] graph_n497_d75.graphml
+Benchmarking graph (randomized algorithm): 497 vertices, 92442 edges (75.0% density)
+  Running las_vegas... ✓ (16.5656s)
+  Time: 16.5656s
+
+[10/12] graph_n498_d75.graphml
+Benchmarking graph (randomized algorithm): 498 vertices, 92814 edges (75.0% density)
+  Running las_vegas... ✓ (15.8579s)
+  Time: 15.8579s
+
+[11/12] graph_n499_d75.graphml
+Benchmarking graph (randomized algorithm): 499 vertices, 93188 edges (75.0% density)
+  Running las_vegas... ✓ (15.8579s)
+  Time: 15.8579s
+
+[12/12] graph_n500_d75.graphml
+Benchmarking graph (randomized algorithm): 500 vertices, 93562 edges (75.0% density)
+  Running las_vegas... ✓ (15.2918s)
+  Time: 15.2918s
+
+✓ Results saved to results/large_graphs/scalability/las_vegas/las_vegas/benchmark_results.csv
+✓ Results saved to results/large_graphs/scalability/las_vegas/las_vegas/benchmark_results.json
+✓ las_vegas: Processed 12 graphs
+
+============================================================
+BENCHMARK SUMMARY
+============================================================
+  las_vegas: 12 graphs processed
+
+Results saved to: results/large_graphs/scalability/las_vegas
+[0;32m[✓][0m las_vegas scalability test completed
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m▶[0m Testing mwc_redu (scalability)
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+[0;36m[→][0m Running mwc_redu (1..1000000 vertices)...
+Found 12 graph files in experiments/graphs_large
+Running 1 algorithm(s): mwc_redu
+
+============================================================
+Running MWC_REDU
+============================================================
+
+============================================================
+BENCHMARKING 12 GRAPHS - REDUCTION/EXACT ALGORITHM
+============================================================
+
+[1/12] Grafo499-baBDpn.txt
+Benchmarking graph (reduction/exact algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running mwc_redu... ✓ (127.8587s)
+  Time: 127.8587s
+
+[2/12] Grafo499.txt
+Benchmarking graph (reduction/exact algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running mwc_redu... ✓ (138.6528s)
+  Time: 138.6528s
+
+[3/12] Grafo500-8JFQIR.txt
+Benchmarking graph (reduction/exact algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running mwc_redu... ✓ (126.5351s)
+  Time: 126.5351s
+
+[4/12] Grafo500.txt
+Benchmarking graph (reduction/exact algorithm): 1098 vertices, 533220 edges (75.0% density)
+  Running mwc_redu... ✓ (139.9056s)
+  Time: 139.9056s
+
+[5/12] SW10000EWD.txt
+Benchmarking graph (reduction/exact algorithm): 10000 vertices, 61731 edges (12.5% density)
+  Running mwc_redu... ✓ (1478.3486s)
+  Time: 1478.3486s
+
+[6/12] SW1000EWD.txt
+Benchmarking graph (reduction/exact algorithm): 1000 vertices, 8433 edges (12.5% density)
+  Running mwc_redu... ✓ (5.4140s)
+  Time: 5.4140s
+
+[7/12] SWmediumEWD.txt
+Benchmarking graph (reduction/exact algorithm): 250 vertices, 1273 edges (12.5% density)
+  Running mwc_redu... ✓ (0.1128s)
+  Time: 0.1128s
+
+[8/12] graph_n496_d75.graphml
+Benchmarking graph (reduction/exact algorithm): 496 vertices, 92070 edges (75.0% density)
+  Running mwc_redu... ✓ (4.8445s)
+  Time: 4.8445s
+
+[9/12] graph_n497_d75.graphml
+Benchmarking graph (reduction/exact algorithm): 497 vertices, 92442 edges (75.0% density)
+  Running mwc_redu... ✓ (4.7741s)
+  Time: 4.7741s
+
+[10/12] graph_n498_d75.graphml
+Benchmarking graph (reduction/exact algorithm): 498 vertices, 92814 edges (75.0% density)
+  Running mwc_redu... ✓ (4.7545s)
+  Time: 4.7545s
+
+[11/12] graph_n499_d75.graphml
+Benchmarking graph (reduction/exact algorithm): 499 vertices, 93188 edges (75.0% density)
+  Running mwc_redu... ✓ (4.8328s)
+  Time: 4.8328s
+
+[12/12] graph_n500_d75.graphml
+Benchmarking graph (reduction/exact algorithm): 500 vertices, 93562 edges (75.0% density)
+  Running mwc_redu... ✓ (4.6433s)
+  Time: 4.6433s
+
+✓ Results saved to results/large_graphs/scalability/mwc_redu/mwc_redu/benchmark_results.csv
+✓ Results saved to results/large_graphs/scalability/mwc_redu/mwc_redu/benchmark_results.json
+✓ mwc_redu: Processed 12 graphs
+
+============================================================
+BENCHMARK SUMMARY
+============================================================
+  mwc_redu: 12 graphs processed
+
+Results saved to: results/large_graphs/scalability/mwc_redu
+[0;32m[✓][0m mwc_redu scalability test completed
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m▶[0m Testing max_clique_weight (scalability)
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+[0;36m[→][0m Running max_clique_weight (1..1000000 vertices)...
+Found 12 graph files in experiments/graphs_large
+Running 1 algorithm(s): max_clique_weight
+
+============================================================
+Running MAX_CLIQUE_WEIGHT
+============================================================
+
+============================================================
+BENCHMARKING 12 GRAPHS - REDUCTION/EXACT ALGORITHM
+============================================================
+
+[1/12] Grafo499-baBDpn.txt
+Benchmarking graph (reduction/exact algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running max_clique_weight... [1;33m[⚠][0m max_clique_weight had some errors on scalability test
+[0;32m[✓][0m max_clique_weight scalability test completed
+
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[0;34m▶[0m Testing max_clique_dyn_weight (scalability)
+[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+[0;36m[→][0m Running max_clique_dyn_weight (1..1000000 vertices)...
+Found 12 graph files in experiments/graphs_large
+Running 1 algorithm(s): max_clique_dyn_weight
+
+============================================================
+Running MAX_CLIQUE_DYN_WEIGHT
+============================================================
+
+============================================================
+BENCHMARKING 12 GRAPHS - REDUCTION/EXACT ALGORITHM
+============================================================
+
+[1/12] Grafo499-baBDpn.txt
+Benchmarking graph (reduction/exact algorithm): 1096 vertices, 531243 edges (75.0% density)
+  Running max_clique_dyn_weight... 

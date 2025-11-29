@@ -1,73 +1,60 @@
-% !TeX spellcheck = pt_PT
-
 \RequirePackage[T1]{fontenc}
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
-% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
-
-% LuaLaTeX compatibility - use algpseudocode instead of algorithmic
+\usepackage{lipsum}
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
-\usepackage{amsthm}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-\usepackage{float}
+\usepackage{algorithm,algpseudocode}
 \usepackage{graphicx}
 \usepackage{textcomp}
-\usepackage{booktabs}
+\usepackage{tabularx}
 \usepackage{longtable}
-\usepackage{array}
-\usepackage[portuguese]{babel}
+\usepackage[english]{babel}
 \usepackage[dvipsnames]{xcolor}
-
-% Define theorem-like environments
-\theoremstyle{definition}
-\newtheorem{definition}{Definição}[section]
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{wrapfig}
 \usepackage[colorlinks=true, linkcolor=blue, urlcolor=BlueViolet, citecolor=blue]{hyperref}
 \usepackage{orcidlink}
 
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
 \begin{document}
 
-\title{Maximum Weight Clique:\\ Análise Formal e Experimental}
+\title{Randomized and Other Algorithms for\\Maximum Weight Clique}
 
-\author{\IEEEauthorblockN{\orcidlinki{André Ribeiro}{0009-0008-0194-7171}}
-    \IEEEauthorblockA{\textit{Algoritmos Avançados} \\
-        \textit{DETI, Universidade de Aveiro}\\
-        Aveiro, Portugal \\
-        \href{mailto:andrepedroribeiro@ua.pt}{andrepedroribeiro@ua.pt}
-    }}
+\author{
+  \IEEEauthorblockN{\orcidlinki{André Pedro Ribeiro}{0000-0002-1234-5678}} % TODO: replace with actual ORCID
+  \IEEEauthorblockA{
+    \textit{Algoritmos Avançados} \\
+    \textit{DETI, Universidade de Aveiro}\\
+    Aveiro, Portugal \\
+    \href{mailto:andrepedroribeiro@ua.pt}{andrepedroribeiro@ua.pt}
+  }
+}
 
 \maketitle
 
 \begin{abstract}
-
-    Este trabalho apresenta uma análise formal e experimental completa de algoritmos para resolver o problema Maximum Weight Clique em grafos não direccionados. Comparamos uma abordagem exaustiva que garante otimalidade, mas possui complexidade exponencial $O(2^n \times n^2)$ com uma heurística gulosa multi-início com complexidade polinomial $O(n^3)$ que produz soluções de alta qualidade. Os resultados experimentais validam completamente as análises teóricas de complexidade e demonstram que a heurística mantém precisão superior a 94\% em relação à solução ótima, com factores de aceleração superiores a 2,000x para grafos de 20 vértices.
+  ---
 \end{abstract}
 
 \begin{IEEEkeywords}
-    maximum weight clique, algoritmos combinatórios, análise de complexidade, heurísticas gulosas, otimização NP-difícil
+---
 \end{IEEEkeywords}
-
-\raggedbottom
 
 \input{chapters/introduction}
 \input{chapters/problem}
 \input{chapters/algorithms/common}
-\input{chapters/tests}
+\input{chapters/results}
+\input{chapters/discussion}
 \input{chapters/conclusion}
-% \input{chapters/references}
 
 \bibliographystyle{ieeetr}
-\bibliography{chapters/references}
-
-\onecolumn
-\appendix
-% \raggedbottom
-\input{chapters/attachA}
-\clearpage
-\input{chapters/attachB}
+\bibliography{references}
 
 \end{document}

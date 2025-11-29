@@ -1,0 +1,13 @@
+n_vertices,n_edges,edge_density_percent,exact_clique_size,exact_weight,exact_time_seconds,exact_operations,exact_configurations,greedy_clique_size,greedy_weight,greedy_time_seconds,greedy_operations,greedy_configurations,precision_percent,speedup_factor,random_clique_size,random_weight,random_time_seconds,random_operations,random_configurations,random_unique_configurations,random_duplicates,random_stopping_reason,random_precision_percent
+1096,531243,75.0,,,,,,,,,,,,,51,3411.8754122837845,30.03045177400054,454955,440,440,0,time_limit,
+1096,531243,75.0,,,,,,,,,,,,,51,3541.9174493005144,30.02807688699977,487429,464,464,0,time_limit,
+1098,533220,75.0,,,,,,,,,,,,,48,3412.594075622197,30.001051555998856,487974,473,473,0,time_limit,
+1098,533220,75.0,,,,,,,,,,,,,52,3451.8555286881447,30.01730063300056,458485,447,447,0,time_limit,
+10000,61731,12.5,,,,,,,,,,,,,10,104.84047188573854,30.001605095996638,57929,1914,14,1900,time_limit,
+1000,8433,12.5,,,,,,,,,,,,,15,464.3282139292329,9.472704907995649,325518,5000,29,4971,max_iterations,
+250,1273,12.5,,,,,,,,,,,,,10,349.98909183684503,1.6173758609947981,174033,5000,17,4983,max_iterations,
+496,92070,75.0,,,,,,,,,,,,,20,1590.3481600886669,16.51391087900265,734259,5000,5000,0,max_iterations,
+497,92442,75.0,,,,,,,,,,,,,21,1526.74218530611,16.56560809900111,740006,5000,5000,0,max_iterations,
+498,92814,75.0,,,,,,,,,,,,,21,1589.5884797168035,15.857941662005032,742726,5000,5000,0,max_iterations,
+499,93188,75.0,,,,,,,,,,,,,21,1555.7732003851327,15.85788262099959,740562,5000,5000,0,max_iterations,
+500,93562,75.0,,,,,,,,,,,,,19,1492.0099525576215,15.291796677003731,706842,5000,5000,0,max_iterations,

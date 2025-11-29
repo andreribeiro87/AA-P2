@@ -1,5 +1,5 @@
 [project]
-name = "projeto1"
+name = "projeto2"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -11,6 +11,7 @@ dependencies = [
     "networkx[default]>=3.5",
     "numpy>=2.3.4",
     "pandas>=2.3.3",
+    "ruff>=0.14.5",
     "ty>=0.0.1a23",
     "typer>=0.20.0",
     "types-networkx>=3.5.0.20251001",

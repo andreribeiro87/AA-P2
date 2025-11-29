@@ -1,0 +1,13 @@
+n_vertices,n_edges,edge_density_percent,exact_clique_size,exact_weight,exact_time_seconds,exact_operations,exact_configurations,greedy_clique_size,greedy_weight,greedy_time_seconds,greedy_operations,greedy_configurations,precision_percent,speedup_factor,random_clique_size,random_weight,random_time_seconds,random_operations,random_configurations,random_unique_configurations,random_duplicates,random_stopping_reason,random_precision_percent
+1096,531243,75.0,,,,,,,,,,,,,0,0.0,1.2538239400018938,9,4999,1,4998,max_iterations,
+1096,531243,75.0,,,,,,,,,,,,,0,0.0,1.240851513997768,9,4999,1,4998,max_iterations,
+1098,533220,75.0,,,,,,,,,,,,,0,0.0,1.2876815920026274,4,4999,1,4998,max_iterations,
+1098,533220,75.0,,,,,,,,,,,,,0,0.0,1.2738537569966866,4,4999,1,4998,max_iterations,
+10000,61731,12.5,,,,,,,,,,,,,0,0.0,12.061225134006236,1,4999,1,4998,max_iterations,
+1000,8433,12.5,,,,,,,,,,,,,0,0.0,1.1107722460001241,1,4999,1,4998,max_iterations,
+250,1273,12.5,,,,,,,,,,,,,0,0.0,0.20781565499783028,1,4999,1,4998,max_iterations,
+496,92070,75.0,,,,,,,,,,,,,0,0.0,0.5471850240137428,1,4999,1,4998,max_iterations,
+497,92442,75.0,,,,,,,,,,,,,0,0.0,0.5569821760000195,5,4999,1,4998,max_iterations,
+498,92814,75.0,,,,,,,,,,,,,0,0.0,0.5691354730079183,5,4999,1,4998,max_iterations,
+499,93188,75.0,,,,,,,,,,,,,0,0.0,0.5560505869943881,3,4999,1,4998,max_iterations,
+500,93562,75.0,,,,,,,,,,,,,0,0.0,0.5872512460045982,1,4999,1,4998,max_iterations,

@@ -34,16 +34,18 @@ wheels/
 
 # Project specific
 experiments/graphs/*.graphml
+experiments/*graphs*
 experiments/graphs2/*.graphml
 experiments/graphs3/*.graphml
 experiments/results/*.csv
 experiments/results/*.json
-experiments/plots/*.png
-
+experiments/random_graph_mendeley*
+experiments/sw*
 # Keep directory structure
 !experiments/graphs/.gitkeep
 !experiments/results/.gitkeep
 !experiments/plots/.gitkeep
+
 
 # Jupyter Notebook
 .ipynb_checkpoints

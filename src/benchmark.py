@@ -479,9 +479,9 @@ class BenchmarkRunner:
             "all": "ALL ALGORITHMS",
         }
         mode_name = mode_name_map.get(mode, mode.upper())
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"BENCHMARKING {len(graph_files)} GRAPHS - {mode_name}")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
 
         for i, filepath in enumerate(graph_files, 1):
             if self.verbose:
@@ -590,9 +590,9 @@ class BenchmarkRunner:
             print("No results to summarize.")
             return
 
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print("BENCHMARK SUMMARY")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
 
         print(f"Total graphs tested: {len(results)}")
 
@@ -630,6 +630,333 @@ class BenchmarkRunner:
             print(
                 f"  {density:.1f}%: {avg_prec:.2f}% precision ({len(results_at_density)} graphs)"
             )
+
+
+# Algorithm categories for organization
+ALGORITHM_CATEGORIES = {
+    "exact": ["exhaustive"],
+    "greedy": ["greedy"],
+    "randomized": [
+        "random_construction",
+        "random_greedy_hybrid",
+        "iterative_random_search",
+        "monte_carlo",
+        "las_vegas",
+    ],
+    "reduction": ["mwc_redu", "max_clique_weight", "max_clique_dyn_weight"],
+    "branch_bound": ["wlmc", "tsm_mwc"],
+    "heuristic": ["fast_wclq", "scc_walk", "mwc_peel"],
+}
+
+ALL_ALGORITHMS = [
+    "exhaustive",
+    "greedy",
+    "random_construction",
+    "random_greedy_hybrid",
+    "iterative_random_search",
+    "monte_carlo",
+    "las_vegas",
+    "mwc_redu",
+    "max_clique_weight",
+    "max_clique_dyn_weight",
+    "wlmc",
+    "tsm_mwc",
+    "fast_wclq",
+    "scc_walk",
+    "mwc_peel",
+]
+
+
+def get_algorithm_config(
+    algorithm: str, common_params: dict | None = None
+) -> tuple[str, str | None, dict]:
+    """
+    Get the mode, strategy, and parameters for an algorithm.
+
+    Args:
+        algorithm: Algorithm name
+        common_params: Common parameters like time_limit, max_iterations, seed
+
+    Returns:
+        Tuple of (mode, strategy, params)
+    """
+    if common_params is None:
+        common_params = {}
+
+    # Exact algorithms
+    if algorithm == "exhaustive":
+        return ("exhaustive", None, {})
+
+    # Greedy heuristic
+    if algorithm == "greedy":
+        return ("heuristic", None, {})
+
+    # Randomized algorithms
+    if algorithm in [
+        "random_construction",
+        "random_greedy_hybrid",
+        "iterative_random_search",
+        "monte_carlo",
+        "las_vegas",
+    ]:
+        params = dict(common_params)
+        if algorithm == "random_greedy_hybrid":
+            params["num_starts"] = params.get("num_starts", 10)
+            params["top_k"] = params.get("top_k", 3)
+            params["randomness_factor"] = params.get("randomness_factor", 0.5)
+        elif algorithm == "monte_carlo":
+            params["num_samples"] = params.get("num_samples", 1000)
+        elif algorithm == "las_vegas":
+            params["max_attempts"] = params.get(
+                "max_attempts", common_params.get("max_iterations", 10000)
+            )
+        return ("random", algorithm, params)
+
+    # Reduction algorithms (don't accept time_limit, max_iterations, seed directly)
+    if algorithm in ["mwc_redu", "max_clique_weight", "max_clique_dyn_weight"]:
+        # These algorithms don't accept time_limit, max_iterations, or seed directly
+        # Filter out unsupported parameters
+        params = {}
+        if algorithm == "mwc_redu":
+            params["reduction_rules"] = common_params.get(
+                "reduction_rules", ["domination", "isolation", "degree"]
+            )
+            params["solver_method"] = common_params.get("solver_method", "greedy")
+            params["aggressive"] = common_params.get("aggressive", False)
+        elif algorithm == "max_clique_weight":
+            params["variant"] = common_params.get("variant", "static")
+            params["color_ordering"] = common_params.get(
+                "color_ordering", "weight_desc"
+            )
+            params["use_reduction"] = common_params.get("use_reduction", False)
+        elif algorithm == "max_clique_dyn_weight":
+            params["color_ordering"] = common_params.get(
+                "color_ordering", "weight_desc"
+            )
+            params["use_reduction"] = common_params.get("use_reduction", False)
+        return ("reduction", algorithm, params)
+
+    # Exact Branch & Bound algorithms
+    if algorithm in ["wlmc", "tsm_mwc"]:
+        params = dict(common_params)
+        return ("random", algorithm, params)
+
+    # Heuristic algorithms
+    if algorithm in ["fast_wclq", "scc_walk", "mwc_peel"]:
+        params = dict(common_params)
+        return ("random", algorithm, params)
+
+    # Default fallback
+    return ("heuristic", None, {})
+
+
+def convert_result_to_dict(result: BenchmarkResult, algorithm: str) -> dict | None:
+    """
+    Convert a BenchmarkResult to simple dict format for visualization.
+
+    Args:
+        result: BenchmarkResult object
+        algorithm: Name of the algorithm used
+
+    Returns:
+        Dict with algorithm, n_vertices, time_seconds, operations, weight, density
+    """
+    item = asdict(result)
+
+    n_vertices = item.get("n_vertices", 0)
+    density = item.get("edge_density_percent", 0)
+
+    # Determine which fields to use based on algorithm type
+    if algorithm == "exhaustive":
+        time_s = item.get("exact_time_seconds")
+        operations = item.get("exact_operations")
+        weight = item.get("exact_weight")
+    elif algorithm == "greedy":
+        time_s = item.get("greedy_time_seconds")
+        operations = item.get("greedy_operations")
+        weight = item.get("greedy_weight")
+    else:
+        time_s = item.get("random_time_seconds")
+        operations = item.get("random_operations")
+        weight = item.get("random_weight")
+
+    if time_s is None:
+        return None
+
+    return {
+        "algorithm": algorithm,
+        "n_vertices": n_vertices,
+        "time_seconds": time_s,
+        "operations": operations or 0,
+        "weight": weight or 0,
+        "density": density,
+    }
+
+
+def benchmark_directory(
+    graphs_dir: Path,
+    output_dir: Path = Path("experiments/results_custom"),
+    algorithms: list[str] | None = None,
+    recursive: bool = False,
+    max_graphs: int | None = None,
+    min_vertices: int | None = None,
+    max_vertices: int | None = None,
+    time_limit: float = 60.0,
+    max_iterations: int = 5000,
+    seed: int | None = None,
+    verbose: bool = True,
+) -> dict[str, list[BenchmarkResult]]:
+    """
+    Benchmark all graphs in a directory with specified algorithms.
+
+    Supports multiple graph formats:
+    - GraphML (.graphml)
+    - Sedgewick & Wayne TXT format (.txt with edge list)
+    - Adjacency matrix format (.txt with NxN matrix)
+    - DIMACS format (.clq, .dimacs)
+
+    Args:
+        graphs_dir: Directory containing graph files
+        output_dir: Directory to save results
+        algorithms: List of algorithm names to run (default: ["greedy"])
+        recursive: Search subdirectories
+        max_graphs: Maximum number of graphs to process
+        min_vertices: Minimum number of vertices (filter graphs)
+        max_vertices: Maximum number of vertices (filter graphs)
+        time_limit: Time limit per graph for each algorithm
+        max_iterations: Max iterations for randomized algorithms
+        seed: Random seed for reproducibility
+        verbose: Print progress
+
+    Returns:
+        Dictionary mapping algorithm name to list of BenchmarkResult
+    """
+    from src.graph_loader import BenchmarkGraphLoader
+
+    if algorithms is None:
+        algorithms = ["greedy"]
+
+    # Validate algorithms
+    invalid_algs = [a for a in algorithms if a not in ALL_ALGORITHMS]
+    if invalid_algs:
+        raise ValueError(
+            f"Unknown algorithms: {invalid_algs}. Available: {ALL_ALGORITHMS}"
+        )
+
+    # Load graph files
+    loader = BenchmarkGraphLoader()
+    graph_files = loader.list_graph_files(graphs_dir, pattern="*", recursive=recursive)
+
+    if not graph_files:
+        raise FileNotFoundError(
+            f"No graph files found in '{graphs_dir}'. "
+            "Supported formats: .graphml, .txt (SW/adjacency matrix), .clq, .dimacs"
+        )
+
+    # Filter by vertex count if specified
+    if min_vertices is not None or max_vertices is not None:
+        filtered_files = []
+        for gf in graph_files:
+            try:
+                G = loader.load_graph(gf)
+                n = G.number_of_nodes()
+                if min_vertices is not None and n < min_vertices:
+                    continue
+                if max_vertices is not None and n > max_vertices:
+                    continue
+                filtered_files.append(gf)
+            except Exception:
+                # Include files we can't load (let them fail later with error message)
+                filtered_files.append(gf)
+
+        if verbose and len(filtered_files) != len(graph_files):
+            v_range = f"{min_vertices or '*'}..{max_vertices or '*'}"
+            print(
+                f"Filtered to {len(filtered_files)} of {len(graph_files)} graphs ({v_range} vertices)"
+            )
+        graph_files = filtered_files
+
+    if not graph_files:
+        raise FileNotFoundError(
+            f"No graph files found matching vertex range. "
+            f"Range: {min_vertices or '*'}..{max_vertices or '*'}"
+        )
+
+    # Limit graphs if specified
+    if max_graphs is not None and len(graph_files) > max_graphs:
+        if verbose:
+            print(f"Limiting to first {max_graphs} of {len(graph_files)} graphs")
+        graph_files = graph_files[:max_graphs]
+
+    if verbose:
+        print(f"Found {len(graph_files)} graph files in {graphs_dir}")
+        print(f"Running {len(algorithms)} algorithm(s): {', '.join(algorithms)}")
+
+    # Setup output directory
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Common parameters
+    common_params = {
+        "time_limit": time_limit,
+        "max_iterations": max_iterations,
+    }
+    if seed is not None:
+        common_params["seed"] = seed
+
+    runner = BenchmarkRunner(verbose=verbose)
+    all_results: dict[str, list[BenchmarkResult]] = {}
+
+    for alg in algorithms:
+        if verbose:
+            print(f"\n{'=' * 60}")
+            print(f"Running {alg.upper()}")
+            print(f"{'=' * 60}")
+
+        alg_output_dir = output_dir / alg
+        alg_output_dir.mkdir(parents=True, exist_ok=True)
+
+        # Get algorithm configuration
+        mode, strategy, params = get_algorithm_config(alg, common_params)
+
+        try:
+            results = runner.benchmark_series(
+                graph_files,
+                output_dir=alg_output_dir,
+                mode=mode,
+                random_strategy=strategy if mode == "random" else None,
+                random_params=params if mode == "random" else None,
+                reduction_strategy=strategy if mode == "reduction" else None,
+                reduction_params=params if mode == "reduction" else None,
+            )
+
+            all_results[alg] = results
+
+            if verbose:
+                if results:
+                    print(f"✓ {alg}: Processed {len(results)} graphs")
+                else:
+                    print(f"⚠ {alg}: No results generated")
+
+        except Exception as e:
+            if verbose:
+                print(f"✗ {alg}: Error - {e}")
+            all_results[alg] = []
+
+    # Print summary
+    if verbose:
+        print(f"\n{'=' * 60}")
+        print("BENCHMARK SUMMARY")
+        print(f"{'=' * 60}")
+
+        for alg, results in all_results.items():
+            if results:
+                print(f"  {alg}: {len(results)} graphs processed")
+            else:
+                print(f"  {alg}: No results")
+
+        print(f"\nResults saved to: {output_dir}")
+
+    return all_results
 
 
 def main() -> None:
