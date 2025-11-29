@@ -1,0 +1,121 @@
+\subsection{Additional Heuristics}
+\label{sec:heuristics}
+
+Beyond the primary algorithm categories, we implement three additional
+heuristics from the MWC literature that offer different trade-offs between
+solution quality and computational efficiency.
+
+\subsubsection{FastWClq: Semi-Exact Heuristic with Graph Reduction}
+\label{sec:fast-wclq}
+
+FastWClq~\cite{fang2021fastwclq} combines randomized clique construction with
+graph reduction. Its key innovation is the Best from Multiple Selection (BMS)
+strategy, which samples $k$ candidates and selects the best one based on a
+benefit function.
+
+\begin{algorithm}[H]
+    \caption{FastWClq}
+    \label{alg:fast-wclq}
+    \begin{algorithmic}[1]
+        \Require Graph $G$, BMS parameter $k$, time\_limit
+        \Ensure Best clique $C^*$ found
+        \State $G' \gets G$, $C^* \gets \emptyset$, $W^* \gets 0$
+        \While{$V(G') \neq \emptyset$ and not timeout}
+        \State $C \gets$ \textsc{BMSConstruction}($G'$, $k$)
+        \If{$W(C) > W^*$}
+        \State $C^* \gets C$, $W^* \gets W(C)$
+        \State \Comment{Reduce graph based on new lower bound}
+        \ForAll{$v \in V(G')$}
+        \If{$W(N[v]) \leq W^*$}
+        \State Remove $v$ from $G'$
+        \EndIf
+        \EndFor
+        \EndIf
+        \EndWhile
+        \State \Return $C^*$
+    \end{algorithmic}
+\end{algorithm}
+
+The BMS construction selects vertices based on: $\text{benefit}(v) = w(v) + 0.1
+    \cdot \sum_{u \in N(v) \cap candidates} w(u)$
+
+\textbf{Complexity:} $O(T \cdot n \cdot k)$ per iteration, where $T$ is iterations until graph becomes empty.
+
+\subsubsection{SCCWalk: Local Search with Strong Configuration Checking}
+\label{sec:scc-walk}
+
+SCCWalk~\cite{wang2020sccwalk} uses local search with Strong Configuration
+Checking (SCC) to avoid cycling and walk perturbation to escape local optima.
+
+\begin{algorithm}[H]
+    \caption{SCCWalk}
+    \label{alg:scc-walk}
+    \begin{algorithmic}[1]
+        \Require Graph $G$, max\_unimprove $M$, perturbation strength $\sigma$
+        \Ensure Best clique $C^*$ found
+        \State $C \gets$ \textsc{GreedyConstruct}($G$)
+        \State $C^* \gets C$, $steps \gets 0$
+        \While{not stopping criteria}
+        \State Try Add, Swap, or Drop operations using SCC rules
+        \If{$W(C) > W(C^*)$}
+        \State $C^* \gets C$, $steps \gets 0$
+        \Else
+        \State $steps \gets steps + 1$
+        \EndIf
+        \If{$steps \geq M$}
+        \State $C \gets$ \textsc{WalkPerturbation}($C$, $\sigma$)
+        \State $steps \gets 0$
+        \EndIf
+        \EndWhile
+        \State \Return $C^*$
+    \end{algorithmic}
+\end{algorithm}
+
+SCC prevents revisiting configurations by tracking vertex addition/removal
+timestamps.
+
+\textbf{Complexity:} $O(T \cdot n^2)$ for $T$ iterations, each involving neighborhood exploration.
+
+\subsubsection{MWCPeel: Hybrid Reduction with Peeling}
+\label{sec:mwc-peel}
+
+MWCPeel combines exact reduction rules with heuristic ``peeling'' that removes
+low-score vertices, progressively simplifying the graph.
+
+\begin{algorithm}[H]
+    \caption{MWCPeel}
+    \label{alg:mwc-peel}
+    \begin{algorithmic}[1]
+        \Require Graph $G$, peel\_fraction $\phi$
+        \Ensure Best clique $C^*$ found
+        \State $G' \gets G$, $C^* \gets$ \textsc{InitialClique}($G$)
+        \While{$V(G') \neq \emptyset$}
+        \State Apply exact reduction rules (domination, etc.)
+        \State Compute scores: $score(v) = W(N[v])$
+        \State Peel bottom $\phi$ fraction of vertices by score
+        \EndWhile
+        \State Solve remaining small graph exactly
+        \State \Return $C^*$
+    \end{algorithmic}
+\end{algorithm}
+
+\textbf{Complexity:} $O(n^3)$ for reductions plus $O(2^{n'})$ for final exact solve on small graph.
+
+\subsubsection{Summary}
+
+These heuristics complement the main algorithm categories:
+
+\begin{table}[H]
+    \centering
+    \caption{Summary of Additional Heuristics}
+    \label{tab:heuristics-summary}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Algorithm} & \textbf{Type} & \textbf{Strength}    & \textbf{Weakness}  \\
+        \midrule
+        FastWClq           & Semi-exact    & Can prove optimality & May not converge   \\
+        SCCWalk            & Local search  & Good local optima    & Stuck in basins    \\
+        MWCPeel            & Reduction     & Fast preprocessing   & Aggressive peeling \\
+        \bottomrule
+    \end{tabular}
+\end{table}

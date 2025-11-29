@@ -1,3 +1,39 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{10}
+
+\bibitem{bomze1999maximum}
+I.~M. Bomze, M.~Budinich, P.~M. Pardalos, and M.~Pelillo, ``The maximum clique problem,'' {\em Handbook of combinatorial optimization}, pp.~1--74, 1999.
+
+\bibitem{garey1979computers}
+M.~R. Garey and D.~S. Johnson, ``Computers and intractability: A guide to the theory of np-completeness,'' {\em WH Freeman and Company}, 1979.
+
+\bibitem{wu2015review}
+Q.~Wu and J.-K. Hao, ``A review on algorithms for maximum clique problems,'' {\em European Journal of Operational Research}, vol.~242, no.~3, pp.~693--709, 2015.
+
+\bibitem{motwani1995randomized}
+R.~Motwani and P.~Raghavan, ``Randomized algorithms,'' {\em Cambridge university press}, 1995.
+
+\bibitem{karp1972reducibility}
+R.~M. Karp, ``Reducibility among combinatorial problems,'' {\em Complexity of computer computations}, pp.~85--103, 1972.
+
+\bibitem{boppana1992approximating}
+R.~Boppana and M.~M. Halld{\'o}rsson, ``Approximating maximum independent sets by excluding subgraphs,'' {\em BIT Numerical Mathematics}, vol.~32, no.~2, pp.~180--196, 1992.
+
+\bibitem{second2016wlmc}
+C.-M. Li, H.~Jiang, and F.~Manya, ``An efficient branch-and-bound algorithm based on maxsat for the maximum clique problem,'' {\em AAAI}, pp.~629--635, 2017.
+
+\bibitem{shimizu2020tsm}
+S.~Shimizu, K.~Yamaguchi, T.~Saitoh, and S.~Masuda, ``Two-stage maxsat reasoning for the maximum weight clique problem,'' {\em arXiv preprint arXiv:2302.00458}, 2023.
+
+\bibitem{fang2021fastwclq}
+Z.~Fang, C.-M. Li, K.~Qiao, X.~Feng, and K.~Xu, ``Fastwclq: A fast heuristic algorithm for weighted clique,'' {\em Journal of Artificial Intelligence Research}, vol.~72, pp.~355--396, 2021.
+
+\bibitem{wang2020sccwalk}
+Y.~Wang, S.~Cai, and M.~Yin, ``Sccwalk: An efficient local search algorithm for weighted maximum clique,'' {\em Journal of Artificial Intelligence Research}, vol.~67, pp.~145--193, 2020.
+
+\bibitem{snap2014}
+J.~Leskovec and A.~Krevl, ``Stanford large network dataset collection.'' \url{http://snap.stanford.edu/data}, 2014.
+
+\bibitem{snap-cithepth}
+J.~Leskovec, J.~Kleinberg, and C.~Faloutsos, ``Graphs over time: densification laws, shrinking diameters and possible explanations,'' in {\em ACM SIGKDD}, pp.~177--187, 2005.
 
 \end{thebibliography}

@@ -1,2 +1,44 @@
 \section{Problem Definition}
-\label{sec:problem-revised}
+\label{sec:problem}
+
+The \textbf{Maximum Weight Clique (MWC)} problem is a fundamental combinatorial
+optimization problem in graph theory with significant applications in social
+network analysis, bioinformatics, and resource
+allocation~\cite{bomze1999maximum}. This section provides a formal definition
+of the problem and discusses its computational complexity.
+
+\subsection{Formal Definition}
+
+Let $G = (V, E)$ be an undirected graph where $V$ is the set of vertices and $E
+    \subseteq V \times V$ is the set of edges. Each vertex $v \in V$ is assigned a
+positive weight $w(v) > 0$. A \textit{clique} $C \subseteq V$ is a subset of
+vertices such that every pair of distinct vertices in $C$ is connected by an
+edge, i.e., $\forall u, v \in C, u \neq v \Rightarrow (u, v) \in E$. The
+\textit{weight} of a clique is defined as $W(C) = \sum_{v \in C} w(v)$.
+
+The MWC problem seeks to find a clique $C^*$ with maximum weight:
+\begin{equation}
+    C^* = \arg\max_{C \subseteq V, C \text{ is a clique}} W(C)
+\end{equation}
+
+When all vertex weights are equal to 1, the MWC problem reduces to the
+classical \textit{Maximum Clique} problem, which seeks the clique with the
+largest cardinality.
+
+\subsection{Computational Complexity}
+
+The Maximum Clique problem is one of Karp's 21 NP-complete
+problems~\cite{karp1972reducibility}, and the weighted variant inherits this
+intractability. More precisely, the decision version of MWC---determining
+whether a graph contains a clique of weight at least $k$---is
+NP-complete~\cite{garey1979computers}. Furthermore, unless P = NP, the problem
+cannot be approximated within a factor of $n^{1-\epsilon}$ for any $\epsilon >
+    0$, making it one of the hardest problems to
+approximate~\cite{boppana1992approximating}.
+
+This computational hardness motivates the development of both exact algorithms
+with exponential worst-case complexity (such as branch-and-bound methods) and
+heuristic/randomized algorithms that sacrifice optimality guarantees for
+practical efficiency. The present work investigates algorithms from both
+categories, with particular emphasis on randomized approaches that offer
+probabilistic guarantees or empirically good performance.

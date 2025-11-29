@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.10.15)  29 NOV 2025 15:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2025.10.15)  29 NOV 2025 17:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -771,21 +771,261 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package hyperref Info: Link coloring ON on input line 26.
+ (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
- (./chapters/introduction.tex) (./chapters/problem.tex) (./chapters/algorithms/common.tex) (./chapters/results.tex) (./chapters/discussion.tex) (./chapters/conclusion.tex) (./main.bbl
+ (./chapters/introduction.tex
+LaTeX Font Info:    Trying to load font information for U+msa on input line 23.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 23.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
 
-./main.bbl:3: LaTeX Error: Something's wrong--perhaps a missing \item.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.3 \end{thebibliography}
-                         
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+Underfull \hbox (badness 10000) in paragraph at lines 33--34
+[]\T1/ptm/m/n/10 Reduction-based meth-ods (MW-CRedu,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
+[]\T1/ptm/m/n/10 Additional heuris-tics (Fast-WClq, SC-CWalk,
+ []
+
+) (./chapters/problem.tex
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}
+
+
+]) (./chapters/algorithms/common.tex (./chapters/algorithms/randomized.tex
+Underfull \hbox (badness 5622) in paragraph at lines 12--16
+ \T1/ptm/m/it/10 1) Ran-dom Con-struc-tion: [][][] \T1/ptm/m/n/10 The Ran-dom Con-struc-tion
+ []
+
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 18.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[2]
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[3]
+Overfull \hbox (4.25471pt too wide) in paragraph at lines 222--233
+ [][] 
+ []
+
+) (./chapters/algorithms/reduction.tex
+Underfull \hbox (badness 2689) in paragraph at lines 11--13
+ \T1/ptm/m/it/10 1) MW-CRedu: Graph Re-duc-tion Pre-pro-cess-ing: [][][] \T1/ptm/m/n/10 MW-
+ []
+
+
+
+
+Underfull \hbox (badness 2261) in paragraph at lines 57--61
+ \T1/ptm/m/it/10 2) Max-CliqueWeight: Branch-and-Bound with Col-or-ing
+ []
+
+
+Underfull \hbox (badness 4316) in paragraph at lines 57--61
+\T1/ptm/m/it/10 Bounds: [][][] \T1/ptm/m/n/10 Max-CliqueWeight uses branch-and-bound with
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
+[] $\OML/cmm/m/it/10 UB \OMS/cmsy/m/n/10  $ \T1/ptm/m/sc/10 Com-pute-Col-or-ing-
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[4]
+
+
+Overfull \hbox (18.70181pt too wide) in paragraph at lines 137--146
+ [][] 
+ []
+
+) (./chapters/algorithms/exact.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[5]
+Underfull \hbox (badness 2689) in paragraph at lines 72--74
+ \T1/ptm/m/it/10 2) TSM-MWC: Two-Stage MaxSAT for MWC: [][][] \T1/ptm/m/n/10 TSM-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
+[] $\OML/cmm/m/it/10 UB[]; partition \OMS/cmsy/m/n/10  $ \T1/ptm/m/sc/10 Bi-na-ry-MaxSAT-
+ []
+
+
+Underfull \hbox (badness 3536) in paragraph at lines 97--98
+[] $\OML/cmm/m/it/10 UB[] \OMS/cmsy/m/n/10  $ \T1/ptm/m/sc/10 Or-dered-MaxSAT-Bound\T1/ptm/m/n/10 ($\OML/cmm/m/it/10 candidates$\T1/ptm/m/n/10 ,
+ []
+
+
+
+) (./chapters/algorithms/heuristics.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 39--41
+[]\T1/ptm/m/n/10 The BMS con-struc-tion se-lects ver-tices based on:
+ []
+
+
+Underfull \hbox (badness 2012) in paragraph at lines 47--49
+ \T1/ptm/m/it/10 2) SC-CWalk: Lo-cal Search with Strong Con-fig-u-ra-tion
+ []
+
+
+
+
+Overfull \hbox (4.38245pt too wide) in paragraph at lines 112--121
+ [][] 
+ []
+
+)) (./chapters/results.tex
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 93--95
+[]\T1/ptm/m/n/10 Exact al-go-rithms (WLMC, TSM-MWC,
+ []
+
+<plots/summary/all_algorithms_time.png, id=374, 1002.6258pt x 568.524pt>
+File: plots/summary/all_algorithms_time.png Graphic file (type png)
+<use plots/summary/all_algorithms_time.png>
+Package pdftex.def Info: plots/summary/all_algorithms_time.png  used on input line 106.
+(pdftex.def)             Requested size: 226.79846pt x 128.5977pt.
+
+
+<plots/individual/random_construction_time.png, id=377, 713.5458pt x 423.984pt>
+File: plots/individual/random_construction_time.png Graphic file (type png)
+<use plots/individual/random_construction_time.png>
+Package pdftex.def Info: plots/individual/random_construction_time.png  used on input line 119.
+(pdftex.def)             Requested size: 247.6778pt x 147.1674pt.
+<plots/individual/monte_carlo_time.png, id=378, 713.5458pt x 423.984pt>
+File: plots/individual/monte_carlo_time.png Graphic file (type png)
+<use plots/individual/monte_carlo_time.png>
+Package pdftex.def Info: plots/individual/monte_carlo_time.png  used on input line 123.
+(pdftex.def)             Requested size: 247.6778pt x 147.1674pt.
+<plots/individual/las_vegas_time.png, id=379, 713.5458pt x 423.984pt>
+File: plots/individual/las_vegas_time.png Graphic file (type png)
+<use plots/individual/las_vegas_time.png>
+Package pdftex.def Info: plots/individual/las_vegas_time.png  used on input line 132.
+(pdftex.def)             Requested size: 247.6778pt x 147.1674pt.
+<plots/individual/random_greedy_hybrid_time.png, id=380, 713.5458pt x 423.984pt>
+File: plots/individual/random_greedy_hybrid_time.png Graphic file (type png)
+<use plots/individual/random_greedy_hybrid_time.png>
+Package pdftex.def Info: plots/individual/random_greedy_hybrid_time.png  used on input line 136.
+(pdftex.def)             Requested size: 247.6778pt x 147.1674pt.
+
+
+[8 <./plots/summary/all_algorithms_time.png> <./plots/individual/random_construction_time.png> <./plots/individual/monte_carlo_time.png> <./plots/individual/las_vegas_time.png> <./plots/individual/random_greedy_hybrid_time.png>]
+<plots/individual/wlmc_time.png, id=398, 713.5458pt x 423.984pt>
+File: plots/individual/wlmc_time.png Graphic file (type png)
+<use plots/individual/wlmc_time.png>
+Package pdftex.def Info: plots/individual/wlmc_time.png  used on input line 147.
+(pdftex.def)             Requested size: 247.6778pt x 147.1674pt.
+<plots/individual/tsm_mwc_time.png, id=399, 713.5458pt x 423.984pt>
+File: plots/individual/tsm_mwc_time.png Graphic file (type png)
+<use plots/individual/tsm_mwc_time.png>
+Package pdftex.def Info: plots/individual/tsm_mwc_time.png  used on input line 151.
+(pdftex.def)             Requested size: 247.6778pt x 147.1674pt.
+<plots/summary/all_algorithms_operations.png, id=400, 1002.6258pt x 568.524pt>
+File: plots/summary/all_algorithms_operations.png Graphic file (type png)
+<use plots/summary/all_algorithms_operations.png>
+Package pdftex.def Info: plots/summary/all_algorithms_operations.png  used on input line 162.
+(pdftex.def)             Requested size: 226.79846pt x 128.5977pt.
+<plots/individual/random_construction_operations.png, id=401, 713.5458pt x 423.984pt>
+File: plots/individual/random_construction_operations.png Graphic file (type png)
+<use plots/individual/random_construction_operations.png>
+Package pdftex.def Info: plots/individual/random_construction_operations.png  used on input line 173.
+(pdftex.def)             Requested size: 247.6778pt x 147.1674pt.
+<plots/individual/mwc_redu_operations.png, id=402, 713.5458pt x 423.984pt>
+File: plots/individual/mwc_redu_operations.png Graphic file (type png)
+<use plots/individual/mwc_redu_operations.png>
+Package pdftex.def Info: plots/individual/mwc_redu_operations.png  used on input line 177.
+(pdftex.def)             Requested size: 247.6778pt x 147.1674pt.
+
+Underfull \vbox (badness 8113) has occurred while \output is active []
+
+
+
+<plots/quality/precision_summary.png, id=404, 858.5676pt x 424.4658pt>
+File: plots/quality/precision_summary.png Graphic file (type png)
+<use plots/quality/precision_summary.png>
+Package pdftex.def Info: plots/quality/precision_summary.png  used on input line 221.
+(pdftex.def)             Requested size: 226.79846pt x 112.12666pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[9 <./plots/individual/wlmc_time.png> <./plots/individual/tsm_mwc_time.png> <./plots/summary/all_algorithms_operations.png> <./plots/individual/random_construction_operations.png> <./plots/individual/mwc_redu_operations.png>]
+<plots/quality/precision_by_density.png, id=418, 1004.0712pt x 710.655pt>
+File: plots/quality/precision_by_density.png Graphic file (type png)
+<use plots/quality/precision_by_density.png>
+Package pdftex.def Info: plots/quality/precision_by_density.png  used on input line 229.
+(pdftex.def)             Requested size: 247.6778pt x 175.29938pt.
+<plots/quality/precision_vs_size.png, id=419, 1001.6622pt x 568.524pt>
+File: plots/quality/precision_vs_size.png Graphic file (type png)
+<use plots/quality/precision_vs_size.png>
+Package pdftex.def Info: plots/quality/precision_vs_size.png  used on input line 233.
+(pdftex.def)             Requested size: 247.6778pt x 140.56915pt.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 245.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)) (./chapters/discussion.tex
+
+
+Overfull \hbox (27.27057pt too wide) in paragraph at lines 55--69
+ [][] 
+ []
+
+
+
+[10 <./plots/quality/precision_summary.png> <./plots/quality/precision_by_density.png> <./plots/quality/precision_vs_size.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 81--82
+[]\T1/ptm/b/n/10 Large dense graphs: \T1/ptm/m/n/10 Con-sider
+ []
+
+
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 145--146
+[]\T1/ptm/b/n/10 Default choice: \T1/ptm/m/n/10 Use \T1/pcr/m/n/10 fast_wclq \T1/ptm/m/n/10 for most
+ []
+
+) (./chapters/conclusion.tex
+
+[11]
+Underfull \hbox (badness 1852) in paragraph at lines 57--58
+[]\T1/ptm/b/n/10 Structured graphs: \T1/ptm/m/n/10 Test-ing on application-specific
+ []
+
+) (./main.bbl
 
 )
 
@@ -801,43 +1041,27 @@ Before submitting the final camera ready copy, remember to:
 
 
 
-
-
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}
-
-
-
-] (./main.aux)
+[12] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  90168C2DBC92AD4D24B7704C9B4FC76D;758.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: E82777D95C4279F801BE1F7DB8C157E6;11811.
  ) 
 Here is how much of TeX's memory you used:
- 24426 strings out of 473197
- 455432 string characters out of 5718604
- 926228 words of memory out of 5000000
- 47245 multiletter control sequences out of 15000+600000
- 638629 words of font info for 85 fonts, out of 8000000 for 9000
+ 25002 strings out of 473197
+ 467699 string characters out of 5718604
+ 953808 words of memory out of 5000000
+ 47634 multiletter control sequences out of 15000+600000
+ 653693 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,12n,101p,443b,890s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (1 page, 40723 bytes).
+ 99i,12n,101p,1167b,890s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (12 pages, 4312946 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
- 9 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 573 PDF objects out of 1000 (max. 8388607)
+ 488 compressed objects within 5 object streams
+ 150 named destinations out of 1000 (max. 500000)
+ 582 words of extra memory for PDF output out of 10000 (max. 10000000)
 

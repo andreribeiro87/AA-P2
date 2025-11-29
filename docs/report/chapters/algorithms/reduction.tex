@@ -1,0 +1,148 @@
+\subsection{Reduction-Based Algorithms}
+\label{sec:reduction}
+
+Reduction-based algorithms transform the MWC problem by preprocessing the graph
+to reduce its size while preserving optimal solutions. These methods can
+significantly improve performance on large sparse graphs.
+
+\subsubsection{MWCRedu: Graph Reduction Preprocessing}
+\label{sec:mwc-redu}
+
+MWCRedu applies polynomial-time reduction rules before solving the reduced
+graph with another algorithm. The main rules include:
+
+\begin{itemize}
+    \item \textbf{Domination:} Vertex $u$ is dominated by $v$ if $N(u) \subseteq N(v) \cup \{v\}$ and $w(v) \geq w(u)$. Dominated vertices can be safely removed.
+    \item \textbf{Isolation:} Isolated vertices (degree 0) cannot participate in cliques with other vertices.
+    \item \textbf{Degree-based:} Vertices with very low degree and weight contribute little to potential cliques.
+\end{itemize}
+
+\begin{algorithm}[H]
+    \caption{MWCRedu}
+    \label{alg:mwc-redu}
+    \begin{algorithmic}[1]
+        \Require Graph $G = (V, E)$, weights $w$, solver method
+        \Ensure Maximum weight clique $C^*$
+        \State $G' \gets G$, $mapping \gets$ identity
+        \Repeat
+        \State $changed \gets$ \textbf{false}
+        \ForAll{$u \in V(G')$}
+        \ForAll{$v \in V(G'), v \neq u$}
+        \If{$w(v) \geq w(u)$ and $N(u) \subseteq N(v) \cup \{v\}$}
+        \State Remove $u$ from $G'$
+        \State $changed \gets$ \textbf{true}
+        \State \textbf{break}
+        \EndIf
+        \EndFor
+        \EndFor
+        \State Apply isolation and degree rules
+        \Until{not $changed$}
+        \State $C' \gets$ \textsc{Solve}($G'$, solver)
+        \State $C^* \gets$ map $C'$ back to original vertices
+        \State Try adding removed vertices if compatible
+        \State \Return $C^*$
+    \end{algorithmic}
+\end{algorithm}
+
+\textbf{Complexity Analysis:}
+\begin{itemize}
+    \item \textit{Reduction Phase:} $O(n^3)$ worst case for domination checking across all vertex pairs, iterated until convergence.
+    \item \textit{Total Time:} $O(n^3 + T_{solver}(n'))$ where $n'$ is the reduced graph size.
+    \item \textit{Space:} $O(n + m)$ for storing the reduced graph and mappings.
+\end{itemize}
+
+\subsubsection{MaxCliqueWeight: Branch-and-Bound with Coloring Bounds}
+\label{sec:max-clique-weight}
+
+MaxCliqueWeight uses branch-and-bound with weighted graph coloring to compute
+upper bounds. The key insight is that vertices in a clique must have different
+colors, so the sum of maximum weights per color class bounds the maximum clique
+weight.
+
+\begin{algorithm}[H]
+    \caption{MaxCliqueWeight}
+    \label{alg:max-clique-weight}
+    \begin{algorithmic}[1]
+        \Require Graph $G$, weights $w$, variant (static/dynamic)
+        \Ensure Maximum weight clique $C^*$
+        \State Order vertices by weight (descending)
+        \State $C^* \gets \emptyset$, $W^* \gets 0$
+        \State $coloring \gets$ \textsc{WeightedColoring}($V$)
+        \Procedure{Search}{$C$, $candidates$, $W$}
+        \If{$candidates = \emptyset$}
+        \If{$W > W^*$}
+        \State $C^* \gets C$, $W^* \gets W$
+        \EndIf
+        \State \Return
+        \EndIf
+        \If{variant = ``dynamic''}
+        \State $UB \gets$ \textsc{ComputeColoringBound}($candidates$)
+        \Else
+        \State $UB \gets$ precomputed bound for $candidates$
+        \EndIf
+        \If{$W + UB \leq W^*$}
+        \State \Return \Comment{Prune}
+        \EndIf
+        \ForAll{$v \in candidates$ in order}
+        \If{$v$ is compatible with $C$}
+        \State $newCandidates \gets \{u \in candidates : (v,u) \in E\}$
+        \State \textsc{Search}($C \cup \{v\}$, $newCandidates$, $W + w(v)$)
+        \EndIf
+        \EndFor
+        \EndProcedure
+        \State \textsc{Search}($\emptyset$, $V$, $0$)
+        \State \Return $C^*$
+    \end{algorithmic}
+\end{algorithm}
+
+\textbf{Complexity Analysis:}
+\begin{itemize}
+    \item \textit{Time:} $O(2^n)$ worst case (exponential), but pruning significantly reduces practical complexity.
+    \item \textit{Space:} $O(n^2)$ for coloring data structures and recursion stack.
+\end{itemize}
+
+\subsubsection{MaxCliqueDynWeight: Dynamic Bound Recomputation}
+\label{sec:max-clique-dyn-weight}
+
+MaxCliqueDynWeight is a variant of MaxCliqueWeight that dynamically recomputes
+upper bounds at each node of the search tree. While more expensive per node,
+tighter bounds lead to more aggressive pruning.
+
+\begin{algorithm}[H]
+    \caption{MaxCliqueDynWeight (Dynamic Variant)}
+    \label{alg:max-clique-dyn-weight}
+    \begin{algorithmic}[1]
+        \Require Graph $G$, weights $w$
+        \Ensure Maximum weight clique $C^*$
+        \State Same as Algorithm~\ref{alg:max-clique-weight} with variant = ``dynamic''
+        \State At each search node, recompute coloring for remaining candidates
+        \State \Return $C^*$
+    \end{algorithmic}
+\end{algorithm}
+
+\textbf{Complexity Analysis:}
+\begin{itemize}
+    \item \textit{Time:} $O(2^n \cdot n^2)$ worst case due to recomputing coloring at each node.
+    \item \textit{Space:} $O(n^2)$ for dynamic coloring computation.
+\end{itemize}
+
+\textbf{Trade-off:} Dynamic recomputation provides tighter bounds but increases per-node cost. Effective on dense graphs where static bounds are loose.
+
+\subsubsection{Comparison of Reduction Approaches}
+
+\begin{table}[H]
+    \centering
+    \caption{Comparison of Reduction-Based Algorithms}
+    \label{tab:reduction-comparison}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Algorithm} & \textbf{Guarantees} & \textbf{Time}         & \textbf{Best For} \\
+        \midrule
+        MWCRedu            & Optimal*            & $O(n^3 + T_{solver})$ & Large sparse      \\
+        MaxCliqueWeight    & Optimal             & $O(2^n)$              & Medium graphs     \\
+        MaxCliqueDynWeight & Optimal             & $O(2^n \cdot n^2)$    & Dense graphs      \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+*MWCRedu optimality depends on the underlying solver.

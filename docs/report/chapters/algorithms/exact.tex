@@ -1,0 +1,130 @@
+\subsection{Exact Branch-and-Bound Algorithms}
+\label{sec:exact}
+
+Exact algorithms guarantee finding the optimal solution but may require
+exponential time in the worst case. We implement two state-of-the-art
+branch-and-bound methods from the literature.
+
+\subsubsection{WLMC: Weighted Large Maximum Clique}
+\label{sec:wlmc}
+
+WLMC~\cite{second2016wlmc} is designed for large sparse graphs. It uses
+degree-based vertex ordering, preprocessing to reduce graph size, and
+independent set partitioning for upper bounds.
+
+\begin{algorithm}[H]
+    \caption{WLMC}
+    \label{alg:wlmc}
+    \begin{algorithmic}[1]
+        \Require Graph $G$, weights $w$, time\_limit
+        \Ensure Maximum weight clique $C^*$
+        \State \Comment{Phase 1: Initialization}
+        \State $C_{init}, order, G' \gets$ \textsc{InitializeWLMC}($G$)
+        \State $C^* \gets C_{init}$, $W^* \gets W(C_{init})$
+        \State \Comment{Preprocessing: remove low-potential vertices}
+        \ForAll{$v \in V(G')$}
+        \If{$W(N[v]) \leq W^*$}
+        \State Remove $v$ from $G'$
+        \EndIf
+        \EndFor
+        \State \Comment{Phase 2: Branch and Bound}
+        \Procedure{SearchWLMC}{$C$, $candidates$, $W$}
+        \If{timeout}
+        \State \Return
+        \EndIf
+        \If{$candidates = \emptyset$}
+        \If{$W > W^*$}
+        \State $C^* \gets C$, $W^* \gets W$
+        \EndIf
+        \State \Return
+        \EndIf
+        \State $UB \gets$ \textsc{ISUpperBound}($candidates$, $W$)
+        \If{$UB \leq W^*$}
+        \State \Return \Comment{Prune}
+        \EndIf
+        \ForAll{$v \in candidates$}
+        \If{$v$ compatible with $C$}
+        \State $newCand \gets \{u \in candidates : (v,u) \in E\}$
+        \State \textsc{SearchWLMC}($C \cup \{v\}$, $newCand$, $W + w(v)$)
+        \EndIf
+        \EndFor
+        \EndProcedure
+        \State \textsc{SearchWLMC}($\emptyset$, $V(G')$, $0$)
+        \State \Return $C^*$
+    \end{algorithmic}
+\end{algorithm}
+
+The Independent Set (IS) upper bound partitions the candidate set into
+independent sets and sums the maximum weight from each:
+\begin{equation}
+    UB_{IS}(S, W) = W + \sum_{I \in \text{Partition}(S)} \max_{v \in I} w(v)
+\end{equation}
+
+\textbf{Complexity Analysis:}
+\begin{itemize}
+    \item \textit{Time:} $O(2^n)$ worst case, but typically much better due to preprocessing and tight bounds.
+    \item \textit{Space:} $O(n + m)$ for graph storage and $O(n)$ for recursion stack.
+\end{itemize}
+
+\subsubsection{TSM-MWC: Two-Stage MaxSAT for MWC}
+\label{sec:tsm-mwc}
+
+TSM-MWC~\cite{shimizu2020tsm} uses two stages of MaxSAT-inspired reasoning to
+compute progressively tighter upper bounds:
+
+\begin{enumerate}
+    \item \textbf{Binary MaxSAT Phase:} Computes IS partition bound (same as WLMC).
+    \item \textbf{Ordered MaxSAT Phase:} Refines bounds by considering vertex ordering and coverage relationships.
+\end{enumerate}
+
+\begin{algorithm}[H]
+    \caption{TSM-MWC}
+    \label{alg:tsm-mwc}
+    \begin{algorithmic}[1]
+        \Require Graph $G$, weights $w$, time\_limit
+        \Ensure Maximum weight clique $C^*$
+        \State Initialize as in WLMC
+        \Procedure{TSMSearch}{$C$, $candidates$, $W$}
+        \If{timeout or $candidates = \emptyset$}
+        \State Handle as in WLMC
+        \EndIf
+        \State \Comment{Phase 1: Binary MaxSAT bound}
+        \State $UB_1, partition \gets$ \textsc{BinaryMaxSATBound}($candidates$, $W$)
+        \If{$UB_1 \leq W^*$}
+        \State \Return
+        \EndIf
+        \State \Comment{Phase 2: Ordered MaxSAT refinement}
+        \State $UB_2 \gets$ \textsc{OrderedMaxSATBound}($candidates$, $partition$, $W$, $W^*$)
+        \If{$UB_2 \leq W^*$}
+        \State \Return
+        \EndIf
+        \State Branch as in WLMC
+        \EndProcedure
+        \State \Return $C^*$
+    \end{algorithmic}
+\end{algorithm}
+
+\textbf{Complexity Analysis:}
+\begin{itemize}
+    \item \textit{Time:} $O(2^n)$ worst case, with tighter bounds potentially reducing search space more than WLMC.
+    \item \textit{Space:} $O(n^2)$ for partition data structures.
+\end{itemize}
+
+\subsubsection{Comparison of Exact Methods}
+
+Both WLMC and TSM-MWC guarantee optimal solutions. Their effectiveness depends
+on graph structure:
+
+\begin{table}[H]
+    \centering
+    \caption{Comparison of Exact Branch-and-Bound Algorithms}
+    \label{tab:exact-comparison}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Algorithm} & \textbf{Bound Quality} & \textbf{Overhead} & \textbf{Best For} \\
+        \midrule
+        WLMC               & Good (IS)              & Low               & Large sparse      \\
+        TSM-MWC            & Better (2-stage)       & Higher            & Dense, medium     \\
+        \bottomrule
+    \end{tabular}
+\end{table}

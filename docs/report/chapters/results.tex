@@ -1,2 +1,249 @@
 \section{Experimental Results}
 \label{sec:results}
+
+This section presents our experimental methodology and the comprehensive
+results obtained from evaluating all implemented algorithms.
+
+\subsection{Methodology}
+\label{sec:methodology}
+
+\subsubsection{Generated Graphs}
+
+We generated random graphs with the following parameters:
+\begin{itemize}
+    \item \textbf{Vertices:} $n \in \{10, 11, \ldots, 100\}$ (91 sizes)
+    \item \textbf{Edge densities:} $d \in \{12.5\%, 25\%, 50\%, 75\%\}$
+    \item \textbf{Vertex weights:} Uniformly distributed in $[1, 100]$
+\end{itemize}
+
+This yields 364 test graphs covering a range of sizes and densities. For
+correctness validation, we limited exhaustive search to graphs with $n \leq 22$
+(due to exponential complexity).
+
+\subsubsection{External Datasets}
+
+To test scalability on real-world graphs, we used datasets from the Stanford
+Network Analysis Project (SNAP)~\cite{snap2014}:
+\begin{itemize}
+    \item \textbf{cit-HepTh}: High-energy physics citation network~\cite{snap-cithepth}
+    \item \textbf{p2p-Gnutella25}: Peer-to-peer file sharing network
+    \item \textbf{soc-Epinions1}: Social trust network
+    \item \textbf{email-EuAll}: European research institution email network
+\end{itemize}
+
+\subsubsection{Experimental Setup}
+
+All experiments were conducted on a system with the following specifications:
+\begin{itemize}
+    \item Python 3.11 with NetworkX library
+    \item Randomized algorithms: 5000 iterations or time limit
+    \item Seeds fixed for reproducibility
+\end{itemize}
+
+\subsubsection{Metrics}
+
+We measure:
+\begin{enumerate}
+    \item \textbf{Execution time} (seconds): Wall-clock time
+    \item \textbf{Basic operations}: Edge checks and vertex comparisons
+    \item \textbf{Solution quality}: Weight found vs. optimal (when known)
+    \item \textbf{Scalability}: How performance changes with graph size
+\end{enumerate}
+
+\subsection{Solution Quality Comparison}
+\label{sec:quality-results}
+
+Table~\ref{tab:quality-summary} shows solution quality for all algorithms
+compared to exhaustive search on small graphs ($n \leq 22$).
+
+\begin{table}[H]
+    \centering
+    \caption{Solution Quality vs. Exhaustive Search}
+    \label{tab:quality-summary}
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Algorithm}        & \textbf{Avg \%} & \textbf{Min \%} & \textbf{Max \%} & \textbf{Optimal} \\
+        \midrule
+        \multicolumn{5}{l}{\textit{Randomized Algorithms}}                                                 \\
+        random\_construction      & 100.10          & 100.00          & 106.89          & 68/68            \\
+        random\_greedy\_hybrid    & 95.81           & 62.10           & 106.89          & 48/68            \\
+        iterative\_random\_search & 0.00            & 0.00            & 0.00            & 0/68             \\
+        monte\_carlo              & 98.94           & 73.24           & 106.89          & 62/68            \\
+        las\_vegas                & 92.44           & 50.30           & 106.89          & 45/68            \\
+        \midrule
+        \multicolumn{5}{l}{\textit{Reduction-Based}}                                                       \\
+        mwc\_redu                 & 91.38           & 39.48           & 106.89          & 36/68            \\
+        max\_clique\_weight       & 100.10          & 100.00          & 106.89          & 68/68            \\
+        max\_clique\_dyn\_weight  & 100.10          & 100.00          & 106.89          & 68/68            \\
+        \midrule
+        \multicolumn{5}{l}{\textit{Exact Branch-and-Bound}}                                                \\
+        wlmc                      & 100.10          & 100.00          & 106.89          & 68/68            \\
+        tsm\_mwc                  & 100.10          & 100.00          & 106.89          & 68/68            \\
+        \midrule
+        \multicolumn{5}{l}{\textit{Additional Heuristics}}                                                 \\
+        fast\_wclq                & 100.02          & 94.68           & 106.89          & 67/68            \\
+        scc\_walk                 & 99.46           & 81.24           & 106.89          & 63/68            \\
+        mwc\_peel                 & 79.02           & 5.56            & 106.89          & 14/68            \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\textbf{Key Observations:}
+\begin{itemize}
+    \item Exact algorithms (WLMC, TSM-MWC, MaxCliqueWeight variants) achieve 100\%
+          optimality.
+    \item Random Construction surprisingly achieves optimal solutions on all test cases.
+    \item Monte Carlo achieves 91\% optimal rate despite potential for incorrect results.
+    \item Iterative Random Search performs poorly, failing to find valid solutions.
+    \item MWCPeel's aggressive peeling leads to significant quality loss.
+\end{itemize}
+
+\subsection{Execution Time Analysis}
+\label{sec:time-results}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{plots/summary/all_algorithms_time.png}
+    \caption{Execution time comparison across all algorithms (log scale)}
+    \label{fig:all-time}
+\end{figure}
+
+Figure~\ref{fig:all-time} shows execution time as a function of graph size for
+different densities.
+
+\subsubsection{Randomized Algorithm Performance}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/random_construction_time.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/monte_carlo_time.png}
+    \end{minipage}
+    \caption{Execution time: Random Construction (left) vs Monte Carlo (right)}
+    \label{fig:randomized-time}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/las_vegas_time.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/random_greedy_hybrid_time.png}
+    \end{minipage}
+    \caption{Execution time: Las Vegas (left) vs Random Greedy Hybrid (right)}
+    \label{fig:randomized-time2}
+\end{figure}
+
+\subsubsection{Exact Algorithm Performance}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/wlmc_time.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/tsm_mwc_time.png}
+    \end{minipage}
+    \caption{Execution time: WLMC (left) vs TSM-MWC (right)}
+    \label{fig:exact-time}
+\end{figure}
+
+\subsection{Operations Count Analysis}
+\label{sec:operations-results}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{plots/summary/all_algorithms_operations.png}
+    \caption{Basic operations comparison (log scale)}
+    \label{fig:all-operations}
+\end{figure}
+
+The operations count provides insight into algorithmic complexity independent
+of implementation details.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/random_construction_operations.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/mwc_redu_operations.png}
+    \end{minipage}
+    \caption{Operations: Random Construction (left) vs MWCRedu (right)}
+    \label{fig:ops-comparison}
+\end{figure}
+
+\subsection{Scalability Analysis}
+\label{sec:scalability-results}
+
+Table~\ref{tab:scalability} shows performance on larger graphs ($n = 50-100$).
+
+\begin{table}[H]
+    \centering
+    \caption{Scalability on Large Graphs (n=100)}
+    \label{tab:scalability}
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Algorithm}   & \multicolumn{4}{c}{\textbf{Time (s) by Density}}                      \\
+                             & 12.5\%                                           & 25\% & 50\% & 75\% \\
+        \midrule
+        random\_construction & 0.21                                             & 0.31 & 0.62 & 1.73 \\
+        monte\_carlo         & 0.71                                             & 0.87 & 1.41 & 3.07 \\
+        las\_vegas           & 0.24                                             & 0.41 & 0.77 & 2.28 \\
+        mwc\_redu            & 0.01                                             & 0.03 & 0.04 & 0.07 \\
+        wlmc                 & 0.02                                             & 0.04 & 0.08 & 0.15 \\
+        scc\_walk            & 0.75                                             & 1.29 & 2.72 & 7.09 \\
+        fast\_wclq           & 0.03                                             & 0.05 & 0.12 & 0.31 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\textbf{Scalability Observations:}
+\begin{itemize}
+    \item MWCRedu scales best due to aggressive graph reduction.
+    \item WLMC maintains good performance through preprocessing.
+    \item SCCWalk shows poor scaling due to local search overhead.
+    \item All algorithms show increased time with higher density.
+\end{itemize}
+
+\subsection{Quality vs. Performance Trade-off}
+\label{sec:tradeoff}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{plots/quality/precision_summary.png}
+    \caption{Solution precision by algorithm}
+    \label{fig:precision-summary}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{plots/quality/precision_by_density.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \includegraphics[width=\textwidth]{plots/quality/precision_vs_size.png}
+    \end{minipage}
+    \caption{Precision by density (left) and graph size (right)}
+    \label{fig:precision-analysis}
+\end{figure}
+
+\subsection{Best Performers by Category}
+\label{sec:best-performers}
+
+Based on our experimental results:
+
+\begin{itemize}
+    \item \textbf{Randomized:} \texttt{random\_construction} --- achieves optimal solutions with good efficiency
+    \item \textbf{Reduction-Based:} \texttt{max\_clique\_weight} --- optimal solutions with best balance
+    \item \textbf{Exact:} \texttt{wlmc} --- fastest exact algorithm with good scalability
+    \item \textbf{Heuristics:} \texttt{fast\_wclq} --- near-optimal with excellent speed
+\end{itemize}

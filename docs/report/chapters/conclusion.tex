@@ -1,3 +1,70 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
+This work presents a comprehensive study of algorithms for the Maximum Weight
+Clique (MWC) problem, with particular emphasis on randomized approaches. We
+implemented and evaluated 14 algorithms spanning four categories: randomized
+methods, reduction-based techniques, exact branch-and-bound algorithms, and
+additional heuristics.
+
+\subsection{Summary of Findings}
+
+Our experimental evaluation on 364 generated graphs and real-world network
+datasets yields several key insights:
+
+\begin{enumerate}
+    \item \textbf{Randomized algorithms} provide practical solutions for MWC. Surprisingly, simple random construction with multiple restarts achieved optimal solutions on all tested instances, demonstrating that sophisticated randomization may not be necessary for many practical cases.
+
+    \item \textbf{Monte Carlo vs. Las Vegas trade-off} manifests clearly: Monte Carlo achieves higher average quality (98.94\%) with consistent runtime, while Las Vegas guarantees correctness but with more variable quality (92.44\% average, 50.30\% minimum).
+
+    \item \textbf{Exact algorithms} remain practical for medium-sized graphs. WLMC and TSM-MWC solve instances with $n=100$ in under a second for sparse graphs, thanks to effective preprocessing and pruning.
+
+    \item \textbf{Graph density} is the primary factor affecting algorithm performance, with execution times increasing 5-10x from 12.5\% to 75\% density across all algorithms.
+
+    \item \textbf{Not all algorithms are equal:} Iterative Random Search and MWCPeel showed fundamental limitations, achieving poor solution quality even with generous iteration budgets.
+\end{enumerate}
+
+\subsection{Best Algorithms by Scenario}
+
+\begin{itemize}
+    \item \textbf{Best overall:} \texttt{fast\_wclq} --- near-optimal solutions (100.02\% average) with excellent speed
+    \item \textbf{Best randomized:} \texttt{random\_construction} --- simple, fast, surprisingly optimal
+    \item \textbf{Best exact:} \texttt{wlmc} --- good scalability with optimality guarantees
+    \item \textbf{Best for large sparse graphs:} \texttt{mwc\_redu} with greedy solver
+\end{itemize}
+
+\subsection{Contributions}
+
+This work contributes:
+\begin{enumerate}
+    \item A unified implementation framework for 14 MWC algorithms
+    \item Comprehensive benchmarking methodology with reproducible results
+    \item Practical recommendations for algorithm selection
+    \item Analysis of failure modes and algorithm limitations
+\end{enumerate}
+
+\subsection{Future Work}
+
+Several directions merit further investigation:
+
+\begin{enumerate}
+    \item \textbf{Hybrid approaches:} Combining the speed of randomized construction with local search refinement could yield better quality-speed trade-offs.
+
+    \item \textbf{Parallel implementations:} Both randomized algorithms (embarrassingly parallel) and branch-and-bound (work-stealing) can benefit from parallelization.
+
+    \item \textbf{Machine learning integration:} Learning vertex ordering or branching heuristics from solved instances could improve exact algorithm efficiency.
+
+    \item \textbf{Structured graphs:} Testing on application-specific graphs (biological networks, social graphs) may reveal domain-specific algorithm preferences.
+
+    \item \textbf{Dynamic and streaming settings:} Extending algorithms to handle edge insertions/deletions efficiently.
+\end{enumerate}
+
+\subsection{Final Remarks}
+
+The Maximum Weight Clique problem, despite its NP-hard complexity, admits
+practical solutions for graphs of moderate size. Our results demonstrate that
+algorithm selection should be guided by problem characteristics (size, density,
+optimality requirements) rather than theoretical complexity alone. For
+practitioners, \texttt{fast\_wclq} offers an excellent default choice, while
+\texttt{random\_construction} provides a surprisingly effective simple
+baseline.

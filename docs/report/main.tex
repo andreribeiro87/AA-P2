@@ -28,7 +28,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \title{Randomized and Other Algorithms for\\Maximum Weight Clique}
 
 \author{
-  \IEEEauthorblockN{\orcidlinki{André Pedro Ribeiro}{0000-0002-1234-5678}} % TODO: replace with actual ORCID
+  \IEEEauthorblockN{\orcidlinki{André Pedro Ribeiro}{0009-0008-0194-7171}}
   \IEEEauthorblockA{
     \textit{Algoritmos Avançados} \\
     \textit{DETI, Universidade de Aveiro}\\
@@ -40,11 +40,11 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \maketitle
 
 \begin{abstract}
-  ---
+  The Maximum Weight Clique (MWC) problem seeks the subset of mutually adjacent vertices in a weighted graph with maximum total weight. As an NP-hard problem, MWC has motivated diverse algorithmic approaches trading optimality for efficiency. This paper presents a comprehensive study of 14 algorithms for MWC, with emphasis on randomized methods. We implement and evaluate five randomized algorithms (random construction, random-greedy hybrid, iterative search, Monte Carlo, and Las Vegas), three reduction-based approaches, two exact branch-and-bound methods (WLMC, TSM-MWC), and three additional heuristics. Experimental evaluation on 364 generated graphs with varying sizes (10--100 vertices) and densities (12.5\%--75\%) reveals surprising findings: simple random construction achieves optimal solutions on all test cases, while sophisticated algorithms like SCCWalk underperform simpler alternatives. We provide complexity analysis, identify failure modes, and offer practical recommendations. FastWClq emerges as the best overall choice, balancing near-optimal solutions with excellent speed.
 \end{abstract}
 
 \begin{IEEEkeywords}
----
+  Maximum Weight Clique, Randomized Algorithms, Branch-and-Bound, Monte Carlo, Las Vegas, Graph Algorithms, Combinatorial Optimization
 \end{IEEEkeywords}
 
 \input{chapters/introduction}
