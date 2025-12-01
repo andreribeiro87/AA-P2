@@ -1,0 +1,1116 @@
+Found 219 graph files in experiments/graphs_large/zenodo_selection
+Running 1 algorithm(s): random_greedy_hybrid
+
+============================================================
+Running RANDOM_GREEDY_HYBRID
+============================================================
+
+============================================================
+BENCHMARKING 219 GRAPHS - RANDOMIZED ALGORITHM
+============================================================
+
+[1/219] 011.wclq
+Benchmarking graph (randomized algorithm): 121 vertices, 2345 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.0016s)
+  Time: 0.0016s
+
+[2/219] 033.wclq
+Benchmarking graph (randomized algorithm): 309 vertices, 24712 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0049s)
+  Time: 0.0049s
+
+[3/219] 04-14-6-6.wclq
+Benchmarking graph (randomized algorithm): 807 vertices, 186477 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0218s)
+  Time: 0.0218s
+
+[4/219] 042.wclq
+Benchmarking graph (randomized algorithm): 303 vertices, 24812 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0062s)
+  Time: 0.0062s
+
+[5/219] 043.wclq
+Benchmarking graph (randomized algorithm): 302 vertices, 23630 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0040s)
+  Time: 0.0040s
+
+[6/219] 045.wclq
+Benchmarking graph (randomized algorithm): 396 vertices, 44249 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0048s)
+  Time: 0.0048s
+
+[7/219] 047.wclq
+Benchmarking graph (randomized algorithm): 165 vertices, 1649 edges (12.5% density)
+  Running random_greedy_hybrid... ✓ (0.0012s)
+  Time: 0.0012s
+
+[8/219] 051.wclq
+Benchmarking graph (randomized algorithm): 382 vertices, 43482 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0052s)
+  Time: 0.0052s
+
+[9/219] 052.wclq
+Benchmarking graph (randomized algorithm): 402 vertices, 52131 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0102s)
+  Time: 0.0102s
+
+[10/219] 053.wclq
+Benchmarking graph (randomized algorithm): 621 vertices, 136803 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0201s)
+  Time: 0.0201s
+
+[11/219] 055.wclq
+Benchmarking graph (randomized algorithm): 433 vertices, 54213 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0065s)
+  Time: 0.0065s
+
+[12/219] 056.wclq
+Benchmarking graph (randomized algorithm): 538 vertices, 84418 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0073s)
+  Time: 0.0073s
+
+[13/219] 057.wclq
+Benchmarking graph (randomized algorithm): 437 vertices, 61809 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0092s)
+  Time: 0.0092s
+
+[14/219] 058.wclq
+Benchmarking graph (randomized algorithm): 492 vertices, 77170 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0137s)
+  Time: 0.0137s
+
+[15/219] 059.wclq
+Benchmarking graph (randomized algorithm): 382 vertices, 44889 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0068s)
+  Time: 0.0068s
+
+[16/219] 06-16-8-8.wclq
+Benchmarking graph (randomized algorithm): 2246 vertices, 349235 edges (12.5% density)
+  Running random_greedy_hybrid... ✓ (0.0264s)
+  Time: 0.0264s
+
+[17/219] 060.wclq
+Benchmarking graph (randomized algorithm): 314 vertices, 32011 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0057s)
+  Time: 0.0057s
+
+[18/219] 061.wclq
+Benchmarking graph (randomized algorithm): 571 vertices, 111095 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0161s)
+  Time: 0.0161s
+
+[19/219] 062.wclq
+Benchmarking graph (randomized algorithm): 432 vertices, 64039 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0096s)
+  Time: 0.0096s
+
+[20/219] 063.wclq
+Benchmarking graph (randomized algorithm): 848 vertices, 248837 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0260s)
+  Time: 0.0260s
+
+[21/219] 064.wclq
+Benchmarking graph (randomized algorithm): 846 vertices, 247224 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0328s)
+  Time: 0.0328s
+
+[22/219] 065.wclq
+Benchmarking graph (randomized algorithm): 898 vertices, 277099 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0267s)
+  Time: 0.0267s
+
+[23/219] 066.wclq
+Benchmarking graph (randomized algorithm): 463 vertices, 72962 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0111s)
+  Time: 0.0111s
+
+[24/219] 067.wclq
+Benchmarking graph (randomized algorithm): 445 vertices, 66359 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0099s)
+  Time: 0.0099s
+
+[25/219] 068.wclq
+Benchmarking graph (randomized algorithm): 497 vertices, 84823 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0134s)
+  Time: 0.0134s
+
+[26/219] 069.wclq
+Benchmarking graph (randomized algorithm): 412 vertices, 55344 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0071s)
+  Time: 0.0071s
+
+[27/219] 070.wclq
+Benchmarking graph (randomized algorithm): 447 vertices, 68322 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0100s)
+  Time: 0.0100s
+
+[28/219] 071.wclq
+Benchmarking graph (randomized algorithm): 1595 vertices, 929841 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.1136s)
+  Time: 0.1136s
+
+[29/219] 072.wclq
+Benchmarking graph (randomized algorithm): 718 vertices, 174378 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0246s)
+  Time: 0.0246s
+
+[30/219] 073.wclq
+Benchmarking graph (randomized algorithm): 1279 vertices, 609025 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0798s)
+  Time: 0.0798s
+
+[31/219] 074.wclq
+Benchmarking graph (randomized algorithm): 1173 vertices, 424310 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0442s)
+  Time: 0.0442s
+
+[32/219] 075.wclq
+Benchmarking graph (randomized algorithm): 642 vertices, 138109 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0229s)
+  Time: 0.0229s
+
+[33/219] 076.wclq
+Benchmarking graph (randomized algorithm): 793 vertices, 229650 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0407s)
+  Time: 0.0407s
+
+[34/219] 077.wclq
+Benchmarking graph (randomized algorithm): 420 vertices, 61896 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0127s)
+  Time: 0.0127s
+
+[35/219] 078.wclq
+Benchmarking graph (randomized algorithm): 844 vertices, 233435 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0296s)
+  Time: 0.0296s
+
+[36/219] 079.wclq
+Benchmarking graph (randomized algorithm): 985 vertices, 341000 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0521s)
+  Time: 0.0521s
+
+[37/219] 08-17-6-6.wclq
+Benchmarking graph (randomized algorithm): 558 vertices, 95583 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0225s)
+  Time: 0.0225s
+
+[38/219] 080.wclq
+Benchmarking graph (randomized algorithm): 870 vertices, 228866 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0202s)
+  Time: 0.0202s
+
+[39/219] 081.wclq
+Benchmarking graph (randomized algorithm): 2646 vertices, 2744084 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.3044s)
+  Time: 0.3044s
+
+[40/219] 082.wclq
+Benchmarking graph (randomized algorithm): 3817 vertices, 5570436 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.5375s)
+  Time: 0.5375s
+
+[41/219] 083.wclq
+Benchmarking graph (randomized algorithm): 2385 vertices, 2124108 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.2043s)
+  Time: 0.2043s
+
+[42/219] 084.wclq
+Benchmarking graph (randomized algorithm): 1718 vertices, 1121712 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.1313s)
+  Time: 0.1313s
+
+[43/219] 085.wclq
+Benchmarking graph (randomized algorithm): 2633 vertices, 2499564 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.2359s)
+  Time: 0.2359s
+
+[44/219] 086.wclq
+Benchmarking graph (randomized algorithm): 1799 vertices, 1136389 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0922s)
+  Time: 0.0922s
+
+[45/219] 087.wclq
+Benchmarking graph (randomized algorithm): 2828 vertices, 3029132 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.3183s)
+  Time: 0.3183s
+
+[46/219] 088.wclq
+Benchmarking graph (randomized algorithm): 2415 vertices, 2140803 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.3064s)
+  Time: 0.3064s
+
+[47/219] 089.wclq
+Benchmarking graph (randomized algorithm): 1545 vertices, 824657 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0775s)
+  Time: 0.0775s
+
+[48/219] 090.wclq
+Benchmarking graph (randomized algorithm): 755 vertices, 199399 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0313s)
+  Time: 0.0313s
+
+[49/219] 091.wclq
+Benchmarking graph (randomized algorithm): 4228 vertices, 7164310 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.6497s)
+  Time: 0.6497s
+
+[50/219] 092.wclq
+Benchmarking graph (randomized algorithm): 3073 vertices, 3765150 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.5513s)
+  Time: 0.5513s
+
+[51/219] 093.wclq
+Benchmarking graph (randomized algorithm): 3149 vertices, 3801449 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.2671s)
+  Time: 0.2671s
+
+[52/219] 094.wclq
+Benchmarking graph (randomized algorithm): 2758 vertices, 2947278 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.2585s)
+  Time: 0.2585s
+
+[53/219] 095.wclq
+Benchmarking graph (randomized algorithm): 3158 vertices, 4008882 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4544s)
+  Time: 0.4544s
+
+[54/219] 096.wclq
+Benchmarking graph (randomized algorithm): 3128 vertices, 3871328 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4438s)
+  Time: 0.4438s
+
+[55/219] 097.wclq
+Benchmarking graph (randomized algorithm): 3349 vertices, 4500256 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4624s)
+  Time: 0.4624s
+
+[56/219] 098.wclq
+Benchmarking graph (randomized algorithm): 2761 vertices, 3053602 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4015s)
+  Time: 0.4015s
+
+[57/219] 099.wclq
+Benchmarking graph (randomized algorithm): 3369 vertices, 4515263 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4659s)
+  Time: 0.4659s
+
+[58/219] 10-19-8-8.wclq
+Benchmarking graph (randomized algorithm): 2124 vertices, 595392 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.0462s)
+  Time: 0.0462s
+
+[59/219] 100.wclq
+Benchmarking graph (randomized algorithm): 3165 vertices, 3958769 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4111s)
+  Time: 0.4111s
+
+[60/219] 101.wclq
+Benchmarking graph (randomized algorithm): 4741 vertices, 9292861 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.8846s)
+  Time: 0.8846s
+
+[61/219] 102.wclq
+Benchmarking graph (randomized algorithm): 3717 vertices, 5718873 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.7823s)
+  Time: 0.7823s
+
+[62/219] 103.wclq
+Benchmarking graph (randomized algorithm): 4673 vertices, 9031630 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.9352s)
+  Time: 0.9352s
+
+[63/219] 104.wclq
+Benchmarking graph (randomized algorithm): 4846 vertices, 9703451 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.0006s)
+  Time: 1.0006s
+
+[64/219] 105.wclq
+Benchmarking graph (randomized algorithm): 4663 vertices, 8883627 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.9940s)
+  Time: 0.9940s
+
+[65/219] 106.wclq
+Benchmarking graph (randomized algorithm): 3790 vertices, 5861347 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.5687s)
+  Time: 0.5687s
+
+[66/219] 107.wclq
+Benchmarking graph (randomized algorithm): 5207 vertices, 11160977 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.9779s)
+  Time: 0.9779s
+
+[67/219] 108.wclq
+Benchmarking graph (randomized algorithm): 5529 vertices, 12573085 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.0547s)
+  Time: 1.0547s
+
+[68/219] 109.wclq
+Benchmarking graph (randomized algorithm): 4490 vertices, 8375807 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.0638s)
+  Time: 1.0638s
+
+[69/219] 11-20-6-5.wclq
+Benchmarking graph (randomized algorithm): 1302 vertices, 344541 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0417s)
+  Time: 0.0417s
+
+[70/219] 110.wclq
+Benchmarking graph (randomized algorithm): 4802 vertices, 9503394 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.9725s)
+  Time: 0.9725s
+
+[71/219] 111.wclq
+Benchmarking graph (randomized algorithm): 8953 vertices, 32967548 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (3.7555s)
+  Time: 3.7555s
+
+[72/219] 112.wclq
+Benchmarking graph (randomized algorithm): 8288 vertices, 28128307 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (5.9258s)
+  Time: 5.9258s
+
+[73/219] 113.wclq
+Benchmarking graph (randomized algorithm): 6870 vertices, 19717710 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (2.3422s)
+  Time: 2.3422s
+
+[74/219] 114.wclq
+Benchmarking graph (randomized algorithm): 8169 vertices, 27024377 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (2.9510s)
+  Time: 2.9510s
+
+[75/219] 115.wclq
+Benchmarking graph (randomized algorithm): 4934 vertices, 9502933 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.2726s)
+  Time: 1.2726s
+
+[76/219] 116.wclq
+Benchmarking graph (randomized algorithm): 5451 vertices, 12188962 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.5793s)
+  Time: 1.5793s
+
+[77/219] 117.wclq
+Benchmarking graph (randomized algorithm): 4979 vertices, 9977172 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.6235s)
+  Time: 1.6235s
+
+[78/219] 118.wclq
+Benchmarking graph (randomized algorithm): 7592 vertices, 24061562 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (2.8880s)
+  Time: 2.8880s
+
+[79/219] 119.wclq
+Benchmarking graph (randomized algorithm): 5218 vertices, 11275173 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.9493s)
+  Time: 1.9493s
+
+[80/219] 12-20-6-6.wclq
+Benchmarking graph (randomized algorithm): 1490 vertices, 428359 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0329s)
+  Time: 0.0329s
+
+[81/219] 120.wclq
+Benchmarking graph (randomized algorithm): 8072 vertices, 27359959 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (3.0749s)
+  Time: 3.0749s
+
+[82/219] 13-20-8-10.wclq
+Benchmarking graph (randomized algorithm): 2510 vertices, 590958 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.0444s)
+  Time: 0.0444s
+
+[83/219] 14-21-10-9.wclq
+Benchmarking graph (randomized algorithm): 5098 vertices, 2867431 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.2193s)
+  Time: 0.2193s
+
+[84/219] 15-22-10-10.wclq
+Benchmarking graph (randomized algorithm): 8914 vertices, 2694426 edges (12.5% density)
+  Running random_greedy_hybrid... ✓ (0.2329s)
+  Time: 0.2329s
+
+[85/219] C1000.9.clq
+Benchmarking graph (randomized algorithm): 1000 vertices, 450079 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.5604s)
+  Time: 0.5604s
+
+[86/219] C2000.5.clq
+Benchmarking graph (randomized algorithm): 2000 vertices, 999836 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0803s)
+  Time: 0.0803s
+
+[87/219] C2000.9.clq
+Benchmarking graph (randomized algorithm): 2000 vertices, 1799532 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (2.4197s)
+  Time: 2.4197s
+
+[88/219] C4000.5.clq
+Benchmarking graph (randomized algorithm): 4000 vertices, 4000268 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.2900s)
+  Time: 0.2900s
+
+[89/219] C500.9.clq
+Benchmarking graph (randomized algorithm): 500 vertices, 112332 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.1798s)
+  Time: 0.1798s
+
+[90/219] DSJC1000_5.clq
+Benchmarking graph (randomized algorithm): 1000 vertices, 249826 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0330s)
+  Time: 0.0330s
+
+[91/219] DSJC500_5.clq
+Benchmarking graph (randomized algorithm): 500 vertices, 62624 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0109s)
+  Time: 0.0109s
+
+[92/219] MANN_a45.clq
+Benchmarking graph (randomized algorithm): 1035 vertices, 533115 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (37.1561s)
+  Time: 37.1561s
+
+[93/219] MANN_a81.clq
+Benchmarking graph (randomized algorithm): 3321 vertices, 5506380 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1586.7321s)
+  Time: 1586.7321s
+
+[94/219] brock400_3.clq
+Benchmarking graph (randomized algorithm): 400 vertices, 59681 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0326s)
+  Time: 0.0326s
+
+[95/219] brock800_1.clq
+Benchmarking graph (randomized algorithm): 800 vertices, 207505 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0458s)
+  Time: 0.0458s
+
+[96/219] brock800_2.clq
+Benchmarking graph (randomized algorithm): 800 vertices, 208166 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0458s)
+  Time: 0.0458s
+
+[97/219] brock800_3.clq
+Benchmarking graph (randomized algorithm): 800 vertices, 207333 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0452s)
+  Time: 0.0452s
+
+[98/219] brock800_4.clq
+Benchmarking graph (randomized algorithm): 800 vertices, 207643 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0463s)
+  Time: 0.0463s
+
+[99/219] c-fat200-1.clq
+Benchmarking graph (randomized algorithm): 200 vertices, 1534 edges (12.5% density)
+  Running random_greedy_hybrid... ✓ (0.0034s)
+  Time: 0.0034s
+
+[100/219] c-fat200-2.clq
+Benchmarking graph (randomized algorithm): 200 vertices, 3235 edges (12.5% density)
+  Running random_greedy_hybrid... ✓ (0.0079s)
+  Time: 0.0079s
+
+[101/219] c-fat500-1.clq
+Benchmarking graph (randomized algorithm): 500 vertices, 4459 edges (12.5% density)
+  Running random_greedy_hybrid... ✓ (0.0099s)
+  Time: 0.0099s
+
+[102/219] c-fat500-10.clq
+Benchmarking graph (randomized algorithm): 500 vertices, 46627 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.4580s)
+  Time: 0.4580s
+
+[103/219] c-fat500-2.clq
+Benchmarking graph (randomized algorithm): 500 vertices, 9139 edges (12.5% density)
+  Running random_greedy_hybrid... ✓ (0.0210s)
+  Time: 0.0210s
+
+[104/219] c-fat500-5.clq
+Benchmarking graph (randomized algorithm): 500 vertices, 23191 edges (12.5% density)
+  Running random_greedy_hybrid... ✓ (0.0907s)
+  Time: 0.0907s
+
+[105/219] gen400_p0.9_65.clq
+Benchmarking graph (randomized algorithm): 400 vertices, 71820 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.1285s)
+  Time: 0.1285s
+
+[106/219] hamming10-2.clq
+Benchmarking graph (randomized algorithm): 1024 vertices, 518656 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (22.7838s)
+  Time: 22.7838s
+
+[107/219] hamming10-4.clq
+Benchmarking graph (randomized algorithm): 1024 vertices, 434176 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.3913s)
+  Time: 0.3913s
+
+[108/219] johnson32-2-4.clq
+Benchmarking graph (randomized algorithm): 496 vertices, 107880 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0642s)
+  Time: 0.0642s
+
+[109/219] keller5.clq
+Benchmarking graph (randomized algorithm): 776 vertices, 225990 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0824s)
+  Time: 0.0824s
+
+[110/219] keller6.clq
+Benchmarking graph (randomized algorithm): 3361 vertices, 4619898 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (2.2244s)
+  Time: 2.2244s
+
+[111/219] p_hat1000-1.clq
+Benchmarking graph (randomized algorithm): 1000 vertices, 122253 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.0194s)
+  Time: 0.0194s
+
+[112/219] p_hat1000-2.clq
+Benchmarking graph (randomized algorithm): 1000 vertices, 244799 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.1205s)
+  Time: 0.1205s
+
+[113/219] p_hat1000-3.clq
+Benchmarking graph (randomized algorithm): 1000 vertices, 371746 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.2638s)
+  Time: 0.2638s
+
+[114/219] p_hat1500-1.clq
+Benchmarking graph (randomized algorithm): 1500 vertices, 284923 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.0316s)
+  Time: 0.0316s
+
+[115/219] p_hat1500-2.clq
+Benchmarking graph (randomized algorithm): 1500 vertices, 568960 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.2352s)
+  Time: 0.2352s
+
+[116/219] p_hat1500-3.clq
+Benchmarking graph (randomized algorithm): 1500 vertices, 847244 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.7248s)
+  Time: 0.7248s
+
+[117/219] p_hat300-1.clq
+Benchmarking graph (randomized algorithm): 300 vertices, 10933 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.0026s)
+  Time: 0.0026s
+
+[118/219] p_hat500-1.clq
+Benchmarking graph (randomized algorithm): 500 vertices, 31569 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.0063s)
+  Time: 0.0063s
+
+[119/219] p_hat500-2.clq
+Benchmarking graph (randomized algorithm): 500 vertices, 62946 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0290s)
+  Time: 0.0290s
+
+[120/219] p_hat500-3.clq
+Benchmarking graph (randomized algorithm): 500 vertices, 93800 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0780s)
+  Time: 0.0780s
+
+[121/219] p_hat700-1.clq
+Benchmarking graph (randomized algorithm): 700 vertices, 60999 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.0098s)
+  Time: 0.0098s
+
+[122/219] p_hat700-2.clq
+Benchmarking graph (randomized algorithm): 700 vertices, 121728 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0523s)
+  Time: 0.0523s
+
+[123/219] p_hat700-3.clq
+Benchmarking graph (randomized algorithm): 700 vertices, 183010 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.1692s)
+  Time: 0.1692s
+
+[124/219] ref-10-20.clq
+Benchmarking graph (randomized algorithm): 150 vertices, 3646 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.0010s)
+  Time: 0.0010s
+
+[125/219] ref-20-20-00.clq
+Benchmarking graph (randomized algorithm): 300 vertices, 14016 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.0023s)
+  Time: 0.0023s
+
+[126/219] ref-20-20-01.clq
+Benchmarking graph (randomized algorithm): 300 vertices, 15389 edges (25.0% density)
+  Running random_greedy_hybrid... ✓ (0.0041s)
+  Time: 0.0041s
+
+[127/219] ref-20-40-02.clq
+Benchmarking graph (randomized algorithm): 300 vertices, 28091 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0067s)
+  Time: 0.0067s
+
+[128/219] ref-20-40-04.clq
+Benchmarking graph (randomized algorithm): 300 vertices, 26903 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0061s)
+  Time: 0.0061s
+
+[129/219] ref-20-40-07.clq
+Benchmarking graph (randomized algorithm): 300 vertices, 26176 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0115s)
+  Time: 0.0115s
+
+[130/219] ref-25-25-00.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 31814 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0046s)
+  Time: 0.0046s
+
+[131/219] ref-25-25-01.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 32430 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0049s)
+  Time: 0.0049s
+
+[132/219] ref-25-25-02.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 32379 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0047s)
+  Time: 0.0047s
+
+[133/219] ref-25-25-03.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 31483 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0049s)
+  Time: 0.0049s
+
+[134/219] ref-25-25-04.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 32966 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0050s)
+  Time: 0.0050s
+
+[135/219] ref-25-25-05.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 28641 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0041s)
+  Time: 0.0041s
+
+[136/219] ref-25-25-06.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 33642 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0050s)
+  Time: 0.0050s
+
+[137/219] ref-25-25-07.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 31661 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0046s)
+  Time: 0.0046s
+
+[138/219] ref-25-25-08.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 33136 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0051s)
+  Time: 0.0051s
+
+[139/219] ref-25-25-09.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 30915 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0050s)
+  Time: 0.0050s
+
+[140/219] ref-25-30-00.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 36617 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0064s)
+  Time: 0.0064s
+
+[141/219] ref-25-30-01.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 36650 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0060s)
+  Time: 0.0060s
+
+[142/219] ref-25-30-02.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 37541 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0065s)
+  Time: 0.0065s
+
+[143/219] ref-25-30-03.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 36709 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0063s)
+  Time: 0.0063s
+
+[144/219] ref-25-30-04.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 38227 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0064s)
+  Time: 0.0064s
+
+[145/219] ref-25-30-05.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 38468 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0062s)
+  Time: 0.0062s
+
+[146/219] ref-25-30-06.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 36444 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0056s)
+  Time: 0.0056s
+
+[147/219] ref-25-30-07.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 37158 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0058s)
+  Time: 0.0058s
+
+[148/219] ref-25-30-08.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 36681 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0055s)
+  Time: 0.0055s
+
+[149/219] ref-25-30-09.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 37438 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0060s)
+  Time: 0.0060s
+
+[150/219] ref-25-35-00.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 43331 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0086s)
+  Time: 0.0086s
+
+[151/219] ref-25-35-01.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 41546 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0077s)
+  Time: 0.0077s
+
+[152/219] ref-25-35-02.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 40049 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0074s)
+  Time: 0.0074s
+
+[153/219] ref-25-35-03.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 41514 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0076s)
+  Time: 0.0076s
+
+[154/219] ref-25-35-04.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 40964 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0077s)
+  Time: 0.0077s
+
+[155/219] ref-25-35-05.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 39217 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0066s)
+  Time: 0.0066s
+
+[156/219] ref-25-35-06.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 41684 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0076s)
+  Time: 0.0076s
+
+[157/219] ref-25-35-07.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 40990 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0096s)
+  Time: 0.0096s
+
+[158/219] ref-25-35-08.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 39828 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0071s)
+  Time: 0.0071s
+
+[159/219] ref-25-35-09.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 41403 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0074s)
+  Time: 0.0074s
+
+[160/219] ref-25-40-00.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 41719 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0080s)
+  Time: 0.0080s
+
+[161/219] ref-25-40-01.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 43105 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0084s)
+  Time: 0.0084s
+
+[162/219] ref-25-40-02.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 44169 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0091s)
+  Time: 0.0091s
+
+[163/219] ref-25-40-03.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 44334 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0093s)
+  Time: 0.0093s
+
+[164/219] ref-25-40-04.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 43510 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0087s)
+  Time: 0.0087s
+
+[165/219] ref-25-40-05.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 44291 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0095s)
+  Time: 0.0095s
+
+[166/219] ref-25-40-06.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 44054 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0090s)
+  Time: 0.0090s
+
+[167/219] ref-25-40-07.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 44575 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0099s)
+  Time: 0.0099s
+
+[168/219] ref-25-40-08.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 44472 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0091s)
+  Time: 0.0091s
+
+[169/219] ref-25-40-09.clq
+Benchmarking graph (randomized algorithm): 375 vertices, 41965 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0081s)
+  Time: 0.0081s
+
+[170/219] ref-30-30-00.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 52940 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0070s)
+  Time: 0.0070s
+
+[171/219] ref-30-30-01.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 56181 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0084s)
+  Time: 0.0084s
+
+[172/219] ref-30-30-02.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 52029 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0071s)
+  Time: 0.0071s
+
+[173/219] ref-30-30-03.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 52839 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0080s)
+  Time: 0.0080s
+
+[174/219] ref-30-30-04.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 54895 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0081s)
+  Time: 0.0081s
+
+[175/219] ref-30-30-05.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 53578 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0074s)
+  Time: 0.0074s
+
+[176/219] ref-30-30-06.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 55497 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0078s)
+  Time: 0.0078s
+
+[177/219] ref-30-30-07.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 53962 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0082s)
+  Time: 0.0082s
+
+[178/219] ref-30-30-08.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 53573 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0077s)
+  Time: 0.0077s
+
+[179/219] ref-30-30-09.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 53751 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0114s)
+  Time: 0.0114s
+
+[180/219] ref-30-40-00.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 64754 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0122s)
+  Time: 0.0122s
+
+[181/219] ref-30-40-01.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 63609 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0098s)
+  Time: 0.0098s
+
+[182/219] ref-30-40-02.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 61354 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0102s)
+  Time: 0.0102s
+
+[183/219] ref-30-40-03.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 63016 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0151s)
+  Time: 0.0151s
+
+[184/219] ref-30-40-04.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 61838 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0114s)
+  Time: 0.0114s
+
+[185/219] ref-30-40-05.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 62909 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0103s)
+  Time: 0.0103s
+
+[186/219] ref-30-40-06.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 61026 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0108s)
+  Time: 0.0108s
+
+[187/219] ref-30-40-07.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 62752 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0125s)
+  Time: 0.0125s
+
+[188/219] ref-30-40-08.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 63546 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0108s)
+  Time: 0.0108s
+
+[189/219] ref-30-40-09.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 64853 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0114s)
+  Time: 0.0114s
+
+[190/219] ref-30-50.clq
+Benchmarking graph (randomized algorithm): 450 vertices, 70716 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0224s)
+  Time: 0.0224s
+
+[191/219] ref-60-1000.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 391858 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.6659s)
+  Time: 1.6659s
+
+[192/219] ref-60-10000.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 397350 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (2.2529s)
+  Time: 2.2529s
+
+[193/219] ref-60-230-0.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 370154 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.3870s)
+  Time: 0.3870s
+
+[194/219] ref-60-230-1.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 370454 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4421s)
+  Time: 0.4421s
+
+[195/219] ref-60-230-2.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 374346 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4670s)
+  Time: 0.4670s
+
+[196/219] ref-60-230-3.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 370616 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4820s)
+  Time: 0.4820s
+
+[197/219] ref-60-230-4.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 370010 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4141s)
+  Time: 0.4141s
+
+[198/219] ref-60-230-5.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 369890 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4035s)
+  Time: 0.4035s
+
+[199/219] ref-60-230-6.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 369534 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.3861s)
+  Time: 0.3861s
+
+[200/219] ref-60-230-7.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 368646 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4369s)
+  Time: 0.4369s
+
+[201/219] ref-60-230-8.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 369270 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4458s)
+  Time: 0.4458s
+
+[202/219] ref-60-230-9.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 370608 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.4511s)
+  Time: 0.4511s
+
+[203/219] ref-60-300.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 377738 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.7079s)
+  Time: 0.7079s
+
+[204/219] ref-60-500-0.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 384730 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.9807s)
+  Time: 0.9807s
+
+[205/219] ref-60-500-1.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 385294 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.0403s)
+  Time: 1.0403s
+
+[206/219] ref-60-500-2.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 384002 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.9526s)
+  Time: 0.9526s
+
+[207/219] ref-60-500-3.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 386586 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.2398s)
+  Time: 1.2398s
+
+[208/219] ref-60-500-4.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 382258 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.9114s)
+  Time: 0.9114s
+
+[209/219] ref-60-500-5.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 385986 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.2571s)
+  Time: 1.2571s
+
+[210/219] ref-60-500-6.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 386050 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.2521s)
+  Time: 1.2521s
+
+[211/219] ref-60-500-7.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 383794 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.0290s)
+  Time: 1.0290s
+
+[212/219] ref-60-500-8.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 385658 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.9521s)
+  Time: 0.9521s
+
+[213/219] ref-60-500-9.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 385358 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.0836s)
+  Time: 1.0836s
+
+[214/219] ref-60-500.clq
+Benchmarking graph (randomized algorithm): 900 vertices, 384894 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (1.0748s)
+  Time: 1.0748s
+
+[215/219] san1000.clq
+Benchmarking graph (randomized algorithm): 1000 vertices, 250500 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0301s)
+  Time: 0.0301s
+
+[216/219] san400_0.5_1.clq
+Benchmarking graph (randomized algorithm): 400 vertices, 39900 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0078s)
+  Time: 0.0078s
+
+[217/219] san400_0.7_1.clq
+Benchmarking graph (randomized algorithm): 400 vertices, 55860 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0369s)
+  Time: 0.0369s
+
+[218/219] san400_0.7_2.clq
+Benchmarking graph (randomized algorithm): 400 vertices, 55860 edges (75.0% density)
+  Running random_greedy_hybrid... ✓ (0.0253s)
+  Time: 0.0253s
+
+[219/219] sanr400_0.5.clq
+Benchmarking graph (randomized algorithm): 400 vertices, 39984 edges (50.0% density)
+  Running random_greedy_hybrid... ✓ (0.0088s)
+  Time: 0.0088s
+
+✓ Results saved to experiments/results_complete/large_graphs/scalability/random_greedy_hybrid/random_greedy_hybrid/benchmark_results.csv
+✓ Results saved to experiments/results_complete/large_graphs/scalability/random_greedy_hybrid/random_greedy_hybrid/benchmark_results.json
+✓ random_greedy_hybrid: Processed 219 graphs
+
+============================================================
+BENCHMARK SUMMARY
+============================================================
+  random_greedy_hybrid: 219 graphs processed
+
+Results saved to: experiments/results_complete/large_graphs/scalability/random_greedy_hybrid

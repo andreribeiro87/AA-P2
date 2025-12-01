@@ -1,0 +1,26 @@
+\begin{table}[H]
+    \centering
+    \caption{Experimental vs. Theoretical Complexity Validation}
+    \label{tab:exp-vs-formal}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Algorithm}        & \textbf{Theoretical} & \textbf{Fitted Model}                        & $R^2$ \\
+        \midrule
+        random\_construction      & $O(Tn^2)$            & $T(n) = 7.68e-05 \times n²$                  & 0.90  \\
+        random\_greedy\_hybrid    & $O(Tn^2)$            & $T(n) = 2.03e-07 \times n²$                  & 0.78  \\
+        iterative\_random\_search & $O(Tn^2)$            & $T(n) = 1.32e-05 \times n²$                  & 0.42  \\
+        monte\_carlo              & $O(Tn^2)$            & $T(n) = 1.80e-04 \times n²$                  & 0.87  \\
+        las\_vegas                & $O(Tn^2)$            & $T(n) = 7.86e-05 \times n²$                  & 0.83  \\
+        greedy                    & $O(n^2)$             & $T(n) = 1.38e-06 \times n²$                  & 0.97  \\
+        exhaustive                & $O(2ⁿ \times n)$     & $T(n) = 5.05e-08 \times 2ⁿ \times n$         & 0.97  \\
+        wlmc                      & $O(2^k \times n^2)$  & $T(n) = 1.40e-06 \times 2^(0.02n) \times n²$ & 0.96  \\
+        tsm\_mwc                  & $O(2^k \times n^2)$  & $T(n) = 1.83e-06 \times 2^(0.02n) \times n²$ & 0.97  \\
+        mwc\_redu                 & $O(Tn^2)$            & $T(n) = 3.84e-06 \times n²$                  & 0.90  \\
+        max\_clique\_weight       & $O(2^k \times n^2)$  & $T(n) = 6.15e-07 \times 2^(0.03n) \times n²$ & 0.96  \\
+        max\_clique\_dyn\_weight  & $O(2^k \times n^2)$  & $T(n) = 6.40e-07 \times 2^(0.03n) \times n²$ & 0.95  \\
+        fast\_wclq                & $O(Tn^2)$            & $T(n) = 1.04e-04 \times n²$                  & 0.65  \\
+        scc\_walk                 & $O(Tn^2)$            & $T(n) = 2.67e-04 \times n²$                  & 0.89  \\
+        mwc\_peel                 & $O(Tn^2)$            & $T(n) = 1.07e-05 \times n²$                  & 0.98  \\
+        \bottomrule
+    \end{tabular}
+\end{table}

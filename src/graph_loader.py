@@ -59,8 +59,9 @@ class BenchmarkGraphLoader:
         DIMACS format for maximum clique problems:
         - Lines starting with 'c' are comments
         - Line starting with 'p edge' contains problem info: p edge n_vertices n_edges
+        - Lines starting with 'n' contain vertex weights: n vertex weight
         - Lines starting with 'e' contain edges: e v1 v2
-        - Weights may be in separate lines or comments
+        - Weights may also be in separate lines or comments
 
         Args:
             filepath: Path to DIMACS file
@@ -100,6 +101,17 @@ class BenchmarkGraphLoader:
                         # Initialize graph with vertices
                         for v in range(1, n_vertices + 1):
                             graph.add_node(v - 1)  # Convert to 0-indexed
+
+                elif line.startswith("n"):
+                    # Node weight line: n vertex weight
+                    parts = line.split()
+                    if len(parts) >= 3:
+                        try:
+                            vertex = int(parts[1])
+                            weight = float(parts[2])
+                            weights[vertex] = weight
+                        except (ValueError, IndexError):
+                            pass
 
                 elif line.startswith("e"):
                     # Edge line: e v1 v2
@@ -410,7 +422,7 @@ class BenchmarkGraphLoader:
             all_files = list(directory.glob(pattern))
 
         # Filter for common graph file extensions
-        extensions = {".graphml", ".clq", ".dimacs", ".col", ".txt"}
+        extensions = {".graphml", ".clq", ".wclq", ".dimacs", ".col", ".txt"}
 
         # Filenames to exclude (documentation/metadata files)
         excluded_filenames = {"readme.txt", "license.txt", "changelog.txt", "notes.txt"}

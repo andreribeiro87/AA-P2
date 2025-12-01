@@ -525,11 +525,14 @@ class MaxWeightCliqueSolver:
         Use size-based iteration: start with larger sizes, gradually test smaller sizes.
 
         Args:
-            max_iterations: Maximum total iterations (None for unlimited)
+            max_iterations: Maximum total iterations (default: n * 100)
             time_limit: Maximum time in seconds (None for unlimited)
             initial_size_strategy: "largest" (start from n) or "half" (start from n/2)
             size_decrement: How much to decrease size by when moving to next size
-            max_configs_per_size: Maximum configurations to test per size (None for unlimited)
+            max_configs_per_size: Maximum configs to test per size (default: n * 10)
+            seed: Random seed for reproducibility (None for random)
+            size_decrement: How much to decrease size by when moving to next size
+            max_configs_per_size: Maximum configs to test per size (default: n * 10)
             seed: Random seed for reproducibility (None for random)
 
         Returns:
@@ -539,6 +542,15 @@ class MaxWeightCliqueSolver:
             random.seed(seed)
 
         nodes = list(self.graph.nodes())
+
+        # Set sensible defaults to prevent infinite loops
+        if max_iterations is None and time_limit is None:
+            max_iterations = self.n_vertices * 100  # Default: 100 iterations per vertex
+        if max_configs_per_size is None:
+            max_configs_per_size = max(
+                10, self.n_vertices * 10
+            )  # Default: 10 configs per size per vertex
+
         tested_configs: set[frozenset[int]] = set()
         max_clique: set[int] = set()
         max_weight = 0.0
@@ -1577,10 +1589,6 @@ class MaxWeightCliqueSolver:
             use_reduction=use_reduction,
             reduction_rules=reduction_rules,
         )
-
-    # =========================================================================
-    # NEW ALGORITHMS FROM MWC LITERATURE
-    # =========================================================================
 
     def wlmc(
         self,

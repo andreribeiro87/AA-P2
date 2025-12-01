@@ -880,7 +880,12 @@ def cmd_compare_quality(
             data = json.load(f)
         for item in data:
             if item.get("exact_weight") is not None:
-                key = (item["n_vertices"], item["edge_density_percent"])
+                # Use (n_vertices, n_edges, edge_density_percent) as key for unique identification
+                key = (
+                    item["n_vertices"],
+                    item["n_edges"],
+                    item["edge_density_percent"],
+                )
                 exhaustive_data[key] = {
                     "weight": item["exact_weight"],
                     "time": item.get("exact_time_seconds", 0),
@@ -920,7 +925,8 @@ def cmd_compare_quality(
             else:
                 continue
 
-            key = (item["n_vertices"], item["edge_density_percent"])
+            # Use (n_vertices, n_edges, edge_density_percent) as key for unique identification
+            key = (item["n_vertices"], item["n_edges"], item["edge_density_percent"])
             if key in exhaustive_data:
                 exact_weight = exhaustive_data[key]["weight"]
                 precision = (weight / exact_weight * 100) if exact_weight > 0 else 0

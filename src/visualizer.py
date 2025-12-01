@@ -790,10 +790,10 @@ class ResultsVisualizer:
         # Get unique algorithms
         algorithms = set(r.get("algorithm") for r in results)
 
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"GENERATING INDIVIDUAL ALGORITHM CHARTS")
         print(f"Found {len(algorithms)} algorithms")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
 
         for alg in sorted(algorithms):
             # Time chart
@@ -835,10 +835,10 @@ class ResultsVisualizer:
             # Generate meaningful pairs based on categories
             comparison_pairs = ResultsVisualizer._generate_comparison_pairs(algorithms)
 
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"GENERATING PAIRWISE COMPARISON CHARTS")
         print(f"Comparing {len(comparison_pairs)} algorithm pairs")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
 
         for alg1, alg2 in comparison_pairs:
             if alg1 not in algorithms or alg2 not in algorithms:
@@ -1140,9 +1140,9 @@ class ResultsVisualizer:
         """
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print("GENERATING ALL VISUALIZATIONS")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
 
         # 1. Individual algorithm charts
         ResultsVisualizer.plot_all_individual_charts(results, output_dir / "individual")
@@ -1174,12 +1174,12 @@ class ResultsVisualizer:
             show=False,
         )
 
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"✓ ALL VISUALIZATIONS COMPLETE")
         print(f"  - Individual charts: {output_dir}/individual/")
         print(f"  - Pairwise charts: {output_dir}/pairwise/")
         print(f"  - Summary charts: {output_dir}/summary/")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
 
     # ================================================================================
     # LEGACY METHODS - Kept for backward compatibility with BenchmarkResult
@@ -1768,9 +1768,9 @@ class ResultsVisualizer:
         """
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print("GENERATING PLOTS")
-        print(f"{'='*60}\n")
+        print(f"{'=' * 60}\n")
 
         ResultsVisualizer.plot_execution_time(
             results, output_dir / "execution_time.png", show=False

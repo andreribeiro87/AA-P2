@@ -36,6 +36,7 @@ class BenchmarkResult:
     exact_time_seconds: float | None = None
     exact_operations: int | None = None
     exact_configurations: int | None = None
+    exact_clique: str | None = None  # Comma-separated vertex IDs
 
     # Greedy heuristic metrics (optional if only running exhaustive)
     greedy_clique_size: int | None = None
@@ -43,6 +44,7 @@ class BenchmarkResult:
     greedy_time_seconds: float | None = None
     greedy_operations: int | None = None
     greedy_configurations: int | None = None
+    greedy_clique: str | None = None  # Comma-separated vertex IDs
 
     # Comparison metrics (optional)
     precision_percent: float | None = None
@@ -58,6 +60,7 @@ class BenchmarkResult:
     random_duplicates: int | None = None
     random_stopping_reason: str | None = None
     random_precision_percent: float | None = None
+    random_clique: str | None = None  # Comma-separated vertex IDs
 
 
 class BenchmarkRunner:
@@ -144,6 +147,7 @@ class BenchmarkRunner:
             result.exact_time_seconds = exact_time
             result.exact_operations = exact_result.basic_operations
             result.exact_configurations = exact_result.configurations_tested
+            result.exact_clique = ",".join(str(v) for v in sorted(exact_result.clique))
 
         # Benchmark greedy heuristic
         greedy_result = None
@@ -162,6 +166,9 @@ class BenchmarkRunner:
             result.greedy_time_seconds = greedy_time
             result.greedy_operations = greedy_result.basic_operations
             result.greedy_configurations = greedy_result.configurations_tested
+            result.greedy_clique = ",".join(
+                str(v) for v in sorted(greedy_result.clique)
+            )
 
         # Benchmark randomized algorithm
         random_result = None
@@ -294,6 +301,9 @@ class BenchmarkRunner:
                 if random_result.stopping_reason
                 else None
             )
+            result.random_clique = ",".join(
+                str(v) for v in sorted(random_result.clique)
+            )
 
             # Calculate precision compared to exact result if available
             if exact_result and exact_result.total_weight > 0:
@@ -382,6 +392,9 @@ class BenchmarkRunner:
                 reduction_result.stopping_reason.value
                 if reduction_result.stopping_reason
                 else None
+            )
+            result.random_clique = ",".join(
+                str(v) for v in sorted(reduction_result.clique)
             )
 
             # Calculate precision compared to exact result if available

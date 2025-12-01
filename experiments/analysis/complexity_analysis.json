@@ -1,0 +1,156 @@
+[
+  {
+    "algorithm": "random_construction",
+    "theoretical_complexity": "O(Tn\u00b2)",
+    "fitted_formula": "T(n) = 7.68e-05 \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 7.675073631049712e-05
+    },
+    "r_squared": 0.8982921741394048,
+    "n_samples": 97
+  },
+  {
+    "algorithm": "random_greedy_hybrid",
+    "theoretical_complexity": "O(Tn\u00b2)",
+    "fitted_formula": "T(n) = 2.03e-07 \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 2.0277983681970015e-07
+    },
+    "r_squared": 0.7787695897721668,
+    "n_samples": 97
+  },
+  {
+    "algorithm": "iterative_random_search",
+    "theoretical_complexity": "O(Tn\u00b2)",
+    "fitted_formula": "T(n) = 1.32e-05 \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 1.3150482368067713e-05
+    },
+    "r_squared": 0.42078147153689427,
+    "n_samples": 97
+  },
+  {
+    "algorithm": "monte_carlo",
+    "theoretical_complexity": "O(Tn\u00b2)",
+    "fitted_formula": "T(n) = 1.80e-04 \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 0.00018007966151115657
+    },
+    "r_squared": 0.8671728037618229,
+    "n_samples": 97
+  },
+  {
+    "algorithm": "las_vegas",
+    "theoretical_complexity": "O(Tn\u00b2)",
+    "fitted_formula": "T(n) = 7.86e-05 \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 7.863670242702694e-05
+    },
+    "r_squared": 0.8277757052912985,
+    "n_samples": 97
+  },
+  {
+    "algorithm": "greedy",
+    "theoretical_complexity": "O(n\u00b2)",
+    "fitted_formula": "T(n) = 1.38e-06 \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 1.3835174354726878e-06
+    },
+    "r_squared": 0.9746259761031975,
+    "n_samples": 97
+  },
+  {
+    "algorithm": "exhaustive",
+    "theoretical_complexity": "O(2\u207f \u00d7 n)",
+    "fitted_formula": "T(n) = 5.05e-08 \u00d7 2\u207f \u00d7 n",
+    "coefficients": {
+      "a": 5.047680480488817e-08
+    },
+    "r_squared": 0.9670113669065716,
+    "n_samples": 12
+  },
+  {
+    "algorithm": "wlmc",
+    "theoretical_complexity": "O(2^k \u00d7 n\u00b2)",
+    "fitted_formula": "T(n) = 1.40e-06 \u00d7 2^(0.02n) \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 1.3982490397265331e-06,
+      "b": 0.02159303892671871
+    },
+    "r_squared": 0.9573491945822402,
+    "n_samples": 97
+  },
+  {
+    "algorithm": "tsm_mwc",
+    "theoretical_complexity": "O(2^k \u00d7 n\u00b2)",
+    "fitted_formula": "T(n) = 1.83e-06 \u00d7 2^(0.02n) \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 1.8262663813523273e-06,
+      "b": 0.01764460798407787
+    },
+    "r_squared": 0.9662957988285524,
+    "n_samples": 97
+  },
+  {
+    "algorithm": "mwc_redu",
+    "theoretical_complexity": "O(Tn\u00b2)",
+    "fitted_formula": "T(n) = 3.84e-06 \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 3.838395614840244e-06
+    },
+    "r_squared": 0.9022483967945624,
+    "n_samples": 97
+  },
+  {
+    "algorithm": "max_clique_weight",
+    "theoretical_complexity": "O(2^k \u00d7 n\u00b2)",
+    "fitted_formula": "T(n) = 6.15e-07 \u00d7 2^(0.03n) \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 6.149256624373176e-07,
+      "b": 0.02709123226340195
+    },
+    "r_squared": 0.9609592263695595,
+    "n_samples": 94
+  },
+  {
+    "algorithm": "max_clique_dyn_weight",
+    "theoretical_complexity": "O(2^k \u00d7 n\u00b2)",
+    "fitted_formula": "T(n) = 6.40e-07 \u00d7 2^(0.03n) \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 6.398074011224283e-07,
+      "b": 0.026427549956610934
+    },
+    "r_squared": 0.9536285858996039,
+    "n_samples": 93
+  },
+  {
+    "algorithm": "fast_wclq",
+    "theoretical_complexity": "O(Tn\u00b2)",
+    "fitted_formula": "T(n) = 1.04e-04 \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 0.00010351155346050259
+    },
+    "r_squared": 0.6479609292596749,
+    "n_samples": 97
+  },
+  {
+    "algorithm": "scc_walk",
+    "theoretical_complexity": "O(Tn\u00b2)",
+    "fitted_formula": "T(n) = 2.67e-04 \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 0.00026705847602226515
+    },
+    "r_squared": 0.8932163898464788,
+    "n_samples": 97
+  },
+  {
+    "algorithm": "mwc_peel",
+    "theoretical_complexity": "O(Tn\u00b2)",
+    "fitted_formula": "T(n) = 1.07e-05 \u00d7 n\u00b2",
+    "coefficients": {
+      "a": 1.0744617845074047e-05
+    },
+    "r_squared": 0.9838572345446522,
+    "n_samples": 97
+  }
+]

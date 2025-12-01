@@ -1,0 +1,374 @@
+Found 219 graph files in experiments/graphs_large/zenodo_selection
+Running 1 algorithm(s): iterative_random_search
+
+============================================================
+Running ITERATIVE_RANDOM_SEARCH
+============================================================
+
+============================================================
+BENCHMARKING 219 GRAPHS - RANDOMIZED ALGORITHM
+============================================================
+
+[1/219] 011.wclq
+Benchmarking graph (randomized algorithm): 121 vertices, 2345 edges (25.0% density)
+  Running iterative_random_search... ✓ (0.1221s)
+  Time: 0.1221s
+
+[2/219] 033.wclq
+Benchmarking graph (randomized algorithm): 309 vertices, 24712 edges (50.0% density)
+  Running iterative_random_search... ✓ (0.3450s)
+  Time: 0.3450s
+
+[3/219] 04-14-6-6.wclq
+Benchmarking graph (randomized algorithm): 807 vertices, 186477 edges (50.0% density)
+  Running iterative_random_search... ✓ (0.9476s)
+  Time: 0.9476s
+
+[4/219] 042.wclq
+Benchmarking graph (randomized algorithm): 303 vertices, 24812 edges (50.0% density)
+  Running iterative_random_search... ✓ (0.3085s)
+  Time: 0.3085s
+
+[5/219] 043.wclq
+Benchmarking graph (randomized algorithm): 302 vertices, 23630 edges (50.0% density)
+  Running iterative_random_search... ✓ (0.3132s)
+  Time: 0.3132s
+
+[6/219] 045.wclq
+Benchmarking graph (randomized algorithm): 396 vertices, 44249 edges (50.0% density)
+  Running iterative_random_search... ✓ (0.4463s)
+  Time: 0.4463s
+
+[7/219] 047.wclq
+Benchmarking graph (randomized algorithm): 165 vertices, 1649 edges (12.5% density)
+  Running iterative_random_search... ✓ (0.1573s)
+  Time: 0.1573s
+
+[8/219] 051.wclq
+Benchmarking graph (randomized algorithm): 382 vertices, 43482 edges (50.0% density)
+  Running iterative_random_search... ✓ (0.4118s)
+  Time: 0.4118s
+
+[9/219] 052.wclq
+Benchmarking graph (randomized algorithm): 402 vertices, 52131 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.4405s)
+  Time: 0.4405s
+
+[10/219] 053.wclq
+Benchmarking graph (randomized algorithm): 621 vertices, 136803 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.7299s)
+  Time: 0.7299s
+
+[11/219] 055.wclq
+Benchmarking graph (randomized algorithm): 433 vertices, 54213 edges (50.0% density)
+  Running iterative_random_search... ✓ (0.4832s)
+  Time: 0.4832s
+
+[12/219] 056.wclq
+Benchmarking graph (randomized algorithm): 538 vertices, 84418 edges (50.0% density)
+  Running iterative_random_search... ✓ (0.6267s)
+  Time: 0.6267s
+
+[13/219] 057.wclq
+Benchmarking graph (randomized algorithm): 437 vertices, 61809 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.4956s)
+  Time: 0.4956s
+
+[14/219] 058.wclq
+Benchmarking graph (randomized algorithm): 492 vertices, 77170 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.5694s)
+  Time: 0.5694s
+
+[15/219] 059.wclq
+Benchmarking graph (randomized algorithm): 382 vertices, 44889 edges (50.0% density)
+  Running iterative_random_search... ✓ (0.4700s)
+  Time: 0.4700s
+
+[16/219] 06-16-8-8.wclq
+Benchmarking graph (randomized algorithm): 2246 vertices, 349235 edges (12.5% density)
+  Running iterative_random_search... ✓ (2.6111s)
+  Time: 2.6111s
+
+[17/219] 060.wclq
+Benchmarking graph (randomized algorithm): 314 vertices, 32011 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.3338s)
+  Time: 0.3338s
+
+[18/219] 061.wclq
+Benchmarking graph (randomized algorithm): 571 vertices, 111095 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.6621s)
+  Time: 0.6621s
+
+[19/219] 062.wclq
+Benchmarking graph (randomized algorithm): 432 vertices, 64039 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.4863s)
+  Time: 0.4863s
+
+[20/219] 063.wclq
+Benchmarking graph (randomized algorithm): 848 vertices, 248837 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.9617s)
+  Time: 0.9617s
+
+[21/219] 064.wclq
+Benchmarking graph (randomized algorithm): 846 vertices, 247224 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.9685s)
+  Time: 0.9685s
+
+[22/219] 065.wclq
+Benchmarking graph (randomized algorithm): 898 vertices, 277099 edges (75.0% density)
+  Running iterative_random_search... ✓ (1.0868s)
+  Time: 1.0868s
+
+[23/219] 066.wclq
+Benchmarking graph (randomized algorithm): 463 vertices, 72962 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.5881s)
+  Time: 0.5881s
+
+[24/219] 067.wclq
+Benchmarking graph (randomized algorithm): 445 vertices, 66359 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.5596s)
+  Time: 0.5596s
+
+[25/219] 068.wclq
+Benchmarking graph (randomized algorithm): 497 vertices, 84823 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.5629s)
+  Time: 0.5629s
+
+[26/219] 069.wclq
+Benchmarking graph (randomized algorithm): 412 vertices, 55344 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.5182s)
+  Time: 0.5182s
+
+[27/219] 070.wclq
+Benchmarking graph (randomized algorithm): 447 vertices, 68322 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.5247s)
+  Time: 0.5247s
+
+[28/219] 071.wclq
+Benchmarking graph (randomized algorithm): 1595 vertices, 929841 edges (75.0% density)
+  Running iterative_random_search... ✓ (1.9441s)
+  Time: 1.9441s
+
+[29/219] 072.wclq
+Benchmarking graph (randomized algorithm): 718 vertices, 174378 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.8951s)
+  Time: 0.8951s
+
+[30/219] 073.wclq
+Benchmarking graph (randomized algorithm): 1279 vertices, 609025 edges (75.0% density)
+  Running iterative_random_search... ✓ (1.8845s)
+  Time: 1.8845s
+
+[31/219] 074.wclq
+Benchmarking graph (randomized algorithm): 1173 vertices, 424310 edges (50.0% density)
+  Running iterative_random_search... ✓ (1.6972s)
+  Time: 1.6972s
+
+[32/219] 075.wclq
+Benchmarking graph (randomized algorithm): 642 vertices, 138109 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.9224s)
+  Time: 0.9224s
+
+[33/219] 076.wclq
+Benchmarking graph (randomized algorithm): 793 vertices, 229650 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.9657s)
+  Time: 0.9657s
+
+[34/219] 077.wclq
+Benchmarking graph (randomized algorithm): 420 vertices, 61896 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.4897s)
+  Time: 0.4897s
+
+[35/219] 078.wclq
+Benchmarking graph (randomized algorithm): 844 vertices, 233435 edges (75.0% density)
+  Running iterative_random_search... ✓ (1.0122s)
+  Time: 1.0122s
+
+[36/219] 079.wclq
+Benchmarking graph (randomized algorithm): 985 vertices, 341000 edges (75.0% density)
+  Running iterative_random_search... ✓ (1.1187s)
+  Time: 1.1187s
+
+[37/219] 08-17-6-6.wclq
+Benchmarking graph (randomized algorithm): 558 vertices, 95583 edges (50.0% density)
+  Running iterative_random_search... ✓ (0.6412s)
+  Time: 0.6412s
+
+[38/219] 080.wclq
+Benchmarking graph (randomized algorithm): 870 vertices, 228866 edges (50.0% density)
+  Running iterative_random_search... ✓ (1.0096s)
+  Time: 1.0096s
+
+[39/219] 081.wclq
+Benchmarking graph (randomized algorithm): 2646 vertices, 2744084 edges (75.0% density)
+  Running iterative_random_search... ✓ (3.1951s)
+  Time: 3.1951s
+
+[40/219] 082.wclq
+Benchmarking graph (randomized algorithm): 3817 vertices, 5570436 edges (75.0% density)
+  Running iterative_random_search... ✓ (5.1307s)
+  Time: 5.1307s
+
+[41/219] 083.wclq
+Benchmarking graph (randomized algorithm): 2385 vertices, 2124108 edges (75.0% density)
+  Running iterative_random_search... ✓ (3.0243s)
+  Time: 3.0243s
+
+[42/219] 084.wclq
+Benchmarking graph (randomized algorithm): 1718 vertices, 1121712 edges (75.0% density)
+  Running iterative_random_search... ✓ (2.2161s)
+  Time: 2.2161s
+
+[43/219] 085.wclq
+Benchmarking graph (randomized algorithm): 2633 vertices, 2499564 edges (75.0% density)
+  Running iterative_random_search... ✓ (3.3512s)
+  Time: 3.3512s
+
+[44/219] 086.wclq
+Benchmarking graph (randomized algorithm): 1799 vertices, 1136389 edges (75.0% density)
+  Running iterative_random_search... ✓ (2.2943s)
+  Time: 2.2943s
+
+[45/219] 087.wclq
+Benchmarking graph (randomized algorithm): 2828 vertices, 3029132 edges (75.0% density)
+  Running iterative_random_search... ✓ (3.3394s)
+  Time: 3.3394s
+
+[46/219] 088.wclq
+Benchmarking graph (randomized algorithm): 2415 vertices, 2140803 edges (75.0% density)
+  Running iterative_random_search... ✓ (3.2855s)
+  Time: 3.2855s
+
+[47/219] 089.wclq
+Benchmarking graph (randomized algorithm): 1545 vertices, 824657 edges (75.0% density)
+  Running iterative_random_search... ✓ (2.0010s)
+  Time: 2.0010s
+
+[48/219] 090.wclq
+Benchmarking graph (randomized algorithm): 755 vertices, 199399 edges (75.0% density)
+  Running iterative_random_search... ✓ (0.9716s)
+  Time: 0.9716s
+
+[49/219] 091.wclq
+Benchmarking graph (randomized algorithm): 4228 vertices, 7164310 edges (75.0% density)
+  Running iterative_random_search... ✓ (4.8853s)
+  Time: 4.8853s
+
+[50/219] 092.wclq
+Benchmarking graph (randomized algorithm): 3073 vertices, 3765150 edges (75.0% density)
+  Running iterative_random_search... ✓ (3.7908s)
+  Time: 3.7908s
+
+[51/219] 093.wclq
+Benchmarking graph (randomized algorithm): 3149 vertices, 3801449 edges (75.0% density)
+  Running iterative_random_search... ✓ (4.2824s)
+  Time: 4.2824s
+
+[52/219] 094.wclq
+Benchmarking graph (randomized algorithm): 2758 vertices, 2947278 edges (75.0% density)
+  Running iterative_random_search... ✓ (3.6192s)
+  Time: 3.6192s
+
+[53/219] 095.wclq
+Benchmarking graph (randomized algorithm): 3158 vertices, 4008882 edges (75.0% density)
+  Running iterative_random_search... ✓ (5.3307s)
+  Time: 5.3307s
+
+[54/219] 096.wclq
+Benchmarking graph (randomized algorithm): 3128 vertices, 3871328 edges (75.0% density)
+  Running iterative_random_search... ✓ (3.6665s)
+  Time: 3.6665s
+
+[55/219] 097.wclq
+Benchmarking graph (randomized algorithm): 3349 vertices, 4500256 edges (75.0% density)
+  Running iterative_random_search... ✓ (4.3651s)
+  Time: 4.3651s
+
+[56/219] 098.wclq
+Benchmarking graph (randomized algorithm): 2761 vertices, 3053602 edges (75.0% density)
+  Running iterative_random_search... ✓ (3.8757s)
+  Time: 3.8757s
+
+[57/219] 099.wclq
+Benchmarking graph (randomized algorithm): 3369 vertices, 4515263 edges (75.0% density)
+  Running iterative_random_search... ✓ (4.5796s)
+  Time: 4.5796s
+
+[58/219] 10-19-8-8.wclq
+Benchmarking graph (randomized algorithm): 2124 vertices, 595392 edges (25.0% density)
+  Running iterative_random_search... ✓ (2.8325s)
+  Time: 2.8325s
+
+[59/219] 100.wclq
+Benchmarking graph (randomized algorithm): 3165 vertices, 3958769 edges (75.0% density)
+  Running iterative_random_search... ✓ (4.1098s)
+  Time: 4.1098s
+
+[60/219] 101.wclq
+Benchmarking graph (randomized algorithm): 4741 vertices, 9292861 edges (75.0% density)
+  Running iterative_random_search... ✓ (6.6353s)
+  Time: 6.6353s
+
+[61/219] 102.wclq
+Benchmarking graph (randomized algorithm): 3717 vertices, 5718873 edges (75.0% density)
+  Running iterative_random_search... ✓ (4.6906s)
+  Time: 4.6906s
+
+[62/219] 103.wclq
+Benchmarking graph (randomized algorithm): 4673 vertices, 9031630 edges (75.0% density)
+  Running iterative_random_search... ✓ (5.5040s)
+  Time: 5.5040s
+
+[63/219] 104.wclq
+Benchmarking graph (randomized algorithm): 4846 vertices, 9703451 edges (75.0% density)
+  Running iterative_random_search... ✓ (6.8006s)
+  Time: 6.8006s
+
+[64/219] 105.wclq
+Benchmarking graph (randomized algorithm): 4663 vertices, 8883627 edges (75.0% density)
+  Running iterative_random_search... ✓ (5.8550s)
+  Time: 5.8550s
+
+[65/219] 106.wclq
+Benchmarking graph (randomized algorithm): 3790 vertices, 5861347 edges (75.0% density)
+  Running iterative_random_search... ✓ (4.9064s)
+  Time: 4.9064s
+
+[66/219] 107.wclq
+Benchmarking graph (randomized algorithm): 5207 vertices, 11160977 edges (75.0% density)
+  Running iterative_random_search... ✓ (7.7690s)
+  Time: 7.7690s
+
+[67/219] 108.wclq
+Benchmarking graph (randomized algorithm): 5529 vertices, 12573085 edges (75.0% density)
+  Running iterative_random_search... ✓ (8.2190s)
+  Time: 8.2190s
+
+[68/219] 109.wclq
+Benchmarking graph (randomized algorithm): 4490 vertices, 8375807 edges (75.0% density)
+  Running iterative_random_search... ✓ (6.1174s)
+  Time: 6.1174s
+
+[69/219] 11-20-6-5.wclq
+Benchmarking graph (randomized algorithm): 1302 vertices, 344541 edges (50.0% density)
+  Running iterative_random_search... ✓ (1.8417s)
+  Time: 1.8417s
+
+[70/219] 110.wclq
+Benchmarking graph (randomized algorithm): 4802 vertices, 9503394 edges (75.0% density)
+  Running iterative_random_search... ✓ (5.6095s)
+  Time: 5.6095s
+
+[71/219] 111.wclq
+Benchmarking graph (randomized algorithm): 8953 vertices, 32967548 edges (75.0% density)
+  Running iterative_random_search... ✓ (11.4917s)
+  Time: 11.4917s
+
+[72/219] 112.wclq
+Benchmarking graph (randomized algorithm): 8288 vertices, 28128307 edges (75.0% density)
+  Running iterative_random_search... ✓ (10.5321s)
+  Time: 10.5321s
+
+[73/219] 113.wclq
+Benchmarking graph (randomized algorithm): 6870 vertices, 19717710 edges (75.0% density)
+  Running iterative_random_search... 
