@@ -26,6 +26,12 @@
 #   --graphs-dir DIR         Use custom graphs directory
 #   --output-dir DIR         Use custom output directory for results
 #   --no-vertex-filter       Disable vertex count filtering (use all graphs)
+#   --algorithms ALGS        Comma-separated list of algorithms to run
+#                            Available: exhaustive,greedy,random_construction,
+#                            random_greedy_hybrid,iterative_random_search,monte_carlo,
+#                            las_vegas,mwc_redu,max_clique_weight,max_clique_dyn_weight,
+#                            wlmc,tsm_mwc,fast_wclq,scc_walk,mwc_peel
+#   --parallel N, -j N       Run N benchmarks in parallel (default: 1, sequential)
 #   --help, -h               Show this help message
 #
 # =============================================================================
@@ -42,6 +48,8 @@ SCALABILITY_ONLY=false
 CUSTOM_GRAPHS_DIR=""
 CUSTOM_OUTPUT_DIR=""
 NO_VERTEX_FILTER=false
+CUSTOM_ALGORITHMS=""
+PARALLEL_JOBS=1
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -73,6 +81,14 @@ while [[ $# -gt 0 ]]; do
             CUSTOM_GRAPHS_DIR="$2"
             shift 2
             ;;
+        --algorithms)
+            CUSTOM_ALGORITHMS="$2"
+            shift 2
+            ;;
+        --parallel|-j)
+            PARALLEL_JOBS="$2"
+            shift 2
+            ;;
         --help|-h)
             echo "Usage: $0 [OPTIONS]"
             echo ""
@@ -87,6 +103,12 @@ while [[ $# -gt 0 ]]; do
             echo "  --graphs-dir DIR         Use custom graphs directory (any format)"
             echo "  --output-dir DIR         Use custom output directory for results"
             echo "  --no-vertex-filter       Disable vertex count filtering (use all graphs)"
+            echo "  --algorithms ALGS        Comma-separated list of algorithms to run"
+            echo "                           Available: exhaustive,greedy,random_construction,"
+            echo "                           random_greedy_hybrid,iterative_random_search,monte_carlo,"
+            echo "                           las_vegas,mwc_redu,max_clique_weight,max_clique_dyn_weight,"
+            echo "                           wlmc,tsm_mwc,fast_wclq,scc_walk,mwc_peel"
+            echo "  --parallel N, -j N       Run N benchmarks in parallel (default: 1)"
             echo "  --help, -h               Show this help message"
             exit 0
             ;;
@@ -242,6 +264,82 @@ declare -a HEURISTIC_ALGORITHMS=(
     "scc_walk"
     "mwc_peel"
 )
+
+# Override algorithms if custom list specified
+if [ -n "$CUSTOM_ALGORITHMS" ]; then
+    # Parse comma-separated list into array
+    IFS=',' read -ra CUSTOM_ALG_ARRAY <<< "$CUSTOM_ALGORITHMS"
+    
+    # Override ALL_ALGORITHMS with custom list
+    ALL_ALGORITHMS=("${CUSTOM_ALG_ARRAY[@]}")
+    
+    # For scalability, use all custom algorithms except exhaustive
+    SCALABILITY_ALGORITHMS=()
+    for alg in "${CUSTOM_ALG_ARRAY[@]}"; do
+        if [ "$alg" != "exhaustive" ]; then
+            SCALABILITY_ALGORITHMS+=("$alg")
+        fi
+    done
+    
+    echo "Using custom algorithms: ${ALL_ALGORITHMS[*]}"
+fi
+
+# Parallel execution tracking
+declare -a PARALLEL_PIDS=()
+PARALLEL_RUNNING=0
+
+# Run benchmark job (can be called in parallel)
+run_benchmark_job() {
+    local algorithm=$1
+    local output_dir=$2
+    local min_v=$3
+    local max_v=$4
+    local time_limit=$5
+    local job_log="${output_dir}/benchmark.log"
+    
+    mkdir -p "$output_dir"
+    
+    uv run python main.py benchmark \
+        --graphs-dir "$GRAPHS_DIR" \
+        --output-dir "$output_dir" \
+        --algorithm "$algorithm" \
+        --min-vertices "$min_v" \
+        --max-vertices "$max_v" \
+        --time-limit "$time_limit" \
+        --max-iterations "$MAX_ITERATIONS" \
+        --seed "$SEED" \
+        --verbose \
+        > "$job_log" 2>&1
+    
+    local exit_code=$?
+    return $exit_code
+}
+
+# Wait for parallel jobs to complete (with job limit)
+wait_for_slot() {
+    while [ "$PARALLEL_RUNNING" -ge "$PARALLEL_JOBS" ]; do
+        # Wait for any job to finish
+        for i in "${!PARALLEL_PIDS[@]}"; do
+            if ! kill -0 "${PARALLEL_PIDS[$i]}" 2>/dev/null; then
+                # Job finished, remove from array
+                unset 'PARALLEL_PIDS[i]'
+                ((PARALLEL_RUNNING--)) || true
+            fi
+        done
+        # Reindex array
+        PARALLEL_PIDS=("${PARALLEL_PIDS[@]}")
+        sleep 0.5
+    done
+}
+
+# Wait for all parallel jobs to complete
+wait_for_all_jobs() {
+    for pid in "${PARALLEL_PIDS[@]}"; do
+        wait "$pid" 2>/dev/null || true
+    done
+    PARALLEL_PIDS=()
+    PARALLEL_RUNNING=0
+}
 
 # Logging functions
 log_header() {
@@ -498,32 +596,66 @@ run_correctness_tests() {
     mkdir -p "$correctness_results"
     
     log_info "Running all algorithms on graphs with ${CORRECTNESS_MIN}..${CORRECTNESS_MAX} vertices"
+    if [ "$PARALLEL_JOBS" -gt 1 ]; then
+        log_info "Using ${PARALLEL_JOBS} parallel jobs"
+    fi
     
     # Run ALL algorithms on these graphs (including exhaustive as ground truth)
     for algorithm in "${ALL_ALGORITHMS[@]}"; do
-        log_section "Testing $algorithm (correctness)"
-        
         local alg_output="${correctness_results}/${algorithm}"
         mkdir -p "$alg_output"
         
-        log_progress "Running $algorithm (${CORRECTNESS_MIN}..${CORRECTNESS_MAX} vertices)..."
-        
-        uv run python main.py benchmark \
-            --graphs-dir "$GRAPHS_DIR" \
-            --output-dir "$alg_output" \
-            --algorithm "$algorithm" \
-            --min-vertices "$CORRECTNESS_MIN" \
-            --max-vertices "$CORRECTNESS_MAX" \
-            --time-limit "$TIME_LIMIT" \
-            --max-iterations "$MAX_ITERATIONS" \
-            --seed "$SEED" \
-            --verbose \
-            2>&1 | tee -a "$LOG_FILE" || {
-            log_warning "$algorithm had some errors"
-        }
-        
-        log_success "$algorithm completed"
+        if [ "$PARALLEL_JOBS" -gt 1 ]; then
+            # Parallel execution
+            wait_for_slot
+            log_progress "Starting $algorithm (correctness) in background..."
+            
+            run_benchmark_job "$algorithm" "$alg_output" "$CORRECTNESS_MIN" "$CORRECTNESS_MAX" "$TIME_LIMIT" &
+            PARALLEL_PIDS+=($!)
+            ((PARALLEL_RUNNING++)) || true
+        else
+            # Sequential execution
+            log_section "Testing $algorithm (correctness)"
+            log_progress "Running $algorithm (${CORRECTNESS_MIN}..${CORRECTNESS_MAX} vertices)..."
+            
+            uv run python main.py benchmark \
+                --graphs-dir "$GRAPHS_DIR" \
+                --output-dir "$alg_output" \
+                --algorithm "$algorithm" \
+                --min-vertices "$CORRECTNESS_MIN" \
+                --max-vertices "$CORRECTNESS_MAX" \
+                --time-limit "$TIME_LIMIT" \
+                --max-iterations "$MAX_ITERATIONS" \
+                --seed "$SEED" \
+                --verbose \
+                2>&1 | tee -a "$LOG_FILE" || {
+                log_warning "$algorithm had some errors"
+            }
+            
+            log_success "$algorithm completed"
+        fi
     done
+    
+    # Wait for all parallel jobs to complete
+    if [ "$PARALLEL_JOBS" -gt 1 ]; then
+        log_info "Waiting for all parallel jobs to complete..."
+        wait_for_all_jobs
+        
+        # Check results and append logs
+        for algorithm in "${ALL_ALGORITHMS[@]}"; do
+            local alg_output="${correctness_results}/${algorithm}"
+            local job_log="${alg_output}/benchmark.log"
+            if [ -f "$job_log" ]; then
+                echo "=== $algorithm (correctness) ===" >> "$LOG_FILE"
+                cat "$job_log" >> "$LOG_FILE"
+                if [ -f "${alg_output}/benchmark_results.json" ]; then
+                    log_success "$algorithm completed"
+                else
+                    log_warning "$algorithm may have had errors"
+                fi
+            fi
+        done
+    fi
     
     log_success "Correctness tests completed for all ${#ALL_ALGORITHMS[@]} algorithms"
 }
@@ -536,15 +668,14 @@ run_scalability_tests() {
     mkdir -p "$scale_results"
     
     log_info "Running algorithms (except exhaustive) on graphs with ${SCALE_MIN}..${SCALE_MAX} vertices"
+    if [ "$PARALLEL_JOBS" -gt 1 ]; then
+        log_info "Using ${PARALLEL_JOBS} parallel jobs"
+    fi
     
     # Run all algorithms EXCEPT exhaustive (too slow for large graphs)
     for algorithm in "${SCALABILITY_ALGORITHMS[@]}"; do
-        log_section "Testing $algorithm (scalability)"
-        
         local alg_output="${scale_results}/${algorithm}"
         mkdir -p "$alg_output"
-        
-        log_progress "Running $algorithm (${SCALE_MIN}..${SCALE_MAX} vertices)..."
         
         # Use longer time limit for scalability tests
         local scale_time_limit=$TIME_LIMIT
@@ -553,22 +684,57 @@ run_scalability_tests() {
             scale_time_limit=120.0
         fi
         
-        uv run python main.py benchmark \
-            --graphs-dir "$GRAPHS_DIR" \
-            --output-dir "$alg_output" \
-            --algorithm "$algorithm" \
-            --min-vertices "$SCALE_MIN" \
-            --max-vertices "$SCALE_MAX" \
-            --time-limit "$scale_time_limit" \
-            --max-iterations "$MAX_ITERATIONS" \
-            --seed "$SEED" \
-            --verbose \
-            2>&1 | tee -a "$LOG_FILE" || {
-            log_warning "$algorithm had some errors on scalability test"
-        }
-        
-        log_success "$algorithm scalability test completed"
+        if [ "$PARALLEL_JOBS" -gt 1 ]; then
+            # Parallel execution
+            wait_for_slot
+            log_progress "Starting $algorithm (scalability) in background..."
+            
+            run_benchmark_job "$algorithm" "$alg_output" "$SCALE_MIN" "$SCALE_MAX" "$scale_time_limit" &
+            PARALLEL_PIDS+=($!)
+            ((PARALLEL_RUNNING++)) || true
+        else
+            # Sequential execution
+            log_section "Testing $algorithm (scalability)"
+            log_progress "Running $algorithm (${SCALE_MIN}..${SCALE_MAX} vertices)..."
+            
+            uv run python main.py benchmark \
+                --graphs-dir "$GRAPHS_DIR" \
+                --output-dir "$alg_output" \
+                --algorithm "$algorithm" \
+                --min-vertices "$SCALE_MIN" \
+                --max-vertices "$SCALE_MAX" \
+                --time-limit "$scale_time_limit" \
+                --max-iterations "$MAX_ITERATIONS" \
+                --seed "$SEED" \
+                --verbose \
+                2>&1 | tee -a "$LOG_FILE" || {
+                log_warning "$algorithm had some errors on scalability test"
+            }
+            
+            log_success "$algorithm scalability test completed"
+        fi
     done
+    
+    # Wait for all parallel jobs to complete
+    if [ "$PARALLEL_JOBS" -gt 1 ]; then
+        log_info "Waiting for all parallel jobs to complete..."
+        wait_for_all_jobs
+        
+        # Check results and append logs
+        for algorithm in "${SCALABILITY_ALGORITHMS[@]}"; do
+            local alg_output="${scale_results}/${algorithm}"
+            local job_log="${alg_output}/benchmark.log"
+            if [ -f "$job_log" ]; then
+                echo "=== $algorithm (scalability) ===" >> "$LOG_FILE"
+                cat "$job_log" >> "$LOG_FILE"
+                if [ -f "${alg_output}/benchmark_results.json" ]; then
+                    log_success "$algorithm scalability test completed"
+                else
+                    log_warning "$algorithm may have had errors on scalability test"
+                fi
+            fi
+        done
+    fi
     
     log_success "Scalability tests completed for all ${#SCALABILITY_ALGORITHMS[@]} algorithms"
 }
