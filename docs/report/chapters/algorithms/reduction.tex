@@ -5,7 +5,7 @@ Reduction-based algorithms transform the MWC problem by preprocessing the graph
 to reduce its size while preserving optimal solutions. These methods can
 significantly improve performance on large sparse graphs.
 
-\subsubsection{MWCRedu: Graph Reduction Preprocessing}
+\subsubsection{Graph Reduction Preprocessing}
 \label{sec:mwc-redu}
 
 MWCRedu applies polynomial-time reduction rules before solving the reduced
@@ -52,7 +52,7 @@ graph with another algorithm. The main rules include:
     \item \textit{Space:} $O(n + m)$ for storing the reduced graph and mappings.
 \end{itemize}
 
-\subsubsection{MaxCliqueWeight: Branch-and-Bound with Coloring Bounds}
+\subsubsection{Branch-and-Bound with Coloring Bounds}
 \label{sec:max-clique-weight}
 
 MaxCliqueWeight uses branch-and-bound with weighted graph coloring to compute
@@ -131,8 +131,6 @@ tighter bounds lead to more aggressive pruning.
 
 \textbf{Trade-off:} Dynamic recomputation provides tighter bounds but increases per-node cost. Effective on dense graphs where static bounds are loose.
 
-\subsubsection{Comparison of Reduction Approaches}
-
 \begin{table}[H]
     \centering
     \caption{Comparison of Reduction-Based Algorithms}\label{tab:reduction-comparison}
@@ -147,6 +145,8 @@ tighter bounds lead to more aggressive pruning.
             \bottomrule
         \end{tabular}
     }
+
+    \vspace{2pt}
+    {\centering \small{*MWCRedu optimality depends on the underlying solver.}\par}
 \end{table}
 
-*MWCRedu optimality depends on the underlying solver.

@@ -5,9 +5,8 @@ results obtained from evaluating all implemented algorithms.
 
 \subsection{Methodology}\label{sec:methodology}
 
-\subsubsection{Generated Graphs}
+\subsubsection{Graph Generation. Random graphs were generated with the following parameters}
 
-We generated random graphs with the following parameters:
 \begin{itemize}
     \item \textbf{Vertices:} $n \in \{10, 11, \ldots, 100\}$ (91 sizes)
     \item \textbf{Edge densities:} $d \in \{12.5\%, 25\%, 50\%, 75\%\}$
@@ -18,10 +17,10 @@ This yields 364 test graphs covering a range of sizes and densities. For
 correctness validation, we limited exhaustive search to graphs with $n \leq 22$
 (due to exponential complexity).
 
-\subsubsection{External Datasets}
+\subsubsection{External Datasets Used}
 
-To test scalability on real-world graphs, we used the Maximum Weight Clique
-benchmark instances from Zenodo~\cite{trimble2017mwc}, which provides a diverse
+The Maximum Weight Clique benchmark instances from Zenodo~\cite{trimble2017mwc}
+were used to test scalability on real-world graphs, providing a diverse
 collection of weighted graphs including:
 \begin{itemize}
     \item \textbf{BHOSLIB}: Hard instances derived from SAT benchmarks
@@ -29,24 +28,22 @@ collection of weighted graphs including:
     \item \textbf{Kidney-exchange}: Real-world instances from transplant matching
 \end{itemize}
 
-\subsubsection{Experimental Setup}
+\subsubsection{Experimental Setup and Environment}
 
-All experiments were conducted on a system with the following specifications:
+Experiments were conducted on a system with the following specifications:
 \begin{itemize}
     \item Python 3.11 with NetworkX library
     \item Randomized algorithms: 5000 iterations or time limit
     \item Seeds fixed for reproducibility
 \end{itemize}
 
-\subsubsection{Metrics}
-
-We measure:
-\begin{enumerate}
+\subsubsection{Metrics Measured}
+\begin{itemize}
     \item \textbf{Execution time} (seconds): Wall-clock time
     \item \textbf{Basic operations}: Edge checks and vertex comparisons
-    \item \textbf{Solution quality}: Weight found vs. optimal (when known)
+    \item \textbf{Solution quality}: Weight found vs.\ optimal (when known)
     \item \textbf{Scalability}: How performance changes with graph size
-\end{enumerate}
+\end{itemize}
 
 \subsection{Solution Quality Comparison}
 \label{sec:quality-results}
@@ -220,8 +217,8 @@ Appendix~\ref{sec:appendix-n100-results}.
 To rigorously evaluate scalability, we tested three representative algorithms
 on significantly larger graphs from the Zenodo benchmark
 collection~\cite{trimble2017mwc}, with vertex counts ranging from 100 to over
-8,000 and edge densities from 12.5\% to 75\%. The selected algorithms represent
-distinct paradigms:
+10,000 and edge densities from 12.5\% to 75\%. The selected algorithms
+represent distinct paradigms:
 
 \begin{itemize}
     \item \textbf{Fast-WCLQ:} Semi-exact heuristic with graph reduction and BMS selection

@@ -5,7 +5,7 @@ Exact algorithms guarantee finding the optimal solution but may require
 exponential time in the worst case. Two state-of-the-art branch-and-bound
 methods from the literature are implemented.
 
-\subsubsection{WLMC: Weighted Large Maximum Clique}
+\subsubsection{Weighted Large Maximum Clique}
 \label{sec:wlmc}
 
 WLMC~\cite{second2016wlmc} is designed for large sparse graphs. It uses
@@ -58,7 +58,7 @@ independent sets and sums the maximum weight from each:
     \item \textit{Space:} $O(n + m)$ for graph storage and $O(n)$ for recursion stack.
 \end{itemize}
 
-\subsubsection{TSM-MWC: Two-Stage MaxSAT for MWC}
+\subsubsection{Two-Stage MaxSAT for MWC}
 \label{sec:tsm-mwc}
 
 TSM-MWC~\cite{shimizu2020tsm} uses two stages of MaxSAT-inspired reasoning to
@@ -102,7 +102,8 @@ compute progressively tighter upper bounds:
 \subsubsection{Comparison of Exact Methods}
 
 Both WLMC and TSM-MWC guarantee optimal solutions. Their effectiveness depends
-on graph structure:
+on the graph structure, as shown in the table bellow
+\ref{tab:exact-comparison}.
 
 \begin{table}[H]
     \centering

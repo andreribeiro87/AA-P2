@@ -5,7 +5,7 @@ Beyond the primary algorithm categories, three additional heuristics from the
 MWC literature are implemented that offer different trade-offs between solution
 quality and computational efficiency.
 
-\subsubsection{FastWClq: Semi-Exact Heuristic with Graph Reduction}
+\subsubsection{Semi-Exact Heuristic with Graph Reduction}
 \label{sec:fast-wclq}
 
 FastWClq~\cite{fang2021fastwclq} combines randomized clique construction with
@@ -41,7 +41,7 @@ The BMS construction selects vertices based on: $\text{benefit}(v) = w(v) + 0.1
 
 \textbf{Complexity:} $O(T \cdot n \cdot k)$ per iteration, where $T$ is iterations until graph becomes empty.
 
-\subsubsection{SCCWalk: Local Search with Strong Configuration Checking}
+\subsubsection{Local Search with Strong Configuration Checking}
 \label{sec:scc-walk}
 
 SCCWalk~\cite{wang2020sccwalk} uses local search with Strong Configuration
@@ -75,7 +75,7 @@ timestamps.
 
 \textbf{Complexity:} $O(T \cdot n^2)$ for $T$ iterations, each involving neighborhood exploration.
 
-\subsubsection{MWCPeel: Hybrid Reduction with Peeling}
+\subsubsection{Hybrid Reduction with Peeling}
 \label{sec:mwc-peel}
 
 MWCPeel combines exact reduction rules with heuristic ``peeling'' that removes
@@ -105,9 +105,9 @@ low-score vertices, progressively simplifying the graph.
 
 \textbf{Complexity:} $O(n^3)$ for reductions plus $O(2^{n'})$ for final exact solve on small graph.
 
-\subsubsection{Summary}
+\subsubsection{Summary of Heuristics}
 
-These heuristics complement the main algorithm categories:
+The following table summarizes these complementary heuristics:
 
 \begin{table}[H]
     \centering

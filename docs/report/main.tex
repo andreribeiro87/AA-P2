@@ -41,7 +41,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \maketitle
 
 \begin{abstract}
-  The Maximum Weight Clique (MWC) problem seeks the subset of mutually adjacent vertices in a weighted graph with maximum total weight. As an NP-hard problem, MWC has motivated diverse algorithmic approaches trading optimality for efficiency. This paper presents a comprehensive study of 14 algorithms for MWC, with emphasis on randomized methods. Five randomized algorithms (random construction, random-greedy hybrid, iterative search, Monte Carlo, and Las Vegas), three reduction-based approaches, two exact branch-and-bound methods (WLMC, TSM-MWC), and three additional heuristics are implemented and evaluated. Experimental evaluation on 364 generated graphs with varying sizes (10--100 vertices) and densities (12.5\%--75\%) reveals surprising findings: simple random construction achieves optimal solutions on all test cases, while sophisticated algorithms like SCCWalk underperform simpler alternatives. Complexity analysis is provided, failure modes are identified, and practical recommendations are offered. FastWClq emerges as the best overall choice, balancing near-optimal solutions with excellent speed.
+  The Maximum Weight Clique (MWC) problem seeks the subset of mutually adjacent vertices in a weighted graph with maximum total weight. As an NP-hard problem with strong inapproximability results, MWC has motivated diverse algorithmic approaches. This paper presents a comprehensive study of 14 algorithms for MWC across four categories: five randomized methods (random construction, random-greedy hybrid, iterative search, Monte Carlo, and Las Vegas), three reduction-based approaches, two exact branch-and-bound methods (WLMC, TSM-MWC), and four heuristics. Experimental evaluation on 364 generated graphs (10--100 vertices, 12.5\%--75\% density) and real-world benchmarks from BHOSLIB, DIMACS, and kidney-exchange datasets reveals key findings: simple random construction achieves optimal solutions on all test instances, exact algorithms remain practical for $n \leq 100$ with effective pruning, and graph density is the primary performance factor. Theoretical complexity analysis is validated against empirical measurements with $R^2 > 0.95$ for polynomial algorithms. FastWClq emerges as the recommended choice for production systems, achieving 99.92\% average quality with excellent speed.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -57,6 +57,8 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
+
+\clearpage
 
 \appendices
 \input{chapters/appendix}

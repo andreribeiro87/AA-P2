@@ -10,9 +10,9 @@ modes of each algorithm category.
 
 \subsubsection{Randomized Algorithms}
 
-The theoretical $O(Tn^2)$ complexity of randomized algorithms matches the
-observations: execution time grows quadratically with graph size and linearly
-with the iteration count. However, practical performance varies significantly:
+Theoretical $O(Tn^2)$ complexity matches observations, execution time grows
+quadratically with graph size and linearly with the iteration count. However,
+practical performance varies significantly:
 
 \begin{itemize}
     \item \textbf{Random Construction} performs better than expected because clique construction terminates early when no compatible vertices remain, reducing the effective complexity.
@@ -23,8 +23,8 @@ with the iteration count. However, practical performance varies significantly:
 
 \subsubsection{Exact Algorithms}
 
-While theoretically exponential, the exact algorithms show much better
-practical behavior:
+Theoretically exponential, these algorithms show much better practical
+behavior.
 
 \begin{itemize}
     \item \textbf{WLMC and TSM-MWC} benefit enormously from preprocessing, often reducing graph size by 50-80\% before search begins.
@@ -102,19 +102,20 @@ Based on the analysis, the following recommendations are made:
 A key objective of this study is comparing theoretical complexity predictions
 with empirical measurements.
 
-\subsubsection{Methodology}
+\subsubsection{Validation Methodology}
+
 For each algorithm, the following steps were performed:
-\begin{enumerate}
+\begin{itemize}
     \item The theoretical complexity formula was fitted to experimental data using
           least-squares regression.
     \item The correlation coefficient ($R^2$) between predicted and measured execution
           times was computed.
     \item Deviations were analyzed to identify constants hidden in $O(\cdot)$ notation.
-\end{enumerate}
+\end{itemize}
 
 \subsubsection{Validation Results}
 
-\begin{table}[H]
+\begin{table}[h!]
     \centering
     \caption{Experimental vs. Theoretical Complexity Validation}\label{tab:exp-vs-formal}
     \scalebox{0.8}{
@@ -145,9 +146,7 @@ For each algorithm, the following steps were performed:
 The complete complexity validation for all 15 algorithms is provided in
 Appendix~\ref{sec:appendix-complexity}.
 
-\subsubsection{Deviation Analysis}
-
-The primary sources of deviation between theory and practice:
+\subsubsection{Deviation Analysis, between theory and practice}
 
 \begin{enumerate}
     \item \textbf{Early termination:} WLMC and TSM-MWC often terminate before exploring worst-case configurations, performing 10-100$\times$ faster than worst-case bounds suggest.
@@ -161,7 +160,7 @@ The primary sources of deviation between theory and practice:
 
 \subsubsection{Practical Implications}
 
-The $R^2 > 0.95$ correlation for polynomial algorithms confirms that $O(\cdot)$
+Correlation of $R^2 > 0.95$ for polynomial algorithms confirms that $O(\cdot)$
 analysis accurately predicts relative performance scaling. However, absolute
 time prediction requires empirical constant estimation:
 
