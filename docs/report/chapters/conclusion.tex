@@ -2,14 +2,14 @@
 \label{sec:conclusion}
 
 This work presents a comprehensive study of algorithms for the Maximum Weight
-Clique (MWC) problem, with particular emphasis on randomized approaches. We
-implemented and evaluated 14 algorithms spanning four categories: randomized
-methods, reduction-based techniques, exact branch-and-bound algorithms, and
-additional heuristics.
+Clique (MWC) problem, with particular emphasis on randomized approaches.
+Fourteen algorithms spanning four categories were implemented and evaluated:
+randomized methods, reduction-based techniques, exact branch-and-bound
+algorithms, and additional heuristics.
 
 \subsection{Summary of Findings}
 
-Our experimental evaluation on 364 generated graphs and real-world network
+The experimental evaluation on 364 generated graphs and real-world network
 datasets yields several key insights:
 
 \begin{enumerate}
@@ -27,7 +27,7 @@ datasets yields several key insights:
 \subsection{Best Algorithms by Scenario}
 
 \begin{itemize}
-    \item \textbf{Best overall:} \texttt{fast\_wclq} --- near-optimal solutions (100.02\% average) with excellent speed
+    \item \textbf{Best overall:} \texttt{fast\_wclq} --- near-optimal solutions (99.92\% average) with excellent speed
     \item \textbf{Best randomized:} \texttt{random\_construction} --- simple, fast, surprisingly optimal
     \item \textbf{Best exact:} \texttt{wlmc} --- good scalability with optimality guarantees
     \item \textbf{Best for large sparse graphs:} \texttt{mwc\_redu} with greedy solver

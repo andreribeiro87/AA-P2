@@ -1,11 +1,9 @@
-\section{Experimental Results}
-\label{sec:results}
+\section{Experimental Results}\label{sec:results}
 
 This section presents our experimental methodology and the comprehensive
 results obtained from evaluating all implemented algorithms.
 
-\subsection{Methodology}
-\label{sec:methodology}
+\subsection{Methodology}\label{sec:methodology}
 
 \subsubsection{Generated Graphs}
 
@@ -22,13 +20,13 @@ correctness validation, we limited exhaustive search to graphs with $n \leq 22$
 
 \subsubsection{External Datasets}
 
-To test scalability on real-world graphs, we used datasets from the Stanford
-Network Analysis Project (SNAP)~\cite{snap2014}:
+To test scalability on real-world graphs, we used the Maximum Weight Clique
+benchmark instances from Zenodo~\cite{trimble2017mwc}, which provides a diverse
+collection of weighted graphs including:
 \begin{itemize}
-    \item \textbf{cit-HepTh}: High-energy physics citation network~\cite{snap-cithepth}
-    \item \textbf{p2p-Gnutella25}: Peer-to-peer file sharing network
-    \item \textbf{soc-Epinions1}: Social trust network
-    \item \textbf{email-EuAll}: European research institution email network
+    \item \textbf{BHOSLIB}: Hard instances derived from SAT benchmarks
+    \item \textbf{DIMACS}: Standard clique problem benchmark graphs
+    \item \textbf{Kidney-exchange}: Real-world instances from transplant matching
 \end{itemize}
 
 \subsubsection{Experimental Setup}
@@ -65,38 +63,41 @@ compared to exhaustive search on small graphs ($n \leq 22$).
         \textbf{Algorithm}        & \textbf{Avg \%} & \textbf{Min \%} & \textbf{Max \%} & \textbf{Optimal} \\
         \midrule
         \multicolumn{5}{l}{\textit{Randomized Algorithms}}                                                 \\
-        random\_construction      & 100.10          & 100.00          & 106.89          & 68/68            \\
-        random\_greedy\_hybrid    & 95.81           & 62.10           & 106.89          & 48/68            \\
-        iterative\_random\_search & 0.00            & 0.00            & 0.00            & 0/68             \\
-        monte\_carlo              & 98.94           & 73.24           & 106.89          & 62/68            \\
-        las\_vegas                & 92.44           & 50.30           & 106.89          & 45/68            \\
+        random\_construction      & 100.00          & 100.00          & 100.00          & 68/68            \\
+        random\_greedy\_hybrid    & 95.71           & 62.10           & 100.00          & 48/68            \\
+        iterative\_random\_search & 91.72           & 65.04           & 100.00          & 35/68            \\
+        monte\_carlo              & 98.84           & 73.24           & 100.00          & 62/68            \\
+        las\_vegas                & 92.34           & 50.30           & 100.00          & 45/68            \\
         \midrule
         \multicolumn{5}{l}{\textit{Reduction-Based}}                                                       \\
-        mwc\_redu                 & 91.38           & 39.48           & 106.89          & 36/68            \\
-        max\_clique\_weight       & 100.10          & 100.00          & 106.89          & 68/68            \\
-        max\_clique\_dyn\_weight  & 100.10          & 100.00          & 106.89          & 68/68            \\
+        mwc\_redu                 & 91.28           & 39.48           & 100.00          & 36/68            \\
+        max\_clique\_weight       & 100.00          & 100.00          & 100.00          & 68/68            \\
+        max\_clique\_dyn\_weight  & 100.00          & 100.00          & 100.00          & 68/68            \\
         \midrule
         \multicolumn{5}{l}{\textit{Exact Branch-and-Bound}}                                                \\
-        wlmc                      & 100.10          & 100.00          & 106.89          & 68/68            \\
-        tsm\_mwc                  & 100.10          & 100.00          & 106.89          & 68/68            \\
+        wlmc                      & 100.00          & 100.00          & 100.00          & 68/68            \\
+        tsm\_mwc                  & 100.00          & 100.00          & 100.00          & 68/68            \\
         \midrule
         \multicolumn{5}{l}{\textit{Additional Heuristics}}                                                 \\
-        fast\_wclq                & 100.02          & 94.68           & 106.89          & 67/68            \\
-        scc\_walk                 & 99.46           & 81.24           & 106.89          & 63/68            \\
-        mwc\_peel                 & 79.02           & 5.56            & 106.89          & 14/68            \\
+        fast\_wclq                & 99.92           & 94.68           & 100.00          & 67/68            \\
+        scc\_walk                 & 99.36           & 81.24           & 100.00          & 63/68            \\
+        mwc\_peel                 & 78.92           & 5.56            & 100.00          & 14/68            \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 \textbf{Key Observations:}
 \begin{itemize}
-    \item Exact algorithms (WLMC, TSM-MWC, MaxCliqueWeight variants) achieve 100\%
+    \item Exact algorithms (WLMC, TSM-MWC, \\ MaxCliqueWeight variants) achieve 100\%
           optimality.
     \item Random Construction surprisingly achieves optimal solutions on all test cases.
     \item Monte Carlo achieves 91\% optimal rate despite potential for incorrect results.
     \item Iterative Random Search performs poorly, failing to find valid solutions.
     \item MWCPeel's aggressive peeling leads to significant quality loss.
 \end{itemize}
+
+Detailed exhaustive search results used as ground truth are provided in
+Appendix~\ref{sec:appendix-exhaustive-results}.
 
 \subsection{Execution Time Analysis}
 \label{sec:time-results}
@@ -115,11 +116,11 @@ different densities.
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.24\textwidth}
         \includegraphics[width=\textwidth]{plots/individual/random_construction_time.png}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.24\textwidth}
         \includegraphics[width=\textwidth]{plots/individual/monte_carlo_time.png}
     \end{minipage}
     \caption{Execution time: Random Construction (left) vs Monte Carlo (right)}
@@ -128,11 +129,11 @@ different densities.
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.24\textwidth}
         \includegraphics[width=\textwidth]{plots/individual/las_vegas_time.png}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.24\textwidth}
         \includegraphics[width=\textwidth]{plots/individual/random_greedy_hybrid_time.png}
     \end{minipage}
     \caption{Execution time: Las Vegas (left) vs Random Greedy Hybrid (right)}
@@ -143,16 +144,19 @@ different densities.
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.24\textwidth}
         \includegraphics[width=\textwidth]{plots/individual/wlmc_time.png}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.24\textwidth}
         \includegraphics[width=\textwidth]{plots/individual/tsm_mwc_time.png}
     \end{minipage}
     \caption{Execution time: WLMC (left) vs TSM-MWC (right)}
     \label{fig:exact-time}
 \end{figure}
+
+Additional pairwise algorithm comparisons showing detailed side-by-side
+performance are available in Appendix~\ref{sec:appendix-pairwise}.
 
 \subsection{Operations Count Analysis}
 \label{sec:operations-results}
@@ -169,11 +173,11 @@ of implementation details.
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.24\textwidth}
         \includegraphics[width=\textwidth]{plots/individual/random_construction_operations.png}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.24\textwidth}
         \includegraphics[width=\textwidth]{plots/individual/mwc_redu_operations.png}
     \end{minipage}
     \caption{Operations: Random Construction (left) vs MWCRedu (right)}
@@ -183,11 +187,12 @@ of implementation details.
 \subsection{Scalability Analysis}
 \label{sec:scalability-results}
 
-Table~\ref{tab:scalability} shows performance on larger graphs ($n = 50-100$).
+Table~\ref{tab:scalability} shows performance on medium-sized graphs ($n =
+    50-100$).
 
 \begin{table}[H]
     \centering
-    \caption{Scalability on Large Graphs (n=100)}
+    \caption{Scalability on Medium Graphs (n=100)}
     \label{tab:scalability}
     \begin{tabular}{lcccc}
         \toprule
@@ -205,16 +210,161 @@ Table~\ref{tab:scalability} shows performance on larger graphs ($n = 50-100$).
     \end{tabular}
 \end{table}
 
-\textbf{Scalability Observations:}
+A comprehensive breakdown of all algorithm performance metrics at $n=100$,
+including operation counts, is provided in
+Appendix~\ref{sec:appendix-n100-results}.
+
+\subsubsection{Large-Scale Graph Evaluation}
+\label{sec:large-scale-scalability}
+
+To rigorously evaluate scalability, we tested three representative algorithms
+on significantly larger graphs from the Zenodo benchmark
+collection~\cite{trimble2017mwc}, with vertex counts ranging from 100 to over
+8,000 and edge densities from 12.5\% to 75\%. The selected algorithms represent
+distinct paradigms:
+
 \begin{itemize}
-    \item MWCRedu scales best due to aggressive graph reduction.
-    \item WLMC maintains good performance through preprocessing.
-    \item SCCWalk shows poor scaling due to local search overhead.
-    \item All algorithms show increased time with higher density.
+    \item \textbf{Fast-WCLQ:} Semi-exact heuristic with graph reduction and BMS selection
+    \item \textbf{Las Vegas:} Randomized algorithm with correctness guarantees
+    \item \textbf{Random Greedy Hybrid:} Lightweight probabilistic approach combining randomness with greedy selection
 \end{itemize}
 
-\subsection{Quality vs. Performance Trade-off}
-\label{sec:tradeoff}
+\paragraph{Execution Time Scalability}
+
+Figure~\ref{fig:large-time-comparison} presents execution time as a function of
+graph size for each algorithm.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.15\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/fast_wclq_time_large.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.15\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/las_vegas_time_large.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.15\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/random_greedy_hybrid_time_large.png}
+    \end{minipage}
+    \caption{Execution time on large graphs: Fast-WCLQ (left), Las Vegas (center), and Random Greedy Hybrid (right)}
+    \label{fig:large-time-comparison}
+\end{figure}
+
+The results reveal markedly different scaling behaviors aligned with each
+algorithm's design:
+
+\textbf{Random Greedy Hybrid} exhibits the best scalability, completing
+execution in under 40 seconds even for graphs with over 8,000 vertices at 75\%
+density. This is consistent with its $O(S \cdot n^2 \log n)$ complexity, where
+$S$ (number of starts) is fixed at 10. The algorithm performs only a constant
+number of clique constructions regardless of graph size, avoiding the iterative
+refinement overhead present in other approaches.
+
+\textbf{Las Vegas} shows moderate scalability, with execution times ranging
+from milliseconds on small graphs to approximately 30 seconds on larger
+instances. The algorithm reaches the time limit (30s) on graphs exceeding 1,500
+vertices at high density. This behavior reflects its design: Las Vegas performs
+exhaustive verification of each candidate clique ($O(n^2)$ per verification)
+and continues iterating until the time budget is exhausted, ensuring
+correctness at the cost of exploration breadth.
+
+\textbf{Fast-WCLQ} demonstrates variable performance highly dependent on graph
+structure. On sparse graphs, the BMS strategy and graph reduction mechanism
+enable efficient convergence. However, on dense graphs ($>$75\% density) with
+more than 5,000 vertices, execution times exceed 150 seconds, as the reduction
+rules become less effective---when most vertices have high neighborhood
+weights, few can be safely pruned without risking optimality loss.
+
+\paragraph{Operation Count Analysis}
+
+Figure~\ref{fig:large-ops-comparison} shows the number of basic operations
+performed by each algorithm.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.15\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/fast_wclq_operations_large.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.15\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/las_vegas_operations_large.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.15\textwidth}
+        \includegraphics[width=\textwidth]{plots/individual/random_greedy_hybrid_operations_large.png}
+    \end{minipage}
+    \caption{Basic operations on large graphs: Fast-WCLQ (left), Las Vegas (center), and Random Greedy Hybrid (right)}
+    \label{fig:large-ops-comparison}
+\end{figure}
+
+The operation counts provide insight into computational intensity independent
+of implementation details:
+
+\textbf{Random Greedy Hybrid} consistently performs $10^6$--$10^7$ operations
+across all graph sizes, reflecting its fixed number of construction attempts.
+The operation count grows quadratically with vertex count (due to clique
+verification) but remains bounded by the constant number of starts.
+
+\textbf{Las Vegas} performs $10^4$--$10^6$ operations, with higher counts on
+denser graphs where more configurations pass the clique verification step. The
+algorithm's operation count is dominated by edge existence checks during
+iterative construction.
+
+\textbf{Fast-WCLQ} shows the highest operation counts ($10^{11}$--$10^{12}$) on
+dense graphs, as the BMS construction samples multiple candidates at each step
+and the reduction phase requires computing upper bounds for all remaining
+vertices. On very large dense graphs, the stopping condition triggers before
+graph reduction completes, explaining the time limit behavior.
+
+\paragraph{Solution Quality on Large Graphs}
+
+Table~\ref{tab:large-quality} summarizes solution quality characteristics for
+the three algorithms on large graphs.
+
+\begin{table}[H]
+    \centering
+    \caption{Solution Quality on Large Graphs}\label{tab:large-quality}
+    \scalebox{0.8}{
+        \begin{tabular}{lccc}
+            \toprule
+            \textbf{Algorithm}   & \textbf{Avg Clique Size} & \textbf{Max Clique Size} & \textbf{Completion Rate} \\
+            \midrule
+            Fast-WCLQ            & 15.2                     & 1080                     & 78\%                     \\
+            Las Vegas            & 14.8                     & 1080                     & 72\%                     \\
+            Random Greedy Hybrid & 13.9                     & 1083                     & 100\%                    \\
+            \bottomrule
+        \end{tabular}
+    }
+\end{table}
+
+Notably, all three algorithms found comparable maximum clique sizes on the
+densest test graphs (around 1,080 vertices), suggesting convergence to
+near-optimal solutions despite different exploration strategies. The completion
+rate indicates the percentage of test cases where the algorithm finished within
+the time limit without timing out.
+
+The experimental results confirm theoretical expectations:
+
+\begin{itemize}
+    \item \textbf{Random Greedy Hybrid} offers the best trade-off between
+          scalability and solution quality for large graphs, completing all instances
+          within reasonable time while finding competitive solutions. Its fixed
+          iteration count ($S=10$) ensures predictable performance regardless of graph
+          structure.
+
+    \item \textbf{Las Vegas} provides guaranteed correctness and good solution
+          quality but at the cost of variable runtime. For time-critical applications
+          on large graphs, the time limit parameter effectively bounds worst-case
+          execution time.
+
+    \item \textbf{Fast-WCLQ} achieves excellent results on sparse graphs where
+          its reduction rules are most effective, but struggles on dense graphs where
+          the upper bound pruning provides less benefit. This makes it best suited for
+          sparse real-world networks rather than dense synthetic graphs.
+\end{itemize}
+
+\subsection{Quality vs. Performance Trade-off}\label{sec:tradeoff}
 
 \begin{figure}[H]
     \centering
@@ -225,15 +375,15 @@ Table~\ref{tab:scalability} shows performance on larger graphs ($n = 50-100$).
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.24\textwidth}
         \includegraphics[width=\textwidth]{plots/quality/precision_by_density.png}
     \end{minipage}
     \hfill
-    \begin{minipage}{0.48\textwidth}
+    \begin{minipage}{0.24\textwidth}
+
         \includegraphics[width=\textwidth]{plots/quality/precision_vs_size.png}
     \end{minipage}
-    \caption{Precision by density (left) and graph size (right)}
-    \label{fig:precision-analysis}
+    \caption{Precision by density (left) and graph size (right)}\label{fig:precision-analysis}
 \end{figure}
 
 \subsection{Best Performers by Category}

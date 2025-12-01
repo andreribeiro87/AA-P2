@@ -1,13 +1,11 @@
-\subsection{Randomized Algorithms}
-\label{sec:randomized}
+\subsection{Randomized Algorithms}\label{sec:randomized}
 
 Randomized algorithms use random choices during execution, offering a trade-off
 between solution quality and computational
-efficiency~\cite{motwani1995randomized}. We implement five randomized
-approaches for MWC.
+efficiency~\cite{motwani1995randomized}. Five randomized approaches for MWC are
+implemented.
 
-\subsubsection{Random Construction}
-\label{sec:random-construction}
+\subsubsection{Random Construction}\label{sec:random-construction}
 
 The Random Construction heuristic builds cliques by randomly selecting vertices
 that maintain the clique property. Starting from a random vertex, it
@@ -17,29 +15,29 @@ added.
 \begin{algorithm}[H]
     \caption{Random Construction}
     \label{alg:random-construction}
-    \begin{algorithmic}[1]
-        \Require Graph $G = (V, E)$, weights $w$, max\_iterations $T$
-        \Ensure Best clique $C^*$ found
-        \State $C^* \gets \emptyset$, $W^* \gets 0$
-        \For{$t = 1$ to $T$}
-        \State $v \gets$ \textsc{RandomChoice}($V$)
-        \State $C \gets \{v\}$
-        \State $candidates \gets V \setminus \{v\}$
-        \While{$candidates \neq \emptyset$}
-        \State $compatible \gets \{u \in candidates : \forall c \in C, (u,c) \in E\}$
-        \If{$compatible = \emptyset$}
-        \State \textbf{break}
-        \EndIf
-        \State $u \gets$ \textsc{RandomChoice}($compatible$)
-        \State $C \gets C \cup \{u\}$
-        \State $candidates \gets candidates \setminus \{u\}$
-        \EndWhile
-        \If{$W(C) > W^*$}
-        \State $C^* \gets C$, $W^* \gets W(C)$
-        \EndIf
-        \EndFor
-        \State \Return $C^*$
-    \end{algorithmic}
+    \footnotesize
+    \scalebox{0.65}{
+        \begin{minipage}{0.85\linewidth}
+            \begin{algorithmic}[1]
+                \Require Graph $G = (V, E)$, weights $w$, max\_iterations $T$
+                \Ensure Best clique $C^*$ found
+                \State $C^* \gets \emptyset$, $W^* \gets 0$
+                \For{$t = 1$ to $T$}
+                \State $v \gets$ \textsc{RandomChoice}($V$)
+                \State $C \gets \{v\}$
+                \State $candidates \gets V \setminus \{v\}$
+                \While{$candidates \neq \emptyset$}
+                \State $compatible \gets \{u \in candidates : \forall c \in C, (u,c) \in E\}$
+                \If{$compatible = \emptyset$} \textbf{break} \EndIf
+                \State $u \gets$ \textsc{RandomChoice}($compatible$)
+                \State $C \gets C \cup \{u\}$, $candidates \gets candidates \setminus \{u\}$
+                \EndWhile
+                \If{$W(C) > W^*$} $C^* \gets C$, $W^* \gets W(C)$ \EndIf
+                \EndFor
+                \State \Return $C^*$
+            \end{algorithmic}
+        \end{minipage}
+    }
 \end{algorithm}
 
 \textbf{Complexity Analysis:}
@@ -58,32 +56,31 @@ highest-weight compatible candidates.
 \begin{algorithm}[H]
     \caption{Random Greedy Hybrid}
     \label{alg:random-greedy-hybrid}
-    \begin{algorithmic}[1]
-        \Require Graph $G$, weights $w$, num\_starts $S$, top\_k $k$, randomness $\rho$
-        \Ensure Best clique $C^*$ found
-        \State $C^* \gets \emptyset$, $W^* \gets 0$
-        \For{$s = 1$ to $S$}
-        \State $v \gets$ \textsc{RandomChoice}($V$)
-        \State $C \gets \{v\}$, $candidates \gets V \setminus \{v\}$
-        \While{$candidates \neq \emptyset$}
-        \State $compatible \gets \{(u, w(u)) : u \in candidates, \forall c \in C, (u,c) \in E\}$
-        \If{$compatible = \emptyset$}
-        \State \textbf{break}
-        \EndIf
-        \If{\textsc{Random}$(0,1) < \rho$}
-        \State $u \gets$ \textsc{RandomChoice}($compatible$)
-        \Else
-        \State $top\_k \gets$ top $k$ elements of $compatible$ by weight
-        \State $u \gets$ \textsc{WeightedRandomChoice}($top\_k$)
-        \EndIf
-        \State $C \gets C \cup \{u\}$, $candidates \gets candidates \setminus \{u\}$
-        \EndWhile
-        \If{$W(C) > W^*$}
-        \State $C^* \gets C$, $W^* \gets W(C)$
-        \EndIf
-        \EndFor
-        \State \Return $C^*$
-    \end{algorithmic}
+    \footnotesize
+    \scalebox{0.65}{
+        \begin{minipage}{0.85\linewidth}
+            \begin{algorithmic}[1]
+                \Require Graph $G$, weights $w$, num\_starts $S$, top\_k $k$, randomness $\rho$
+                \Ensure Best clique $C^*$ found
+                \State $C^* \gets \emptyset$, $W^* \gets 0$
+                \For{$s = 1$ to $S$}
+                \State $v \gets$ \textsc{RandomChoice}($V$), $C \gets \{v\}$, $candidates \gets V \setminus \{v\}$
+                \While{$candidates \neq \emptyset$}
+                \State $compatible \gets \{(u, w(u)) : u \in candidates, \forall c \in C, (u,c) \in E\}$
+                \If{$compatible = \emptyset$} \textbf{break} \EndIf
+                \If{\textsc{Random}$(0,1) < \rho$} $u \gets$ \textsc{RandomChoice}($compatible$)
+                \Else
+                \State $top\_k \gets$ top $k$ elements of $compatible$ by weight
+                \State $u \gets$ \textsc{WeightedRandomChoice}($top\_k$)
+                \EndIf
+                \State $C \gets C \cup \{u\}$, $candidates \gets candidates \setminus \{u\}$
+                \EndWhile
+                \If{$W(C) > W^*$} $C^* \gets C$, $W^* \gets W(C)$ \EndIf
+                \EndFor
+                \State \Return $C^*$
+            \end{algorithmic}
+        \end{minipage}
+    }
 \end{algorithm}
 
 \textbf{Complexity Analysis:}
@@ -92,8 +89,7 @@ highest-weight compatible candidates.
     \item \textit{Space:} $O(n)$ for storing candidates and clique.
 \end{itemize}
 
-\subsubsection{Iterative Random Search}
-\label{sec:iterative-random-search}
+\subsubsection{Iterative Random Search}\label{sec:iterative-random-search}
 
 Iterative Random Search generates random subsets of decreasing sizes and checks
 if they form cliques. It starts with larger subsets (more likely to contain
@@ -102,23 +98,26 @@ maximum cliques) and progressively tests smaller ones.
 \begin{algorithm}[H]
     \caption{Iterative Random Search}
     \label{alg:iterative-random-search}
-    \begin{algorithmic}[1]
-        \Require Graph $G$, weights $w$, max\_iterations $T$, time\_limit
-        \Ensure Best clique $C^*$ found
-        \State $C^* \gets \emptyset$, $W^* \gets 0$, $size \gets n$
-        \While{$size > 0$ and not timeout}
-        \For{each iteration at current size}
-        \State $S \gets$ \textsc{RandomSample}($V$, $size$)
-        \If{\textsc{IsClique}($S$)}
-        \If{$W(S) > W^*$}
-        \State $C^* \gets S$, $W^* \gets W(S)$
-        \EndIf
-        \EndIf
-        \EndFor
-        \State $size \gets size - 1$
-        \EndWhile
-        \State \Return $C^*$
-    \end{algorithmic}
+    \footnotesize
+    \scalebox{0.65}{
+        \begin{minipage}{0.85\linewidth}
+            \begin{algorithmic}[1]
+                \Require Graph $G$, weights $w$, max\_iterations $T$, time\_limit
+                \Ensure Best clique $C^*$ found
+                \State $C^* \gets \emptyset$, $W^* \gets 0$, $size \gets n$
+                \While{$size > 0$ and not timeout}
+                \For{each iteration at current size}
+                \State $S \gets$ \textsc{RandomSample}($V$, $size$)
+                \If{\textsc{IsClique}($S$) and $W(S) > W^*$}
+                \State $C^* \gets S$, $W^* \gets W(S)$
+                \EndIf
+                \EndFor
+                \State $size \gets size - 1$
+                \EndWhile
+                \State \Return $C^*$
+            \end{algorithmic}
+        \end{minipage}
+    }
 \end{algorithm}
 
 \textbf{Complexity Analysis:}
@@ -137,28 +136,28 @@ finding heavy cliques quickly but without correctness guarantees.
 \begin{algorithm}[H]
     \caption{Monte Carlo MWC}
     \label{alg:monte-carlo}
-    \begin{algorithmic}[1]
-        \Require Graph $G$, weights $w$, num\_samples $N$, threshold $\tau$
-        \Ensure Approximate clique $C^*$
-        \State $C^* \gets \emptyset$, $W^* \gets 0$
-        \State Compute probabilities $p(v) \propto w(v)$ for all $v \in V$
-        \For{$i = 1$ to $N$}
-        \State $C \gets \emptyset$, $available \gets V$
-        \While{$available \neq \emptyset$}
-        \State $probs \gets \{(v, p(v)) : v \in available, \forall c \in C, (v,c) \in E\}$
-        \If{all probabilities are 0}
-        \State \textbf{break}
-        \EndIf
-        \State $v \gets$ \textsc{WeightedRandomChoice}($probs$)
-        \State $C \gets C \cup \{v\}$
-        \State $available \gets available \setminus \{v\}$
-        \EndWhile
-        \If{$W(C) > W^*$}
-        \State $C^* \gets C$, $W^* \gets W(C)$
-        \EndIf
-        \EndFor
-        \State \Return $C^*$
-    \end{algorithmic}
+    \footnotesize
+    \scalebox{0.65}{
+        \begin{minipage}{0.85\linewidth}
+            \begin{algorithmic}[1]
+                \Require Graph $G$, weights $w$, num\_samples $N$, threshold $\tau$
+                \Ensure Approximate clique $C^*$
+                \State $C^* \gets \emptyset$, $W^* \gets 0$
+                \State Compute probabilities $p(v) \propto w(v)$ for all $v \in V$
+                \For{$i = 1$ to $N$}
+                \State $C \gets \emptyset$, $available \gets V$
+                \While{$available \neq \emptyset$}
+                \State $probs \gets \{(v, p(v)) : v \in available, \forall c \in C, (v,c) \in E\}$
+                \If{all probabilities are 0} \textbf{break} \EndIf
+                \State $v \gets$ \textsc{WeightedRandomChoice}($probs$)
+                \State $C \gets C \cup \{v\}$, $available \gets available \setminus \{v\}$
+                \EndWhile
+                \If{$W(C) > W^*$} $C^* \gets C$, $W^* \gets W(C)$ \EndIf
+                \EndFor
+                \State \Return $C^*$
+            \end{algorithmic}
+        \end{minipage}
+    }
 \end{algorithm}
 
 \textbf{Complexity Analysis:}
@@ -179,27 +178,26 @@ while verifying each candidate at every step.
 \begin{algorithm}[H]
     \caption{Las Vegas MWC}
     \label{alg:las-vegas}
-    \begin{algorithmic}[1]
-        \Require Graph $G$, weights $w$, max\_attempts $A$, strategy
-        \Ensure Valid clique $C^*$ (guaranteed correct)
-        \State $C^* \gets \emptyset$, $W^* \gets 0$
-        \For{$a = 1$ to $A$}
-        \If{strategy = ``random\_walk''}
-        \State $C \gets$ \textsc{RandomWalkClique}($G$)
-        \Else
-        \State $C \gets$ \textsc{IterativeConstruction}($G$)
-        \EndIf
-        \If{\textsc{VerifyClique}($C$)} \Comment{Always verify}
-        \If{$W(C) > W^*$}
-        \State $C^* \gets C$, $W^* \gets W(C)$
-        \EndIf
-        \EndIf
-        \EndFor
-        \If{$C^* = \emptyset$} \Comment{Fallback guarantee}
-        \State $C^* \gets \{\arg\max_{v \in V} w(v)\}$
-        \EndIf
-        \State \Return $C^*$
-    \end{algorithmic}
+    \footnotesize
+    \scalebox{0.65}{
+        \begin{minipage}{0.85\linewidth}
+            \begin{algorithmic}[1]
+                \Require Graph $G$, weights $w$, max\_attempts $A$, strategy
+                \Ensure Valid clique $C^*$ (guaranteed correct)
+                \State $C^* \gets \emptyset$, $W^* \gets 0$
+                \For{$a = 1$ to $A$}
+                \If{strategy = ``random\_walk''} $C \gets$ \textsc{RandomWalkClique}($G$)
+                \Else~$C \gets$ \textsc{IterativeConstruction}($G$)
+                \EndIf
+                \If{\textsc{VerifyClique}($C$) and $W(C) > W^*$}
+                \State $C^* \gets C$, $W^* \gets W(C)$
+                \EndIf
+                \EndFor
+                \If{$C^* = \emptyset$} $C^* \gets \{\arg\max_{v \in V} w(v)\}$ \EndIf
+                \State \Return $C^*$
+            \end{algorithmic}
+        \end{minipage}
+    }
 \end{algorithm}
 
 \textbf{Complexity Analysis:}
@@ -212,7 +210,7 @@ while verifying each candidate at every step.
 
 \subsubsection{Comparison of Randomized Approaches}
 
-Table~\ref{tab:randomized-comparison} summarizes the key characteristics of our
+Table~\ref{tab:randomized-comparison} summarizes the key characteristics of the
 randomized algorithms.
 
 \begin{table}[H]

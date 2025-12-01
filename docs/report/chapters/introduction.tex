@@ -17,33 +17,33 @@ efficiency~\cite{wu2015review}.
 This work presents a comprehensive study of algorithms for MWC, with particular
 emphasis on \textbf{randomized approaches}. Randomized
 algorithms~\cite{motwani1995randomized} use random choices during execution,
-offering probabilistic guarantees or empirically good performance. We
-distinguish two paradigms:
+offering probabilistic guarantees or empirically good performance. Two
+paradigms are distinguished:
 \begin{itemize}
-    \item \textbf{Monte Carlo algorithms:} Run in polynomial time but may return incorrect results with bounded probability.
-    \item \textbf{Las Vegas algorithms:} Always return correct results but with variable (potentially unbounded) runtime.
+      \item \textbf{Monte Carlo algorithms:} Run in polynomial time but may return incorrect results with bounded probability.
+      \item \textbf{Las Vegas algorithms:} Always return correct results but with variable (potentially unbounded) runtime.
 \end{itemize}
 
-Our contributions include:
+The contributions of this work include:
 \begin{enumerate}
-    \item Implementation and analysis of 14 algorithms spanning four categories:
-          \begin{itemize}
-              \item Randomized algorithms (random construction, hybrid approaches, iterative
-                    search, Monte Carlo, Las Vegas)
-              \item Reduction-based methods (MWCRedu, MaxCliqueWeight variants)
-              \item Exact branch-and-bound (WLMC, TSM-MWC)
-              \item Additional heuristics (FastWClq, SCCWalk, MWCPeel)
-          \end{itemize}
-    \item Comprehensive experimental evaluation on generated graphs of varying sizes and
-          densities
-    \item Analysis of solution quality, execution time, and scalability trade-offs
-    \item Practical recommendations for algorithm selection based on problem
-          characteristics
+      \item Implementation and analysis of 14 algorithms spanning four categories:
+            \begin{itemize}\sloppy
+                  \item Randomized algorithms (random construction, hybrid approaches, iterative
+                        search, Monte Carlo, Las Vegas)
+                  \item Reduction-based methods (MWCRedu, \\ MaxCliqueWeight variants)
+                  \item Exact branch-and-bound (WLMC, TSM-MWC)
+                  \item Additional heuristics (FastWClq, SCCWalk,\\ MWCPeel)
+            \end{itemize}
+      \item Comprehensive experimental evaluation on generated graphs of varying sizes and
+            densities
+      \item Analysis of solution quality, execution time, and scalability trade-offs
+      \item Practical recommendations for algorithm selection based on problem
+            characteristics
 \end{enumerate}
 
 The remainder of this paper is organized as follows: Section~\ref{sec:problem}
 formally defines the MWC problem. Section~\ref{sec:algorithms} presents the
 implemented algorithms with pseudocode and complexity analysis.
-Section~\ref{sec:results} describes our experimental methodology and results.
+Section~\ref{sec:results} describes the experimental methodology and results.
 Section~\ref{sec:discussion} analyzes trade-offs and failure modes.
 Section~\ref{sec:conclusion} summarizes findings and suggests future work.

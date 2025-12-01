@@ -15,6 +15,7 @@
 \usepackage{multicol}
 \usepackage{multirow}
 \usepackage{wrapfig}
+\usepackage{url}
 \usepackage[colorlinks=true, linkcolor=blue, urlcolor=BlueViolet, citecolor=blue]{hyperref}
 \usepackage{orcidlink}
 
@@ -40,7 +41,7 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \maketitle
 
 \begin{abstract}
-  The Maximum Weight Clique (MWC) problem seeks the subset of mutually adjacent vertices in a weighted graph with maximum total weight. As an NP-hard problem, MWC has motivated diverse algorithmic approaches trading optimality for efficiency. This paper presents a comprehensive study of 14 algorithms for MWC, with emphasis on randomized methods. We implement and evaluate five randomized algorithms (random construction, random-greedy hybrid, iterative search, Monte Carlo, and Las Vegas), three reduction-based approaches, two exact branch-and-bound methods (WLMC, TSM-MWC), and three additional heuristics. Experimental evaluation on 364 generated graphs with varying sizes (10--100 vertices) and densities (12.5\%--75\%) reveals surprising findings: simple random construction achieves optimal solutions on all test cases, while sophisticated algorithms like SCCWalk underperform simpler alternatives. We provide complexity analysis, identify failure modes, and offer practical recommendations. FastWClq emerges as the best overall choice, balancing near-optimal solutions with excellent speed.
+  The Maximum Weight Clique (MWC) problem seeks the subset of mutually adjacent vertices in a weighted graph with maximum total weight. As an NP-hard problem, MWC has motivated diverse algorithmic approaches trading optimality for efficiency. This paper presents a comprehensive study of 14 algorithms for MWC, with emphasis on randomized methods. Five randomized algorithms (random construction, random-greedy hybrid, iterative search, Monte Carlo, and Las Vegas), three reduction-based approaches, two exact branch-and-bound methods (WLMC, TSM-MWC), and three additional heuristics are implemented and evaluated. Experimental evaluation on 364 generated graphs with varying sizes (10--100 vertices) and densities (12.5\%--75\%) reveals surprising findings: simple random construction achieves optimal solutions on all test cases, while sophisticated algorithms like SCCWalk underperform simpler alternatives. Complexity analysis is provided, failure modes are identified, and practical recommendations are offered. FastWClq emerges as the best overall choice, balancing near-optimal solutions with excellent speed.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -54,7 +55,10 @@ T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \input{chapters/discussion}
 \input{chapters/conclusion}
 
-\bibliographystyle{ieeetr}
+\bibliographystyle{IEEEtran}
 \bibliography{references}
+
+\appendices
+\input{chapters/appendix}
 
 \end{document}

@@ -2,8 +2,8 @@
 \label{sec:exact}
 
 Exact algorithms guarantee finding the optimal solution but may require
-exponential time in the worst case. We implement two state-of-the-art
-branch-and-bound methods from the literature.
+exponential time in the worst case. Two state-of-the-art branch-and-bound
+methods from the literature are implemented.
 
 \subsubsection{WLMC: Weighted Large Maximum Clique}
 \label{sec:wlmc}
@@ -15,43 +15,35 @@ independent set partitioning for upper bounds.
 \begin{algorithm}[H]
     \caption{WLMC}
     \label{alg:wlmc}
-    \begin{algorithmic}[1]
-        \Require Graph $G$, weights $w$, time\_limit
-        \Ensure Maximum weight clique $C^*$
-        \State \Comment{Phase 1: Initialization}
-        \State $C_{init}, order, G' \gets$ \textsc{InitializeWLMC}($G$)
-        \State $C^* \gets C_{init}$, $W^* \gets W(C_{init})$
-        \State \Comment{Preprocessing: remove low-potential vertices}
-        \ForAll{$v \in V(G')$}
-        \If{$W(N[v]) \leq W^*$}
-        \State Remove $v$ from $G'$
-        \EndIf
-        \EndFor
-        \State \Comment{Phase 2: Branch and Bound}
-        \Procedure{SearchWLMC}{$C$, $candidates$, $W$}
-        \If{timeout}
-        \State \Return
-        \EndIf
-        \If{$candidates = \emptyset$}
-        \If{$W > W^*$}
-        \State $C^* \gets C$, $W^* \gets W$
-        \EndIf
-        \State \Return
-        \EndIf
-        \State $UB \gets$ \textsc{ISUpperBound}($candidates$, $W$)
-        \If{$UB \leq W^*$}
-        \State \Return \Comment{Prune}
-        \EndIf
-        \ForAll{$v \in candidates$}
-        \If{$v$ compatible with $C$}
-        \State $newCand \gets \{u \in candidates : (v,u) \in E\}$
-        \State \textsc{SearchWLMC}($C \cup \{v\}$, $newCand$, $W + w(v)$)
-        \EndIf
-        \EndFor
-        \EndProcedure
-        \State \textsc{SearchWLMC}($\emptyset$, $V(G')$, $0$)
-        \State \Return $C^*$
-    \end{algorithmic}
+    \footnotesize
+    \scalebox{0.65}{
+        \begin{minipage}{0.85\linewidth}
+            \begin{algorithmic}[1]
+                \Require Graph $G$, weights $w$, time\_limit
+                \Ensure Maximum weight clique $C^*$
+                \State $C_{init}, order, G' \gets$ \textsc{InitializeWLMC}($G$)
+                \State $C^* \gets C_{init}$, $W^* \gets W(C_{init})$
+                \ForAll{$v \in V(G')$} \textbf{if} $W(N[v]) \leq W^*$ \textbf{then} remove $v$ \EndFor
+                \Procedure{SearchWLMC}{$C$, $candidates$, $W$}
+                \If{timeout} \Return \EndIf
+                \If{$candidates = \emptyset$}
+                \If{$W > W^*$} $C^* \gets C$, $W^* \gets W$ \EndIf
+                \State \Return
+                \EndIf
+                \State $UB \gets$ \textsc{ISUpperBound}($candidates$, $W$)
+                \If{$UB \leq W^*$} \Return \EndIf
+                \ForAll{$v \in candidates$}
+                \If{$v$ compatible with $C$}
+                \State $newCand \gets \{u \in candidates : (v,u) \in E\}$
+                \State \textsc{SearchWLMC}($C \cup \{v\}$, $newCand$, $W + w(v)$)
+                \EndIf
+                \EndFor
+                \EndProcedure
+                \State \textsc{SearchWLMC}($\emptyset$, $V(G')$, $0$)
+                \State \Return $C^*$
+            \end{algorithmic}
+        \end{minipage}
+    }
 \end{algorithm}
 
 The Independent Set (IS) upper bound partitions the candidate set into
@@ -80,28 +72,25 @@ compute progressively tighter upper bounds:
 \begin{algorithm}[H]
     \caption{TSM-MWC}
     \label{alg:tsm-mwc}
-    \begin{algorithmic}[1]
-        \Require Graph $G$, weights $w$, time\_limit
-        \Ensure Maximum weight clique $C^*$
-        \State Initialize as in WLMC
-        \Procedure{TSMSearch}{$C$, $candidates$, $W$}
-        \If{timeout or $candidates = \emptyset$}
-        \State Handle as in WLMC
-        \EndIf
-        \State \Comment{Phase 1: Binary MaxSAT bound}
-        \State $UB_1, partition \gets$ \textsc{BinaryMaxSATBound}($candidates$, $W$)
-        \If{$UB_1 \leq W^*$}
-        \State \Return
-        \EndIf
-        \State \Comment{Phase 2: Ordered MaxSAT refinement}
-        \State $UB_2 \gets$ \textsc{OrderedMaxSATBound}($candidates$, $partition$, $W$, $W^*$)
-        \If{$UB_2 \leq W^*$}
-        \State \Return
-        \EndIf
-        \State Branch as in WLMC
-        \EndProcedure
-        \State \Return $C^*$
-    \end{algorithmic}
+    \footnotesize
+    \scalebox{0.65}{
+        \begin{minipage}{0.85\linewidth}
+            \begin{algorithmic}[1]
+                \Require Graph $G$, weights $w$, time\_limit
+                \Ensure Maximum weight clique $C^*$
+                \State Initialize as in WLMC
+                \Procedure{TSMSearch}{$C$, $candidates$, $W$}
+                \If{timeout or $candidates = \emptyset$} Handle as in WLMC \EndIf
+                \State $UB_1, partition \gets$ \textsc{BinaryMaxSATBound}($candidates$, $W$)
+                \If{$UB_1 \leq W^*$} \Return \EndIf
+                \State $UB_2 \gets$ \textsc{OrderedMaxSATBound}($candidates$, $partition$, $W$, $W^*$)
+                \If{$UB_2 \leq W^*$} \Return \EndIf
+                \State Branch as in WLMC
+                \EndProcedure
+                \State \Return $C^*$
+            \end{algorithmic}
+        \end{minipage}
+    }
 \end{algorithm}
 
 \textbf{Complexity Analysis:}

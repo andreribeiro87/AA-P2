@@ -1,9 +1,9 @@
 \subsection{Additional Heuristics}
 \label{sec:heuristics}
 
-Beyond the primary algorithm categories, we implement three additional
-heuristics from the MWC literature that offer different trade-offs between
-solution quality and computational efficiency.
+Beyond the primary algorithm categories, three additional heuristics from the
+MWC literature are implemented that offer different trade-offs between solution
+quality and computational efficiency.
 
 \subsubsection{FastWClq: Semi-Exact Heuristic with Graph Reduction}
 \label{sec:fast-wclq}
@@ -16,24 +16,24 @@ benefit function.
 \begin{algorithm}[H]
     \caption{FastWClq}
     \label{alg:fast-wclq}
-    \begin{algorithmic}[1]
-        \Require Graph $G$, BMS parameter $k$, time\_limit
-        \Ensure Best clique $C^*$ found
-        \State $G' \gets G$, $C^* \gets \emptyset$, $W^* \gets 0$
-        \While{$V(G') \neq \emptyset$ and not timeout}
-        \State $C \gets$ \textsc{BMSConstruction}($G'$, $k$)
-        \If{$W(C) > W^*$}
-        \State $C^* \gets C$, $W^* \gets W(C)$
-        \State \Comment{Reduce graph based on new lower bound}
-        \ForAll{$v \in V(G')$}
-        \If{$W(N[v]) \leq W^*$}
-        \State Remove $v$ from $G'$
-        \EndIf
-        \EndFor
-        \EndIf
-        \EndWhile
-        \State \Return $C^*$
-    \end{algorithmic}
+    \footnotesize
+    \scalebox{0.65}{
+        \begin{minipage}{0.85\linewidth}
+            \begin{algorithmic}[1]
+                \Require Graph $G$, BMS parameter $k$, time\_limit
+                \Ensure Best clique $C^*$ found
+                \State $G' \gets G$, $C^* \gets \emptyset$, $W^* \gets 0$
+                \While{$V(G') \neq \emptyset$ and not timeout}
+                \State $C \gets$ \textsc{BMSConstruction}($G'$, $k$)
+                \If{$W(C) > W^*$}
+                \State $C^* \gets C$, $W^* \gets W(C)$
+                \ForAll{$v \in V(G')$} \textbf{if} $W(N[v]) \leq W^*$ \textbf{then} remove $v$ \EndFor
+                \EndIf
+                \EndWhile
+                \State \Return $C^*$
+            \end{algorithmic}
+        \end{minipage}
+    }
 \end{algorithm}
 
 The BMS construction selects vertices based on: $\text{benefit}(v) = w(v) + 0.1
@@ -50,25 +50,24 @@ Checking (SCC) to avoid cycling and walk perturbation to escape local optima.
 \begin{algorithm}[H]
     \caption{SCCWalk}
     \label{alg:scc-walk}
-    \begin{algorithmic}[1]
-        \Require Graph $G$, max\_unimprove $M$, perturbation strength $\sigma$
-        \Ensure Best clique $C^*$ found
-        \State $C \gets$ \textsc{GreedyConstruct}($G$)
-        \State $C^* \gets C$, $steps \gets 0$
-        \While{not stopping criteria}
-        \State Try Add, Swap, or Drop operations using SCC rules
-        \If{$W(C) > W(C^*)$}
-        \State $C^* \gets C$, $steps \gets 0$
-        \Else
-        \State $steps \gets steps + 1$
-        \EndIf
-        \If{$steps \geq M$}
-        \State $C \gets$ \textsc{WalkPerturbation}($C$, $\sigma$)
-        \State $steps \gets 0$
-        \EndIf
-        \EndWhile
-        \State \Return $C^*$
-    \end{algorithmic}
+    \footnotesize
+    \scalebox{0.65}{
+        \begin{minipage}{0.85\linewidth}
+            \begin{algorithmic}[1]
+                \Require Graph $G$, max\_unimprove $M$, perturbation strength $\sigma$
+                \Ensure Best clique $C^*$ found
+                \State $C \gets$ \textsc{GreedyConstruct}($G$), $C^* \gets C$, $steps \gets 0$
+                \While{not stopping criteria}
+                \State Try Add, Swap, or Drop operations using SCC rules
+                \If{$W(C) > W(C^*)$} $C^* \gets C$, $steps \gets 0$
+                \Else~$steps \gets steps + 1$
+                \EndIf
+                \If{$steps \geq M$} $C \gets$ \textsc{WalkPerturbation}($C$, $\sigma$), $steps \gets 0$ \EndIf
+                \EndWhile
+                \State \Return $C^*$
+            \end{algorithmic}
+        \end{minipage}
+    }
 \end{algorithm}
 
 SCC prevents revisiting configurations by tracking vertex addition/removal
@@ -85,18 +84,23 @@ low-score vertices, progressively simplifying the graph.
 \begin{algorithm}[H]
     \caption{MWCPeel}
     \label{alg:mwc-peel}
-    \begin{algorithmic}[1]
-        \Require Graph $G$, peel\_fraction $\phi$
-        \Ensure Best clique $C^*$ found
-        \State $G' \gets G$, $C^* \gets$ \textsc{InitialClique}($G$)
-        \While{$V(G') \neq \emptyset$}
-        \State Apply exact reduction rules (domination, etc.)
-        \State Compute scores: $score(v) = W(N[v])$
-        \State Peel bottom $\phi$ fraction of vertices by score
-        \EndWhile
-        \State Solve remaining small graph exactly
-        \State \Return $C^*$
-    \end{algorithmic}
+    \footnotesize
+    \scalebox{0.65}{
+        \begin{minipage}{0.85\linewidth}
+            \begin{algorithmic}[1]
+                \Require Graph $G$, peel\_fraction $\phi$
+                \Ensure Best clique $C^*$ found
+                \State $G' \gets G$, $C^* \gets$ \textsc{InitialClique}($G$)
+                \While{$V(G') \neq \emptyset$}
+                \State Apply exact reduction rules (domination, etc.)
+                \State Compute scores: $score(v) = W(N[v])$
+                \State Peel bottom $\phi$ fraction of vertices by score
+                \EndWhile
+                \State Solve remaining small graph exactly
+                \State \Return $C^*$
+            \end{algorithmic}
+        \end{minipage}
+    }
 \end{algorithm}
 
 \textbf{Complexity:} $O(n^3)$ for reductions plus $O(2^{n'})$ for final exact solve on small graph.

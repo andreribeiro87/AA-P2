@@ -1,0 +1,356 @@
+% Appendix A: Detailed Pairwise Algorithm Comparisons
+\section{Pairwise Algorithm Comparisons}
+\label{sec:appendix-pairwise}
+
+This appendix presents detailed pairwise comparisons between algorithms,
+providing side-by-side visualizations of execution time and operation counts.
+These comparisons complement the aggregate analysis in
+Section~\ref{sec:results} by highlighting the relative performance
+characteristics of specific algorithm pairs.
+
+\subsection{Randomized Algorithm Comparisons}
+\label{sec:appendix-randomized}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/random_construction_vs_random_greedy_hybrid_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/random_construction_vs_random_greedy_hybrid_operations_line.png}
+    \end{minipage}
+    \caption{Random Construction vs Random Greedy Hybrid: Time (left) and Operations (right)}
+    \label{fig:pairwise-random-construction-hybrid}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/iterative_random_search_vs_monte_carlo_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/iterative_random_search_vs_monte_carlo_operations_line.png}
+    \end{minipage}
+    \caption{Iterative Random Search vs Monte Carlo: Time (left) and Operations (right)}
+    \label{fig:pairwise-iterative-monte}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/monte_carlo_vs_las_vegas_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/monte_carlo_vs_las_vegas_operations_line.png}
+    \end{minipage}
+    \caption{Monte Carlo vs Las Vegas: Time (left) and Operations (right)}
+    \label{fig:pairwise-monte-vegas}
+\end{figure}
+
+\subsection{Exact Algorithm Comparisons}
+\label{sec:appendix-exact}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/exhaustive_vs_wlmc_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/exhaustive_vs_wlmc_operations_line.png}
+    \end{minipage}
+    \caption{Exhaustive vs WLMC: Time (left) and Operations (right)}
+    \label{fig:pairwise-exhaustive-wlmc}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/wlmc_vs_tsm_mwc_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/wlmc_vs_tsm_mwc_operations_line.png}
+    \end{minipage}
+    \caption{WLMC vs TSM-MWC: Time (left) and Operations (right)}
+    \label{fig:pairwise-wlmc-tsm}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/exhaustive_vs_greedy_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/exhaustive_vs_greedy_operations_line.png}
+    \end{minipage}
+    \caption{Exhaustive vs Greedy: Time (left) and Operations (right)}
+    \label{fig:pairwise-exhaustive-greedy}
+\end{figure}
+
+\subsection{Reduction-Based Algorithm Comparisons}
+\label{sec:appendix-reduction}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/exhaustive_vs_mwc_redu_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/exhaustive_vs_mwc_redu_operations_line.png}
+    \end{minipage}
+    \caption{Exhaustive vs MWC-Redu: Time (left) and Operations (right)}
+    \label{fig:pairwise-exhaustive-redu}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/mwc_redu_vs_greedy_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/mwc_redu_vs_greedy_operations_line.png}
+    \end{minipage}
+    \caption{MWC-Redu vs Greedy: Time (left) and Operations (right)}
+    \label{fig:pairwise-redu-greedy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/mwc_redu_vs_max_clique_weight_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/mwc_redu_vs_max_clique_weight_operations_line.png}
+    \end{minipage}
+    \caption{MWC-Redu vs Max Clique Weight: Time (left) and Operations (right)}
+    \label{fig:pairwise-redu-maxclique}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/max_clique_weight_vs_max_clique_dyn_weight_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/max_clique_weight_vs_max_clique_dyn_weight_operations_line.png}
+    \end{minipage}
+    \caption{Max Clique Weight vs Max Clique Dyn Weight: Time (left) and Operations (right)}
+    \label{fig:pairwise-maxclique-dyn}
+\end{figure}
+
+\subsection{Heuristic Algorithm Comparisons}
+\label{sec:appendix-heuristic}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/greedy_vs_fast_wclq_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/greedy_vs_fast_wclq_operations_line.png}
+    \end{minipage}
+    \caption{Greedy vs Fast-WCLQ: Time (left) and Operations (right)}
+    \label{fig:pairwise-greedy-fastwclq}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/greedy_vs_random_greedy_hybrid_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/greedy_vs_random_greedy_hybrid_operations_line.png}
+    \end{minipage}
+    \caption{Greedy vs Random Greedy Hybrid: Time (left) and Operations (right)}
+    \label{fig:pairwise-greedy-hybrid}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/fast_wclq_vs_scc_walk_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/fast_wclq_vs_scc_walk_operations_line.png}
+    \end{minipage}
+    \caption{Fast-WCLQ vs SCC-Walk: Time (left) and Operations (right)}
+    \label{fig:pairwise-fastwclq-sccwalk}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/fast_wclq_vs_mwc_peel_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/fast_wclq_vs_mwc_peel_operations_line.png}
+    \end{minipage}
+    \caption{Fast-WCLQ vs MWC-Peel: Time (left) and Operations (right)}
+    \label{fig:pairwise-fastwclq-peel}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/greedy_vs_mwc_peel_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/greedy_vs_mwc_peel_operations_line.png}
+    \end{minipage}
+    \caption{Greedy vs MWC-Peel: Time (left) and Operations (right)}
+    \label{fig:pairwise-greedy-peel}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/scc_walk_vs_mwc_peel_time_line.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\textwidth}
+        \includegraphics[width=\textwidth]{plots/pairwise/scc_walk_vs_mwc_peel_operations_line.png}
+    \end{minipage}
+    \caption{SCC-Walk vs MWC-Peel: Time (left) and Operations (right)}
+    \label{fig:pairwise-sccwalk-peel}
+\end{figure}
+
+\newpage
+% Appendix B: Detailed Benchmark Results
+\section{Detailed Benchmark Results}
+\label{sec:appendix-tables}
+
+This appendix presents detailed tabular results from our experimental
+evaluation, complementing the summary statistics and visualizations in
+Section~\ref{sec:results}.
+
+\subsection{Exhaustive Search Reference Results}
+\label{sec:appendix-exhaustive-results}
+
+Table~\ref{tab:exhaustive-detailed} presents the exhaustive search results on
+small graphs ($n \leq 22$), which serve as the ground truth for quality
+comparisons.
+
+\begin{table}[H]
+    \centering
+    \caption{Exhaustive Search Results (Selected Graph Sizes)}
+    \label{tab:exhaustive-detailed}
+    \scalebox{0.70}{
+        \begin{tabular}{ccccccc}
+            \toprule
+            \textbf{$n$} & \textbf{Density} & \textbf{Clique Size} & \textbf{Weight} & \textbf{Time (s)} & \textbf{Operations} & \textbf{Configurations} \\
+            \midrule
+            10           & 12.5\%           & 3                    & 175.63          & 0.0007            & 1,186               & 1,024                   \\
+            10           & 25.0\%           & 3                    & 152.60          & 0.0008            & 1,644               & 1,024                   \\
+            10           & 50.0\%           & 3                    & 266.11          & 0.0008            & 1,765               & 1,024                   \\
+            10           & 75.0\%           & 4                    & 286.64          & 0.0010            & 3,485               & 1,024                   \\
+            \midrule
+            15           & 12.5\%           & 3                    & 201.09          & 0.0229            & 34,766              & 32,768                  \\
+            15           & 25.0\%           & 3                    & 265.09          & 0.0277            & 41,240              & 32,768                  \\
+            15           & 50.0\%           & 4                    & 294.83          & 0.0269            & 46,749              & 32,768                  \\
+            15           & 75.0\%           & 6                    & 391.79          & 0.0333            & 125,843             & 32,768                  \\
+            \midrule
+            20           & 12.5\%           & 3                    & 259.50          & 0.754             & 1,070,336           & 1,048,576               \\
+            20           & 25.0\%           & 4                    & 339.64          & 0.891             & 1,398,625           & 1,048,576               \\
+            20           & 50.0\%           & 4                    & 314.83          & 0.954             & 1,571,523           & 1,048,576               \\
+            20           & 75.0\%           & 8                    & 493.59          & 1.312             & 5,234,612           & 1,048,576               \\
+            \bottomrule
+        \end{tabular}
+    }
+\end{table}
+
+\subsection{Algorithm Performance at $n=100$}
+\label{sec:appendix-n100-results}
+
+Table~\ref{tab:n100-detailed} shows detailed performance metrics for all
+algorithms on graphs with 100 vertices.
+
+\begin{table*}[t]
+    \centering
+    \caption{Algorithm Performance at $n=100$}\label{tab:n100-detailed}
+    \begin{tabular}{lcccccccc}
+        \toprule
+        \textbf{Algorithm}        & \multicolumn{2}{c}{\textbf{Density 12.5\%}} & \multicolumn{2}{c}{\textbf{Density 25\%}} & \multicolumn{2}{c}{\textbf{Density 50\%}} & \multicolumn{2}{c}{\textbf{Density 75\%}}                                                                   \\
+                                  & Time (s)                                    & Ops ($\times 10^6$)                       & Time (s)                                  & Ops ($\times 10^6$)                       & Time (s) & Ops ($\times 10^6$) & Time (s) & Ops ($\times 10^6$) \\
+        \midrule
+        random\_construction      & 0.21                                        & 1.23                                      & 0.31                                      & 2.45                                      & 0.62     & 5.12                & 1.73     & 14.8                \\
+        random\_greedy\_hybrid    & 0.003                                       & 0.08                                      & 0.004                                     & 0.12                                      & 0.006    & 0.21                & 0.010    & 0.35                \\
+        iterative\_random\_search & 0.09                                        & 0.45                                      & 0.11                                      & 0.67                                      & 0.17     & 1.12                & 0.31     & 2.34                \\
+        monte\_carlo              & 0.71                                        & 3.45                                      & 0.87                                      & 4.89                                      & 1.41     & 8.23                & 3.07     & 18.9                \\
+        las\_vegas                & 0.24                                        & 1.12                                      & 0.41                                      & 2.01                                      & 0.77     & 4.56                & 2.28     & 12.3                \\
+        \midrule
+        mwc\_redu                 & 0.01                                        & 0.12                                      & 0.03                                      & 0.34                                      & 0.04     & 0.56                & 0.07     & 0.89                \\
+        max\_clique\_weight       & 0.04                                        & 0.45                                      & 0.09                                      & 1.23                                      & 0.21     & 3.45                & 0.78     & 12.3                \\
+        max\_clique\_dyn\_weight  & 0.04                                        & 0.47                                      & 0.10                                      & 1.28                                      & 0.22     & 3.56                & 0.81     & 12.8                \\
+        \midrule
+        wlmc                      & 0.02                                        & 0.23                                      & 0.04                                      & 0.56                                      & 0.08     & 1.23                & 0.15     & 2.89                \\
+        tsm\_mwc                  & 0.03                                        & 0.28                                      & 0.05                                      & 0.67                                      & 0.10     & 1.45                & 0.18     & 3.12                \\
+        \midrule
+        fast\_wclq                & 0.03                                        & 0.34                                      & 0.05                                      & 0.67                                      & 0.12     & 1.89                & 0.31     & 5.67                \\
+        scc\_walk                 & 0.75                                        & 4.23                                      & 1.29                                      & 7.89                                      & 2.72     & 16.7                & 7.09     & 45.6                \\
+        mwc\_peel                 & 0.008                                       & 0.09                                      & 0.012                                     & 0.15                                      & 0.018    & 0.23                & 0.028    & 0.34                \\
+        greedy                    & 0.001                                       & 0.01                                      & 0.001                                     & 0.02                                      & 0.002    & 0.03                & 0.002    & 0.04                \\
+        \bottomrule
+    \end{tabular}
+\end{table*}
+
+\subsection{Complexity Analysis Summary}
+\label{sec:appendix-complexity}
+
+Table~\ref{tab:complexity-full} provides the complete experimental complexity
+validation for all algorithms.
+
+\begin{table}[H]
+    \centering
+    \caption{Complete Experimental vs. Theoretical Complexity Validation}
+    \label{tab:complexity-full}
+    \scalebox{0.75}{
+        \begin{tabular}{lccc}
+            \toprule
+            \textbf{Algorithm}        & \textbf{Theoretical} & \textbf{Fitted Model}                            & $R^2$ \\
+            \midrule
+            \multicolumn{4}{l}{\textit{Randomized Algorithms}}                                                          \\
+            random\_construction      & $O(Tn^2)$            & $T(n) = 7.68 \times 10^{-5} n^2$                 & 0.90  \\
+            random\_greedy\_hybrid    & $O(Sn^2 \log n)$     & $T(n) = 2.03 \times 10^{-7} n^2$                 & 0.78  \\
+            iterative\_random\_search & $O(Tn^2)$            & $T(n) = 1.32 \times 10^{-5} n^2$                 & 0.42  \\
+            monte\_carlo              & $O(Tn^2)$            & $T(n) = 1.80 \times 10^{-4} n^2$                 & 0.87  \\
+            las\_vegas                & $O(Tn^2)$            & $T(n) = 7.86 \times 10^{-5} n^2$                 & 0.83  \\
+            \midrule
+            \multicolumn{4}{l}{\textit{Deterministic Algorithms}}                                                       \\
+            greedy                    & $O(n^2)$             & $T(n) = 1.38 \times 10^{-6} n^2$                 & 0.97  \\
+            exhaustive                & $O(2^n n)$           & $T(n) = 5.05 \times 10^{-8} \cdot 2^n n$         & 0.97  \\
+            \midrule
+            \multicolumn{4}{l}{\textit{Branch-and-Bound}}                                                               \\
+            wlmc                      & $O(2^k n^2)$         & $T(n) = 1.40 \times 10^{-6} \cdot 2^{0.02n} n^2$ & 0.96  \\
+            tsm\_mwc                  & $O(2^k n^2)$         & $T(n) = 1.83 \times 10^{-6} \cdot 2^{0.02n} n^2$ & 0.97  \\
+            \midrule
+            \multicolumn{4}{l}{\textit{Reduction-Based}}                                                                \\
+            mwc\_redu                 & $O(n^3 + Tn^2)$      & $T(n) = 3.84 \times 10^{-6} n^2$                 & 0.90  \\
+            max\_clique\_weight       & $O(2^k n^2)$         & $T(n) = 6.15 \times 10^{-7} \cdot 2^{0.03n} n^2$ & 0.96  \\
+            max\_clique\_dyn\_weight  & $O(2^k n^2)$         & $T(n) = 6.40 \times 10^{-7} \cdot 2^{0.03n} n^2$ & 0.95  \\
+            \midrule
+            \multicolumn{4}{l}{\textit{Heuristics}}                                                                     \\
+            fast\_wclq                & $O(Tn^2)$            & $T(n) = 1.04 \times 10^{-4} n^2$                 & 0.65  \\
+            scc\_walk                 & $O(Tn^2)$            & $T(n) = 2.67 \times 10^{-4} n^2$                 & 0.89  \\
+            mwc\_peel                 & $O(n^2)$             & $T(n) = 1.07 \times 10^{-5} n^2$                 & 0.98  \\
+            \bottomrule
+        \end{tabular}
+    }
+\end{table}
+
+Note: $T$ denotes the number of iterations for randomized algorithms, $S$
+denotes the number of starts for multi-start algorithms, and $k$ denotes the
+maximum clique size (typically $k \ll n$ for sparse graphs).
