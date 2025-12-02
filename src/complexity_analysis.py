@@ -40,7 +40,6 @@ def load_benchmark_results(results_dir: Path, algorithm: str) -> list[dict]:
     """
     results = []
 
-    # Try different possible paths
     possible_paths = [
         results_dir / algorithm / algorithm / "benchmark_results.csv",
         results_dir / algorithm / "benchmark_results.csv",
@@ -60,11 +59,9 @@ def load_benchmark_results(results_dir: Path, algorithm: str) -> list[dict]:
     with open(csv_path, "r") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            # Extract relevant fields
             n = int(row.get("n_vertices", 0))
             density = float(row.get("edge_density_percent", 0))
 
-            # Get time based on algorithm type
             time_val = None
             if row.get("random_time_seconds"):
                 time_val = float(row["random_time_seconds"])
@@ -95,7 +92,6 @@ def fit_quadratic_model(
         Tuple of (coefficient_a, r_squared)
     """
 
-    # Model: T = a * n^2
     def model(n, a):
         return a * n**2
 
@@ -105,7 +101,6 @@ def fit_quadratic_model(
         )
         a = popt[0]
 
-        # Calculate R²
         predicted = model(n_values, a)
         ss_res = np.sum((time_values - predicted) ** 2)
         ss_tot = np.sum((time_values - np.mean(time_values)) ** 2)
@@ -127,18 +122,15 @@ def fit_exponential_model(
         Tuple of (coefficient_a, r_squared)
     """
 
-    # Model: T = a * 2^n * n
     def model(n, a):
         return a * (2**n) * n
 
     try:
-        # Use log transform for numerical stability
         popt, _ = optimize.curve_fit(
             model, n_values, time_values, p0=[1e-9], maxfev=10000
         )
         a = popt[0]
 
-        # Calculate R²
         predicted = model(n_values, a)
         ss_res = np.sum((time_values - predicted) ** 2)
         ss_tot = np.sum((time_values - np.mean(time_values)) ** 2)
@@ -162,7 +154,6 @@ def fit_branch_bound_model(
         Tuple of (coefficient_a, exponent_factor_b, r_squared)
     """
 
-    # Model: T = a * 2^(b*n) * n^2  where b < 1 represents pruning effectiveness
     def model(n, a, b):
         return a * (2 ** (b * n)) * (n**2)
 
@@ -177,7 +168,6 @@ def fit_branch_bound_model(
         )
         a, b = popt
 
-        # Calculate R²
         predicted = model(n_values, a, b)
         ss_res = np.sum((time_values - predicted) ** 2)
         ss_tot = np.sum((time_values - np.mean(time_values)) ** 2)
@@ -210,26 +200,22 @@ def analyze_algorithm_complexity(
     if not results:
         return None
 
-    # Filter by density if specified
     if filter_density is not None:
         results = [r for r in results if abs(r["density"] - filter_density) < 1.0]
 
     if not results:
         return None
 
-    # Convert to numpy arrays
     n_values = np.array([r["n_vertices"] for r in results])
     time_values = np.array([r["time_seconds"] for r in results])
 
-    # Sort by n for better fitting
     sort_idx = np.argsort(n_values)
     n_values = n_values[sort_idx]
     time_values = time_values[sort_idx]
 
-    # Remove outliers (times that are way off)
     if len(time_values) > 5:
         median_time = np.median(time_values)
-        mask = time_values < median_time * 10  # Remove extreme outliers
+        mask = time_values < median_time * 10
         n_values = n_values[mask]
         time_values = time_values[mask]
 
@@ -288,26 +274,20 @@ def analyze_all_algorithms(
     Returns:
         List of FittedModel objects
     """
-    # Define algorithms and their expected complexity models
+
     algorithm_models = {
-        # Randomized - O(T * n²)
         "random_construction": "quadratic",
         "random_greedy_hybrid": "quadratic",
         "iterative_random_search": "quadratic",
         "monte_carlo": "quadratic",
         "las_vegas": "quadratic",
-        # Greedy - O(n²)
         "greedy": "quadratic",
-        # Exact - O(2^n * n)
         "exhaustive": "exponential",
-        # Branch-and-bound - O(2^k * n²) where k depends on pruning
         "wlmc": "branch_bound",
         "tsm_mwc": "branch_bound",
-        # Reduction-based - varies
         "mwc_redu": "quadratic",
         "max_clique_weight": "branch_bound",
         "max_clique_dyn_weight": "branch_bound",
-        # Heuristics
         "fast_wclq": "quadratic",
         "scc_walk": "quadratic",
         "mwc_peel": "quadratic",
@@ -384,7 +364,6 @@ def save_results(models: list[FittedModel], output_dir: Path) -> None:
     """
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Save as JSON
     json_path = output_dir / "complexity_analysis.json"
     with open(json_path, "w") as f:
         json.dump(
@@ -404,14 +383,12 @@ def save_results(models: list[FittedModel], output_dir: Path) -> None:
         )
     print(f"✓ Results saved to {json_path}")
 
-    # Generate LaTeX table
     latex_table = generate_latex_table(models)
     latex_path = output_dir / "complexity_table.tex"
     with open(latex_path, "w") as f:
         f.write(latex_table)
     print(f"✓ LaTeX table saved to {latex_path}")
 
-    # Print summary
     print("\n" + "=" * 60)
     print("COMPLEXITY ANALYSIS SUMMARY")
     print("=" * 60)

@@ -25,32 +25,27 @@ from src.algorithms import (
 class BenchmarkResult:
     """Complete benchmark result for a single graph instance."""
 
-    # Graph properties
     n_vertices: int
     n_edges: int
     edge_density_percent: float
 
-    # Exhaustive search metrics (optional if only running heuristic)
     exact_clique_size: int | None = None
     exact_weight: float | None = None
     exact_time_seconds: float | None = None
     exact_operations: int | None = None
     exact_configurations: int | None = None
-    exact_clique: str | None = None  # Comma-separated vertex IDs
+    exact_clique: str | None = None
 
-    # Greedy heuristic metrics (optional if only running exhaustive)
     greedy_clique_size: int | None = None
     greedy_weight: float | None = None
     greedy_time_seconds: float | None = None
     greedy_operations: int | None = None
     greedy_configurations: int | None = None
-    greedy_clique: str | None = None  # Comma-separated vertex IDs
+    greedy_clique: str | None = None
 
-    # Comparison metrics (optional)
     precision_percent: float | None = None
     speedup_factor: float | None = None
 
-    # Randomized algorithm metrics (optional)
     random_clique_size: int | None = None
     random_weight: float | None = None
     random_time_seconds: float | None = None
@@ -60,7 +55,7 @@ class BenchmarkResult:
     random_duplicates: int | None = None
     random_stopping_reason: str | None = None
     random_precision_percent: float | None = None
-    random_clique: str | None = None  # Comma-separated vertex IDs
+    random_clique: str | None = None
 
 
 class BenchmarkRunner:
@@ -98,13 +93,11 @@ class BenchmarkRunner:
         """
         solver = MaxWeightCliqueSolver(graph)
 
-        # Calculate graph properties
         n_vertices = graph.number_of_nodes()
         n_edges = graph.number_of_edges()
         max_edges = n_vertices * (n_vertices - 1) // 2
         edge_density = (n_edges / max_edges * 100.0) if max_edges > 0 else 0.0
 
-        # Make the edge density one of 12.5, 25.0, 50.0, 75.0, grab the closest one
         closest_density = min(
             [12.5, 25.0, 50.0, 75.0], key=lambda x: abs(x - edge_density)
         )
@@ -123,14 +116,12 @@ class BenchmarkRunner:
                 f"Benchmarking graph ({mode_str}): {n_vertices} vertices, {n_edges} edges ({closest_density:.1f}% density)"
             )
 
-        # Initialize result
         result = BenchmarkResult(
             n_vertices=n_vertices,
             n_edges=n_edges,
             edge_density_percent=closest_density,
         )
 
-        # Benchmark exhaustive search
         exact_result = None
         exact_time = None
         if mode in ["both", "exhaustive", "all"]:
@@ -149,7 +140,6 @@ class BenchmarkRunner:
             result.exact_configurations = exact_result.configurations_tested
             result.exact_clique = ",".join(str(v) for v in sorted(exact_result.clique))
 
-        # Benchmark greedy heuristic
         greedy_result = None
         greedy_time = None
         if mode in ["both", "heuristic", "all"]:
@@ -170,12 +160,11 @@ class BenchmarkRunner:
                 str(v) for v in sorted(greedy_result.clique)
             )
 
-        # Benchmark randomized algorithm
         random_result = None
         random_time = None
         if mode in ["random", "all"]:
             if random_strategy is None:
-                random_strategy = "random_greedy_hybrid"  # Default strategy
+                random_strategy = "random_greedy_hybrid"
 
             if random_params is None:
                 random_params = {}
@@ -186,7 +175,6 @@ class BenchmarkRunner:
             start_time = time.perf_counter()
 
             if random_strategy == "random_construction":
-                # Filter parameters that random_construction accepts
                 filtered_params = {
                     k: v
                     for k, v in random_params.items()
@@ -194,7 +182,6 @@ class BenchmarkRunner:
                 }
                 random_result = solver.random_construction(**filtered_params)
             elif random_strategy == "random_greedy_hybrid":
-                # Filter parameters that random_greedy_hybrid accepts (no time_limit)
                 filtered_params = {
                     k: v
                     for k, v in random_params.items()
@@ -202,7 +189,6 @@ class BenchmarkRunner:
                 }
                 random_result = solver.random_greedy_hybrid(**filtered_params)
             elif random_strategy == "iterative_random_search":
-                # Filter parameters that iterative_random_search accepts
                 filtered_params = {
                     k: v
                     for k, v in random_params.items()
@@ -213,16 +199,15 @@ class BenchmarkRunner:
                 random_result = solver.monte_carlo(**random_params)
             elif random_strategy == "las_vegas":
                 random_result = solver.las_vegas(**random_params)
-            # New algorithms from literature
+
             elif random_strategy == "wlmc":
-                # WLMC - exact BnB, doesn't use seed
                 filtered_params = {
                     k: v
                     for k, v in random_params.items()
                     if k in ["time_limit", "use_preprocessing"]
                 }
                 algo_result = solver.wlmc(**filtered_params)
-                # Convert to RandomizedAlgorithmResult for consistency
+
                 random_result = RandomizedAlgorithmResult(
                     clique=algo_result.clique,
                     total_weight=algo_result.total_weight,
@@ -233,12 +218,11 @@ class BenchmarkRunner:
                     stopping_reason=StoppingReason.EXHAUSTED,
                 )
             elif random_strategy == "tsm_mwc":
-                # TSM-MWC - exact BnB, doesn't use seed
                 filtered_params = {
                     k: v for k, v in random_params.items() if k in ["time_limit"]
                 }
                 algo_result = solver.tsm_mwc(**filtered_params)
-                # Convert to RandomizedAlgorithmResult for consistency
+
                 random_result = RandomizedAlgorithmResult(
                     clique=algo_result.clique,
                     total_weight=algo_result.total_weight,
@@ -249,7 +233,6 @@ class BenchmarkRunner:
                     stopping_reason=StoppingReason.EXHAUSTED,
                 )
             elif random_strategy == "fast_wclq":
-                # FastWClq - semi-exact heuristic with graph reduction
                 filtered_params = {
                     k: v
                     for k, v in random_params.items()
@@ -257,7 +240,6 @@ class BenchmarkRunner:
                 }
                 random_result = solver.fast_wclq(**filtered_params)
             elif random_strategy == "scc_walk":
-                # SCCWalk - local search with Strong Configuration Checking
                 filtered_params = {
                     k: v
                     for k, v in random_params.items()
@@ -272,7 +254,6 @@ class BenchmarkRunner:
                 }
                 random_result = solver.scc_walk(**filtered_params)
             elif random_strategy == "mwc_peel":
-                # MWCPeel - hybrid reduction with peeling
                 filtered_params = {
                     k: v
                     for k, v in random_params.items()
@@ -305,7 +286,6 @@ class BenchmarkRunner:
                 str(v) for v in sorted(random_result.clique)
             )
 
-            # Calculate precision compared to exact result if available
             if exact_result and exact_result.total_weight > 0:
                 result.random_precision_percent = (
                     random_result.total_weight / exact_result.total_weight * 100.0
@@ -315,12 +295,11 @@ class BenchmarkRunner:
                     random_result.total_weight / greedy_result.total_weight * 100.0
                 )
 
-        # Benchmark reduction/exact algorithms (deterministic, NOT random)
         reduction_result = None
         reduction_time = None
         if mode == "reduction":
             if reduction_strategy is None:
-                reduction_strategy = "mwc_redu"  # Default strategy
+                reduction_strategy = "mwc_redu"
 
             if reduction_params is None:
                 reduction_params = {}
@@ -332,11 +311,10 @@ class BenchmarkRunner:
 
             if reduction_strategy == "mwc_redu":
                 algo_result = solver.mwc_redu(**reduction_params)
-                # mwc_redu can return either AlgorithmResult or RandomizedAlgorithmResult
+
                 if isinstance(algo_result, RandomizedAlgorithmResult):
                     reduction_result = algo_result
                 else:
-                    # Convert to RandomizedAlgorithmResult for consistency
                     reduction_result = RandomizedAlgorithmResult(
                         clique=algo_result.clique,
                         total_weight=algo_result.total_weight,
@@ -348,7 +326,7 @@ class BenchmarkRunner:
                     )
             elif reduction_strategy == "max_clique_weight":
                 algo_result = solver.max_clique_weight(**reduction_params)
-                # Convert to RandomizedAlgorithmResult for consistency
+
                 reduction_result = RandomizedAlgorithmResult(
                     clique=algo_result.clique,
                     total_weight=algo_result.total_weight,
@@ -360,7 +338,7 @@ class BenchmarkRunner:
                 )
             elif reduction_strategy == "max_clique_dyn_weight":
                 algo_result = solver.max_clique_dyn_weight(**reduction_params)
-                # Convert to RandomizedAlgorithmResult for consistency
+
                 reduction_result = RandomizedAlgorithmResult(
                     clique=algo_result.clique,
                     total_weight=algo_result.total_weight,
@@ -378,7 +356,6 @@ class BenchmarkRunner:
             if self.verbose:
                 print(f"✓ ({reduction_time:.4f}s)")
 
-            # Use random_* fields for reduction algorithms too (for consistency in BenchmarkResult)
             result.random_clique_size = len(reduction_result.clique)
             result.random_weight = reduction_result.total_weight
             result.random_time_seconds = reduction_time
@@ -397,7 +374,6 @@ class BenchmarkRunner:
                 str(v) for v in sorted(reduction_result.clique)
             )
 
-            # Calculate precision compared to exact result if available
             if exact_result and exact_result.total_weight > 0:
                 result.random_precision_percent = (
                     reduction_result.total_weight / exact_result.total_weight * 100.0
@@ -407,7 +383,6 @@ class BenchmarkRunner:
                     reduction_result.total_weight / greedy_result.total_weight * 100.0
                 )
 
-        # Calculate comparison metrics if both ran
         if mode == "both" and exact_result and greedy_result:
             comparison = compare_solutions(exact_result, greedy_result)
             result.precision_percent = comparison["precision_percent"]
@@ -442,7 +417,7 @@ class BenchmarkRunner:
         Returns:
             BenchmarkResult with metrics
         """
-        # Use graph loader to support multiple formats and handle weights
+
         from src.graph_loader import BenchmarkGraphLoader
 
         loader = BenchmarkGraphLoader()
@@ -531,7 +506,6 @@ class BenchmarkRunner:
                             f"  Time: {result.random_time_seconds:.4f}s{precision_str}\n"
                         )
                     elif mode == "reduction" and result.random_time_seconds is not None:
-                        # Use random_time_seconds for reduction algorithms too (it's the algorithm time)
                         precision_str = (
                             f", Precision: {result.random_precision_percent:.1f}%"
                             if result.random_precision_percent
@@ -561,7 +535,6 @@ class BenchmarkRunner:
                 print(f"  ✗ Error: {e}\n")
                 continue
 
-        # Save results
         self._save_results(results, output_dir)
 
         return results
@@ -574,7 +547,7 @@ class BenchmarkRunner:
             results: list of benchmark results
             output_dir: Directory to save files
         """
-        # Save as CSV
+
         csv_path = output_dir / "benchmark_results.csv"
         with open(csv_path, "w", newline="") as f:
             if results:
@@ -585,7 +558,6 @@ class BenchmarkRunner:
 
         print(f"✓ Results saved to {csv_path}")
 
-        # Save as JSON
         json_path = output_dir / "benchmark_results.json"
         with open(json_path, "w") as f:
             json.dump([asdict(r) for r in results], f, indent=2)
@@ -619,14 +591,12 @@ class BenchmarkRunner:
         ) / len(results)
         print(f"Average speedup: {avg_speedup:.2f}x")
 
-        # Find largest graph tested
         largest = max(results, key=lambda r: r.n_vertices)
         print(f"\nLargest graph: {largest.n_vertices} vertices")
         print(f"  Exact time: {largest.exact_time_seconds or 0:.4f}s")
         print(f"  Greedy time: {largest.greedy_time_seconds or 0:.4f}s")
         print(f"  Precision: {largest.precision_percent or 0:.2f}%")
 
-        # Performance by density
         print("\nPerformance by edge density:")
         densities: dict[float, list[BenchmarkResult]] = {}
         for result in results:
@@ -645,7 +615,6 @@ class BenchmarkRunner:
             )
 
 
-# Algorithm categories for organization
 ALGORITHM_CATEGORIES = {
     "exact": ["exhaustive"],
     "greedy": ["greedy"],
@@ -696,15 +665,12 @@ def get_algorithm_config(
     if common_params is None:
         common_params = {}
 
-    # Exact algorithms
     if algorithm == "exhaustive":
         return ("exhaustive", None, {})
 
-    # Greedy heuristic
     if algorithm == "greedy":
         return ("heuristic", None, {})
 
-    # Randomized algorithms
     if algorithm in [
         "random_construction",
         "random_greedy_hybrid",
@@ -725,10 +691,7 @@ def get_algorithm_config(
             )
         return ("random", algorithm, params)
 
-    # Reduction algorithms (don't accept time_limit, max_iterations, seed directly)
     if algorithm in ["mwc_redu", "max_clique_weight", "max_clique_dyn_weight"]:
-        # These algorithms don't accept time_limit, max_iterations, or seed directly
-        # Filter out unsupported parameters
         params = {}
         if algorithm == "mwc_redu":
             params["reduction_rules"] = common_params.get(
@@ -749,17 +712,14 @@ def get_algorithm_config(
             params["use_reduction"] = common_params.get("use_reduction", False)
         return ("reduction", algorithm, params)
 
-    # Exact Branch & Bound algorithms
     if algorithm in ["wlmc", "tsm_mwc"]:
         params = dict(common_params)
         return ("random", algorithm, params)
 
-    # Heuristic algorithms
     if algorithm in ["fast_wclq", "scc_walk", "mwc_peel"]:
         params = dict(common_params)
         return ("random", algorithm, params)
 
-    # Default fallback
     return ("heuristic", None, {})
 
 
@@ -779,7 +739,6 @@ def convert_result_to_dict(result: BenchmarkResult, algorithm: str) -> dict | No
     n_vertices = item.get("n_vertices", 0)
     density = item.get("edge_density_percent", 0)
 
-    # Determine which fields to use based on algorithm type
     if algorithm == "exhaustive":
         time_s = item.get("exact_time_seconds")
         operations = item.get("exact_operations")
@@ -849,14 +808,12 @@ def benchmark_directory(
     if algorithms is None:
         algorithms = ["greedy"]
 
-    # Validate algorithms
     invalid_algs = [a for a in algorithms if a not in ALL_ALGORITHMS]
     if invalid_algs:
         raise ValueError(
             f"Unknown algorithms: {invalid_algs}. Available: {ALL_ALGORITHMS}"
         )
 
-    # Load graph files
     loader = BenchmarkGraphLoader()
     graph_files = loader.list_graph_files(graphs_dir, pattern="*", recursive=recursive)
 
@@ -866,7 +823,6 @@ def benchmark_directory(
             "Supported formats: .graphml, .txt (SW/adjacency matrix), .clq, .dimacs"
         )
 
-    # Filter by vertex count if specified
     if min_vertices is not None or max_vertices is not None:
         filtered_files = []
         for gf in graph_files:
@@ -879,7 +835,6 @@ def benchmark_directory(
                     continue
                 filtered_files.append(gf)
             except Exception:
-                # Include files we can't load (let them fail later with error message)
                 filtered_files.append(gf)
 
         if verbose and len(filtered_files) != len(graph_files):
@@ -895,7 +850,6 @@ def benchmark_directory(
             f"Range: {min_vertices or '*'}..{max_vertices or '*'}"
         )
 
-    # Limit graphs if specified
     if max_graphs is not None and len(graph_files) > max_graphs:
         if verbose:
             print(f"Limiting to first {max_graphs} of {len(graph_files)} graphs")
@@ -905,10 +859,8 @@ def benchmark_directory(
         print(f"Found {len(graph_files)} graph files in {graphs_dir}")
         print(f"Running {len(algorithms)} algorithm(s): {', '.join(algorithms)}")
 
-    # Setup output directory
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Common parameters
     common_params = {
         "time_limit": time_limit,
         "max_iterations": max_iterations,
@@ -928,7 +880,6 @@ def benchmark_directory(
         alg_output_dir = output_dir / alg
         alg_output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Get algorithm configuration
         mode, strategy, params = get_algorithm_config(alg, common_params)
 
         try:
@@ -955,7 +906,6 @@ def benchmark_directory(
                 print(f"✗ {alg}: Error - {e}")
             all_results[alg] = []
 
-    # Print summary
     if verbose:
         print(f"\n{'=' * 60}")
         print("BENCHMARK SUMMARY")
@@ -974,7 +924,7 @@ def benchmark_directory(
 
 def main() -> None:
     """Run benchmarks on generated graphs."""
-    # Find all generated graphs
+
     graphs_dir = Path("experiments/graphs")
 
     if not graphs_dir.exists():
@@ -990,11 +940,9 @@ def main() -> None:
 
     print(f"Found {len(graph_files)} graph files")
 
-    # Run benchmarks
     runner = BenchmarkRunner(verbose=True)
     results = runner.benchmark_series(graph_files)
 
-    # Print summary
     runner.print_summary(results)
 
 

@@ -61,7 +61,6 @@ class GraphGenerator:
                 y = random.randint(self.coord_min, self.coord_max)
                 point = (x, y)
 
-                # Check if point is far enough from all existing points
                 if all(
                     self._distance(point, existing) >= self.min_distance
                     for existing in points
@@ -84,9 +83,7 @@ class GraphGenerator:
         """Calculate Euclidean distance between two points."""
         return ((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) ** 0.5
 
-    def generate_graph(
-        self, n_vertices: int, edge_density_percent: float
-    ) -> nx.Graph:
+    def generate_graph(self, n_vertices: int, edge_density_percent: float) -> nx.Graph:
         """
         Generate a random graph with specified number of vertices and edge density.
 
@@ -97,28 +94,26 @@ class GraphGenerator:
         Returns:
             NetworkX Graph with weighted vertices and 2D coordinates
         """
-        # Generate vertex positions
+
         points = self._generate_points(n_vertices)
 
-        # Create graph
         G: nx.Graph = nx.Graph()
 
-        # Add vertices with coordinates and weights
         for i, (x, y) in enumerate(points):
             weight = random.uniform(self.min_weight, self.max_weight)
             G.add_node(i, x=x, y=y, weight=weight)
 
-        # Calculate number of edges to add
         max_edges = n_vertices * (n_vertices - 1) // 2
         n_edges = int(max_edges * edge_density_percent / 100)
 
-        # Generate all possible edges
-        possible_edges = [(i, j) for i in range(n_vertices) for j in range(i + 1, n_vertices)]
-        
-        # Randomly select edges
-        selected_edges = random.sample(possible_edges, min(n_edges, len(possible_edges)))
-        
-        # Add edges to graph
+        possible_edges = [
+            (i, j) for i in range(n_vertices) for j in range(i + 1, n_vertices)
+        ]
+
+        selected_edges = random.sample(
+            possible_edges, min(n_edges, len(possible_edges))
+        )
+
         G.add_edges_from(selected_edges)
 
         return G
@@ -147,18 +142,18 @@ class GraphGenerator:
 
         for n in range(min_vertices, max_vertices + 1):
             for density in densities:
-                # Reset random seed for each graph to ensure reproducibility
                 random.seed(self.seed + n * 1000 + int(density * 10))
-                
+
                 G = self.generate_graph(n, density)
-                
-                # Save graph
+
                 filename = f"graph_n{n}_d{int(density)}.graphml"
                 filepath = output_dir / filename
                 nx.write_graphml(G, filepath)
-                
+
                 generated_files.append((n, density, filepath))
-                print(f"Generated: {filename} ({n} vertices, {G.number_of_edges()} edges, {density}% density)")
+                print(
+                    f"Generated: {filename} ({n} vertices, {G.number_of_edges()} edges, {density}% density)"
+                )
 
         return generated_files
 
@@ -166,25 +161,24 @@ class GraphGenerator:
 def main() -> None:
     """Generate sample graphs for testing."""
     generator = GraphGenerator(seed=42)
-    
-    # Generate a small test graph
+
     G = generator.generate_graph(n_vertices=6, edge_density_percent=50.0)
-    
+
     print(f"Test graph: {G.number_of_nodes()} vertices, {G.number_of_edges()} edges")
     print("\nVertex data:")
     for node, data in G.nodes(data=True):
-        print(f"  Node {node}: pos=({data['x']}, {data['y']}), weight={data['weight']:.2f}")
-    
-    # Generate full series
-    print("\n" + "="*60)
+        print(
+            f"  Node {node}: pos=({data['x']}, {data['y']}), weight={data['weight']:.2f}"
+        )
+
+    print("\n" + "=" * 60)
     print("Generating full graph series...")
-    print("="*60 + "\n")
-    
+    print("=" * 60 + "\n")
+
     files = generator.generate_graph_series(min_vertices=4, max_vertices=10)
-    
+
     print(f"\n✓ Generated {len(files)} graphs in experiments/graphs/")
 
 
 if __name__ == "__main__":
     main()
-

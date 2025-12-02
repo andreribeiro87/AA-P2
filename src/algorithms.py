@@ -67,7 +67,6 @@ class MaxWeightCliqueSolver:
         checks = 0
         vertices_list = list(vertices)
 
-        # Check all pairs of vertices for adjacency
         for i in range(len(vertices_list)):
             for j in range(i + 1, len(vertices_list)):
                 checks += 1
@@ -150,13 +149,11 @@ class MaxWeightCliqueSolver:
         total_operations = 0
         configurations_tested = 0
 
-        # Test all possible subsets (including empty set)
         for size in range(self.n_vertices + 1):
             for subset in combinations(nodes, size):
                 configurations_tested += 1
                 subset_set = set(subset)
 
-                # Check if subset is a clique
                 is_clique, ops = self._is_clique(subset_set)
                 total_operations += ops
 
@@ -206,20 +203,15 @@ class MaxWeightCliqueSolver:
         total_operations = 0
         configurations_tested = 0
 
-        # If no start vertex specified, choose the one with highest weight
         if start_vertex is None:
             start_vertex = max(nodes, key=lambda v: self.graph.nodes[v]["weight"])
 
-        # Initialize clique with start vertex
         clique: set[int] = {start_vertex}
         configurations_tested += 1
 
-        # Get candidates: all other vertices
         candidates = set(nodes) - clique
 
-        # Iteratively add vertices
         while candidates:
-            # Find compatible candidates (adjacent to all vertices in current clique)
             compatible: list[tuple[int, float]] = []
 
             for candidate in candidates:
@@ -234,11 +226,9 @@ class MaxWeightCliqueSolver:
                     weight = self.graph.nodes[candidate]["weight"]
                     compatible.append((candidate, weight))
 
-            # If no compatible candidates, stop
             if not compatible:
                 break
 
-            # Add the highest weight compatible candidate
             best_candidate = max(compatible, key=lambda x: x[1])[0]
             clique.add(best_candidate)
             candidates.remove(best_candidate)
@@ -273,7 +263,6 @@ class MaxWeightCliqueSolver:
             if best_result is None or result.total_weight > best_result.total_weight:
                 best_result = result
 
-        # Update with accumulated statistics
         if best_result:
             best_result.basic_operations = total_operations
             best_result.configurations_tested = total_configurations
@@ -327,7 +316,6 @@ class MaxWeightCliqueSolver:
         while True:
             iteration += 1
 
-            # Check stopping criteria
             should_stop, stopping_reason = self._check_stopping_criteria(
                 iteration=iteration,
                 start_time=start_time,
@@ -338,14 +326,11 @@ class MaxWeightCliqueSolver:
             if should_stop:
                 break
 
-            # Randomly select starting vertex
             start_vertex = random.choice(nodes)
             clique: set[int] = {start_vertex}
             candidates = set(nodes) - clique
 
-            # Build clique by randomly adding compatible vertices
             while candidates:
-                # Find compatible candidates
                 compatible: list[int] = []
                 for candidate in candidates:
                     is_compatible = True
@@ -360,12 +345,10 @@ class MaxWeightCliqueSolver:
                 if not compatible:
                     break
 
-                # Randomly select a compatible vertex
                 selected = random.choice(compatible)
                 clique.add(selected)
                 candidates.remove(selected)
 
-            # Check if this configuration was already tested
             configurations_tested += 1
             if self._is_duplicate(clique, tested_configs):
                 duplicate_count += 1
@@ -373,7 +356,6 @@ class MaxWeightCliqueSolver:
                 unique_configurations += 1
                 tested_configs.add(frozenset(clique))
 
-                # Check if it's a clique and update best
                 is_clique, ops = self._is_clique(clique)
                 total_operations += ops
 
@@ -431,14 +413,11 @@ class MaxWeightCliqueSolver:
         duplicate_count = 0
 
         for start_idx in range(num_starts):
-            # Random starting vertex
             start_vertex = random.choice(nodes)
             clique: set[int] = {start_vertex}
             candidates = set(nodes) - clique
 
-            # Build clique iteratively
             while candidates:
-                # Find compatible candidates with their weights
                 compatible: list[tuple[int, float]] = []
                 for candidate in candidates:
                     is_compatible = True
@@ -454,15 +433,12 @@ class MaxWeightCliqueSolver:
                 if not compatible:
                     break
 
-                # Select candidate: random vs greedy based on randomness_factor
                 if random.random() < randomness_factor:
-                    # Random selection
                     selected = random.choice(compatible)[0]
                 else:
-                    # Greedy: select from top-k candidates
                     compatible.sort(key=lambda x: x[1], reverse=True)
                     top_candidates = compatible[: min(top_k, len(compatible))]
-                    # Weighted random selection from top-k
+
                     weights = [w for _, w in top_candidates]
                     total_weight = sum(weights)
                     if total_weight > 0:
@@ -481,7 +457,6 @@ class MaxWeightCliqueSolver:
                 clique.add(selected)
                 candidates.remove(selected)
 
-            # Check if this configuration was already tested
             configurations_tested += 1
             if self._is_duplicate(clique, tested_configs):
                 duplicate_count += 1
@@ -489,7 +464,6 @@ class MaxWeightCliqueSolver:
                 unique_configurations += 1
                 tested_configs.add(frozenset(clique))
 
-                # Verify it's a clique and update best
                 is_clique, ops = self._is_clique(clique)
                 total_operations += ops
 
@@ -543,13 +517,10 @@ class MaxWeightCliqueSolver:
 
         nodes = list(self.graph.nodes())
 
-        # Set sensible defaults to prevent infinite loops
         if max_iterations is None and time_limit is None:
-            max_iterations = self.n_vertices * 100  # Default: 100 iterations per vertex
+            max_iterations = self.n_vertices * 100
         if max_configs_per_size is None:
-            max_configs_per_size = max(
-                10, self.n_vertices * 10
-            )  # Default: 10 configs per size per vertex
+            max_configs_per_size = max(10, self.n_vertices * 10)
 
         tested_configs: set[frozenset[int]] = set()
         max_clique: set[int] = set()
@@ -561,7 +532,6 @@ class MaxWeightCliqueSolver:
         last_improvement_iteration = 0
         start_time = time.perf_counter()
 
-        # Determine initial size
         if initial_size_strategy == "largest":
             current_size = self.n_vertices
         elif initial_size_strategy == "half":
@@ -573,11 +543,9 @@ class MaxWeightCliqueSolver:
         while current_size > 0:
             configs_at_size = 0
 
-            # Test random subsets of current size
             while True:
                 iteration += 1
 
-                # Check stopping criteria
                 should_stop, stopping_reason = self._check_stopping_criteria(
                     iteration=iteration,
                     start_time=start_time,
@@ -596,21 +564,18 @@ class MaxWeightCliqueSolver:
                         stopping_reason=stopping_reason,
                     )
 
-                # Check per-size limit
                 if (
                     max_configs_per_size is not None
                     and configs_at_size >= max_configs_per_size
                 ):
                     break
 
-                # Generate random subset of current size
                 if current_size > len(nodes):
                     break
 
                 subset = set(random.sample(nodes, current_size))
                 configurations_tested += 1
 
-                # Check if duplicate
                 if self._is_duplicate(subset, tested_configs):
                     duplicate_count += 1
                     configs_at_size += 1
@@ -620,7 +585,6 @@ class MaxWeightCliqueSolver:
                 tested_configs.add(frozenset(subset))
                 configs_at_size += 1
 
-                # Check if it's a clique
                 is_clique, ops = self._is_clique(subset)
                 total_operations += ops
 
@@ -631,7 +595,6 @@ class MaxWeightCliqueSolver:
                         max_clique = subset.copy()
                         last_improvement_iteration = iteration
 
-            # Move to next smaller size
             current_size -= size_decrement
 
         return RandomizedAlgorithmResult(
@@ -685,7 +648,6 @@ class MaxWeightCliqueSolver:
         last_improvement_iteration = 0
         start_time = time.perf_counter()
 
-        # Compute vertex weights for probability distribution
         weights = [self.graph.nodes[v]["weight"] for v in nodes]
         min_weight = min(weights) if weights else 1.0
         max_weight_val = max(weights) if weights else 1.0
@@ -693,7 +655,6 @@ class MaxWeightCliqueSolver:
             max_weight_val - min_weight if max_weight_val > min_weight else 1.0
         )
 
-        # Determine number of iterations
         if max_iterations is not None:
             num_samples = max_iterations
 
@@ -702,26 +663,22 @@ class MaxWeightCliqueSolver:
         while iteration < num_samples:
             iteration += 1
 
-            # Check time limit
             if time_limit is not None:
                 elapsed = time.perf_counter() - start_time
                 if elapsed >= time_limit:
                     stopping_reason = StoppingReason.TIME_LIMIT
                     break
 
-            # Determine sample size based on strategy
             if sample_size_strategy == "fixed":
                 sample_size = max(1, self.n_vertices // 2)
             elif sample_size_strategy == "proportional":
                 sample_size = max(1, int(self.n_vertices * 0.5))
             elif sample_size_strategy == "adaptive":
-                # Adaptive: larger samples early, smaller later
                 progress = iteration / num_samples
                 sample_size = max(1, int(self.n_vertices * (1.0 - progress * 0.5)))
             else:
                 sample_size = max(1, self.n_vertices // 2)
 
-            # Sample vertices probabilistically based on weights
             clique: set[int] = set()
             available = list(nodes)
 
@@ -729,18 +686,16 @@ class MaxWeightCliqueSolver:
                 if not available:
                     break
 
-                # Compute probabilities based on weights
                 probabilities = []
                 for v in available:
                     weight = self.graph.nodes[v]["weight"]
-                    # Normalize and add threshold
+
                     prob = probability_threshold + (1.0 - probability_threshold) * (
                         (weight - min_weight) / weight_range
                         if weight_range > 0
                         else 0.5
                     )
 
-                    # Check if vertex is compatible with current clique
                     is_compatible = True
                     for clique_vertex in clique:
                         total_operations += 1
@@ -756,7 +711,6 @@ class MaxWeightCliqueSolver:
                 if not probabilities or all(p == 0.0 for _, p in probabilities):
                     break
 
-                # Select vertex using weighted random choice
                 total_prob = sum(p for _, p in probabilities)
                 if total_prob == 0:
                     break
@@ -777,7 +731,6 @@ class MaxWeightCliqueSolver:
                 clique.add(selected)
                 available.remove(selected)
 
-            # Check if this configuration was already tested
             configurations_tested += 1
             if self._is_duplicate(clique, tested_configs):
                 duplicate_count += 1
@@ -785,7 +738,6 @@ class MaxWeightCliqueSolver:
                 unique_configurations += 1
                 tested_configs.add(frozenset(clique))
 
-                # Verify it's a clique
                 if clique:
                     is_clique, ops = self._is_clique(clique)
                     total_operations += ops
@@ -859,7 +811,6 @@ class MaxWeightCliqueSolver:
         while iteration < max_attempts:
             iteration += 1
 
-            # Check time limit
             if time_limit is not None:
                 elapsed = time.perf_counter() - start_time
                 if elapsed >= time_limit:
@@ -868,23 +819,20 @@ class MaxWeightCliqueSolver:
 
             if construction_strategy == "random_walk":
                 clique = self._random_walk_clique()
-            else:  # iterative_construction
+            else:
                 clique = self._iterative_construction_clique()
 
-            # Verify it's a valid clique
             if not clique:
                 continue
 
             is_clique, ops = self._is_clique(clique)
             total_operations += ops
 
-            # Las Vegas guarantee: only return valid cliques
             if not is_clique:
                 continue
 
             configurations_tested += 1
 
-            # Check if duplicate
             if self._is_duplicate(clique, tested_configs):
                 duplicate_count += 1
             else:
@@ -897,18 +845,13 @@ class MaxWeightCliqueSolver:
                     best_clique = clique.copy()
                     last_improvement_iteration = iteration
 
-            # For Las Vegas, we can stop early if we found a reasonable solution
-            # But we guarantee correctness, so we always return a valid clique
             if iteration % 100 == 0 and best_clique:
-                # Check if we should continue
                 pass
 
         if stopping_reason is None:
             stopping_reason = StoppingReason.MAX_ITERATIONS
 
-        # Ensure we return at least some valid clique
         if not best_clique:
-            # Fallback: return a single vertex with maximum weight
             best_vertex = max(nodes, key=lambda v: self.graph.nodes[v]["weight"])
             best_clique = {best_vertex}
             best_weight = self.graph.nodes[best_vertex]["weight"]
@@ -929,19 +872,16 @@ class MaxWeightCliqueSolver:
         if not nodes:
             return set()
 
-        # Start with random vertex
         current = random.choice(nodes)
         clique: set[int] = {current}
         candidates = set(self.graph.neighbors(current))
 
-        # Random walk: add compatible vertices
         max_steps = self.n_vertices
         steps = 0
 
         while candidates and steps < max_steps:
             steps += 1
 
-            # Filter compatible candidates
             compatible = []
             for candidate in candidates:
                 is_compatible = True
@@ -955,12 +895,10 @@ class MaxWeightCliqueSolver:
             if not compatible:
                 break
 
-            # Randomly select a compatible vertex
             selected = random.choice(compatible)
             clique.add(selected)
             candidates.remove(selected)
 
-            # Update candidates to neighbors of new vertex
             new_candidates = set(self.graph.neighbors(selected))
             candidates = candidates.intersection(new_candidates)
 
@@ -972,14 +910,11 @@ class MaxWeightCliqueSolver:
         if not nodes:
             return set()
 
-        # Start with highest weight vertex
         start_vertex = max(nodes, key=lambda v: self.graph.nodes[v]["weight"])
         clique: set[int] = {start_vertex}
         candidates = set(nodes) - clique
 
-        # Build clique by randomly adding compatible vertices
         while candidates:
-            # Find compatible candidates
             compatible = []
             for candidate in candidates:
                 is_compatible = True
@@ -993,7 +928,6 @@ class MaxWeightCliqueSolver:
             if not compatible:
                 break
 
-            # Weighted random selection based on vertex weights
             weights = [self.graph.nodes[v]["weight"] for v in compatible]
             total_weight = sum(weights)
             if total_weight == 0:
@@ -1042,16 +976,13 @@ class MaxWeightCliqueSolver:
         if solver_params is None:
             solver_params = {}
 
-        # Apply graph reduction
         reduced_graph, vertex_mapping, removed_vertices = self._graph_reduction(
             reduction_rules=reduction_rules,
             aggressive=aggressive,
         )
 
-        # Create solver for reduced graph
         reduced_solver = MaxWeightCliqueSolver(reduced_graph)
 
-        # Run solver on reduced graph
         if solver_method == "exhaustive":
             result = reduced_solver.exhaustive_search()
         elif solver_method == "greedy":
@@ -1061,38 +992,27 @@ class MaxWeightCliqueSolver:
         elif solver_method == "las_vegas":
             result = reduced_solver.las_vegas(**solver_params)
         else:
-            # Default to greedy
             result = reduced_solver.greedy_heuristic(**solver_params)
 
-        # Map solution back to original graph
         original_clique = set()
         for reduced_vertex in result.clique:
-            # reduced_vertex is from the reduced graph
-            # vertex_mapping maps reduced_graph vertex -> original graph vertex
             if reduced_vertex in vertex_mapping:
                 original_vertex = vertex_mapping[reduced_vertex]
-                # Only add if vertex exists in original graph
+
                 if original_vertex in self.graph:
                     original_clique.add(original_vertex)
             else:
-                # If not in mapping, the vertex might have been removed but the result still contains it
-                # This shouldn't happen, but skip it to avoid errors
                 continue
 
-        # Check if we can add any removed vertices (they might be isolated high-weight vertices)
         for removed_vertex in removed_vertices:
-            # Ensure the removed vertex still exists in the original graph
             if removed_vertex not in self.graph:
                 continue
 
-            # Check if vertex is compatible with current clique
             is_compatible = True
             if not original_clique:
-                # Empty clique - removed vertex can always be added if it exists
                 is_compatible = True
             else:
                 for clique_vertex in original_clique:
-                    # Ensure clique_vertex exists in graph before checking edge
                     if clique_vertex not in self.graph:
                         is_compatible = False
                         break
@@ -1101,17 +1021,14 @@ class MaxWeightCliqueSolver:
                             is_compatible = False
                             break
                     except Exception:
-                        # If there's an error checking the edge, assume not compatible
                         is_compatible = False
                         break
 
             if is_compatible:
                 original_clique.add(removed_vertex)
 
-        # Calculate weight in original graph
         total_weight = self._calculate_weight(original_clique)
 
-        # Return result with mapped clique
         if isinstance(result, RandomizedAlgorithmResult):
             return RandomizedAlgorithmResult(
                 clique=original_clique,
@@ -1208,27 +1125,20 @@ class MaxWeightCliqueSolver:
                 v_weight = graph.nodes[v]["weight"]
                 v_neighbors = set(graph.neighbors(v))
 
-                # Check if v dominates u: v's neighbors include u's neighbors
-                # and weight(v) >= weight(u)
                 if v_weight >= u_weight:
                     if u_neighbors.issubset(v_neighbors | {v}):
-                        # v dominates u
                         nodes_to_remove.append(u)
                         changed = True
                         break
 
-                # Check if u dominates v
                 if u_weight >= v_weight and not aggressive:
                     if v_neighbors.issubset(u_neighbors | {u}):
-                        # u dominates v
                         if v not in nodes_to_remove:
                             nodes_to_remove.append(v)
                             changed = True
 
-        # Remove duplicate nodes and check existence before removal
         unique_nodes_to_remove = list(set(nodes_to_remove))
         for node in unique_nodes_to_remove:
-            # Check if node still exists in graph before trying to remove
             if node not in graph:
                 continue
             if node in vertex_mapping:
@@ -1254,16 +1164,12 @@ class MaxWeightCliqueSolver:
         for node in list(graph.nodes()):
             neighbors = list(graph.neighbors(node))
             if len(neighbors) == 0:
-                # Isolated vertex: can't be in a clique with other vertices
-                # Keep only if it's the best single-vertex solution
                 if aggressive:
                     nodes_to_remove.append(node)
                     changed = True
 
-        # Remove duplicate nodes and check existence before removal
         unique_nodes_to_remove = list(set(nodes_to_remove))
         for node in unique_nodes_to_remove:
-            # Check if node still exists in graph before trying to remove
             if node not in graph:
                 continue
             if node in vertex_mapping:
@@ -1295,26 +1201,21 @@ class MaxWeightCliqueSolver:
             degree = len(list(graph.neighbors(node)))
             weight = graph.nodes[node]["weight"]
 
-            # Remove vertices with degree 0 (isolated) if aggressive
             if degree == 0 and aggressive:
                 nodes_to_remove.append(node)
                 changed = True
                 continue
 
-            # Remove vertices with very low degree and low weight
             if (
                 aggressive
                 and degree <= 1
                 and weight < max(graph.nodes[v]["weight"] for v in graph.nodes()) * 0.1
             ):
-                # Check if removing won't affect optimal solution
                 nodes_to_remove.append(node)
                 changed = True
 
-        # Remove duplicate nodes and check existence before removal
         unique_nodes_to_remove = list(set(nodes_to_remove))
         for node in unique_nodes_to_remove:
-            # Check if node still exists in graph before trying to remove
             if node not in graph:
                 continue
             if node in vertex_mapping:
@@ -1342,7 +1243,6 @@ class MaxWeightCliqueSolver:
         if not vertices:
             return {}
 
-        # Sort vertices by weight (descending) for better coloring
         sorted_vertices = sorted(
             vertices, key=lambda v: self.graph.nodes[v]["weight"], reverse=True
         )
@@ -1351,13 +1251,11 @@ class MaxWeightCliqueSolver:
         colors_used: set[int] = set()
 
         for vertex in sorted_vertices:
-            # Find colors used by neighbors
             neighbor_colors = set()
             for neighbor in self.graph.neighbors(vertex):
                 if neighbor in coloring:
                     neighbor_colors.add(coloring[neighbor])
 
-            # Find first available color
             color = 0
             while color in neighbor_colors:
                 color += 1
@@ -1386,7 +1284,6 @@ class MaxWeightCliqueSolver:
         if coloring is None:
             coloring = self._weighted_graph_coloring(vertices)
 
-        # Upper bound: sum of maximum weight vertex in each color class
         color_classes: dict[int, list[int]] = {}
         for vertex, color in coloring.items():
             if color not in color_classes:
@@ -1424,7 +1321,7 @@ class MaxWeightCliqueSolver:
         Returns:
             AlgorithmResult with optimal clique
         """
-        # Apply reduction if requested
+
         if use_reduction:
             if reduction_rules is None:
                 reduction_rules = ["domination", "isolation"]
@@ -1437,11 +1334,11 @@ class MaxWeightCliqueSolver:
                 color_ordering=color_ordering,
                 use_reduction=False,
             )
-            # Map back to original graph
+
             original_clique = {
                 vertex_mapping[v] for v in result.clique if v in vertex_mapping
             }
-            # Add removed vertices if compatible
+
             for removed in removed_vertices:
                 is_compatible = all(
                     self.graph.has_edge(removed, v) for v in original_clique
@@ -1481,7 +1378,6 @@ class MaxWeightCliqueSolver:
                 configurations_tested=0,
             )
 
-        # Order vertices
         if color_ordering == "weight_desc":
             ordered_nodes = sorted(
                 nodes, key=lambda v: self.graph.nodes[v]["weight"], reverse=True
@@ -1500,13 +1396,11 @@ class MaxWeightCliqueSolver:
         total_operations = 0
         configurations_tested = 0
 
-        # Compute initial upper bound
         initial_coloring = self._weighted_graph_coloring(ordered_nodes)
         upper_bound = self._compute_weighted_upper_bound(
             ordered_nodes, initial_coloring
         )
 
-        # Branch-and-bound search
         def search(
             current_clique: set[int], candidates: list[int], current_weight: float
         ):
@@ -1515,31 +1409,25 @@ class MaxWeightCliqueSolver:
             configurations_tested += 1
 
             if not candidates:
-                # Check if current clique is better
                 if current_weight > best_weight:
                     best_weight = current_weight
                     best_clique = current_clique.copy()
                 return
 
-            # Compute upper bound for remaining candidates
             if variant == "dynamic":
                 remaining_coloring = self._weighted_graph_coloring(candidates)
                 remaining_upper = self._compute_weighted_upper_bound(
                     candidates, remaining_coloring
                 )
             else:
-                # Use pre-computed bound for remaining vertices
                 remaining_upper = self._compute_weighted_upper_bound(candidates)
 
-            # Prune if upper bound + current weight <= best weight
             if current_weight + remaining_upper <= best_weight:
                 return
 
-            # Branch on each candidate
             for i, candidate in enumerate(candidates):
                 total_operations += 1
 
-                # Check if candidate can be added to clique
                 can_add = all(self.graph.has_edge(candidate, v) for v in current_clique)
 
                 if can_add:
@@ -1552,8 +1440,6 @@ class MaxWeightCliqueSolver:
                     ]
 
                     search(new_clique, new_candidates, new_weight)
-
-                # Also try without this candidate (implicit in next iteration)
 
         search(set(), ordered_nodes, 0.0)
 
@@ -1615,7 +1501,6 @@ class MaxWeightCliqueSolver:
         total_operations = 0
         configurations_tested = 0
 
-        # Phase 1: Initialize - compute ordering and initial clique
         initial_clique, vertex_order, reduced_graph = self._initialize_wlmc(
             use_preprocessing
         )
@@ -1628,7 +1513,6 @@ class MaxWeightCliqueSolver:
                 configurations_tested=configurations_tested,
             )
 
-        # Phase 2: Branch and Bound search
         best_clique = initial_clique.copy()
         best_weight = self._calculate_weight(best_clique)
 
@@ -1640,7 +1524,6 @@ class MaxWeightCliqueSolver:
         ) -> None:
             nonlocal best_clique, best_weight, total_operations, configurations_tested
 
-            # Time limit check
             if time_limit and time.perf_counter() - start_time > time_limit:
                 return
 
@@ -1652,28 +1535,23 @@ class MaxWeightCliqueSolver:
                     best_clique = current.copy()
                 return
 
-            # Compute upper bound using IS partition
             ub = self._compute_is_upper_bound(candidates, current_weight)
             if ub <= best_weight:
-                return  # Prune
+                return
 
-            # Branch on candidates
             for i, v in enumerate(candidates):
                 total_operations += 1
 
-                # Check if v can extend current clique
                 if all(self.graph.has_edge(v, u) for u in current):
                     new_current = current | {v}
                     new_weight = current_weight + self.graph.nodes[v]["weight"]
 
-                    # Filter candidates for next level
                     new_candidates = [
                         c for c in candidates[i + 1 :] if self.graph.has_edge(v, c)
                     ]
 
                     search_wlmc(new_current, new_candidates, new_weight, depth + 1)
 
-        # Order vertices by degree (ascending)
         ordered = sorted(
             reduced_graph.nodes(), key=lambda v: len(list(reduced_graph.neighbors(v)))
         )
@@ -1700,13 +1578,10 @@ class MaxWeightCliqueSolver:
         vertex_order = []
         initial_clique: set[int] = set()
 
-        # Compute ordering by removing minimum degree vertices
         while H.number_of_nodes() > 0:
-            # Find vertex with minimum degree
             min_v = min(H.nodes(), key=lambda v: len(list(H.neighbors(v))))
             vertex_order.append(min_v)
 
-            # Check if remaining graph is a clique
             remaining = set(H.nodes())
             if len(remaining) > 0:
                 is_clique = True
@@ -1725,13 +1600,11 @@ class MaxWeightCliqueSolver:
 
             H.remove_node(min_v)
 
-        # Preprocessing: reduce graph
         if use_preprocessing:
             lb = self._calculate_weight(initial_clique)
             reduced = self.graph.copy()
             to_remove = []
             for v in reduced.nodes():
-                # Remove if inclusive neighborhood weight <= lb
                 inclusive_neighbors = set(reduced.neighbors(v)) | {v}
                 neighborhood_weight = sum(
                     reduced.nodes[u]["weight"] for u in inclusive_neighbors
@@ -1758,19 +1631,16 @@ class MaxWeightCliqueSolver:
         if not candidates:
             return current_weight
 
-        # Greedy IS partition
         remaining = set(candidates)
         upper_bound = current_weight
 
         while remaining:
-            # Extract an independent set
             is_set: list[int] = []
             for v in list(remaining):
                 if all(not self.graph.has_edge(v, u) for u in is_set):
                     is_set.append(v)
                     remaining.remove(v)
 
-            # Add max weight from this IS
             if is_set:
                 max_weight_in_is = max(self.graph.nodes[v]["weight"] for v in is_set)
                 upper_bound += max_weight_in_is
@@ -1821,7 +1691,6 @@ class MaxWeightCliqueSolver:
         while working_graph.number_of_nodes() > 0:
             iteration += 1
 
-            # Check stopping criteria
             if max_iterations and iteration > max_iterations:
                 stopping_reason = StoppingReason.MAX_ITERATIONS
                 break
@@ -1829,11 +1698,9 @@ class MaxWeightCliqueSolver:
                 stopping_reason = StoppingReason.TIME_LIMIT
                 break
 
-            # Build clique using BMS strategy
             clique = self._bms_construction(working_graph, bms_k)
             configurations_tested += 1
 
-            # Check if duplicate
             frozen = frozenset(clique)
             if frozen in tested_configs:
                 duplicate_count += 1
@@ -1842,7 +1709,6 @@ class MaxWeightCliqueSolver:
             unique_configurations += 1
             tested_configs.add(frozen)
 
-            # Verify clique and update best
             weight = sum(
                 self.graph.nodes[v]["weight"] for v in clique if v in self.graph
             )
@@ -1851,7 +1717,6 @@ class MaxWeightCliqueSolver:
                 best_weight = weight
                 best_clique = clique.copy()
 
-                # Reduce graph
                 to_remove = []
                 for v in list(working_graph.nodes()):
                     ub0 = self._compute_vertex_ub0(working_graph, v)
@@ -1864,7 +1729,6 @@ class MaxWeightCliqueSolver:
 
                 total_operations += len(to_remove)
 
-                # Check if graph is empty (optimal found)
                 if working_graph.number_of_nodes() == 0:
                     stopping_reason = StoppingReason.EXHAUSTED
                     break
@@ -1897,15 +1761,12 @@ class MaxWeightCliqueSolver:
         candidates = set(nodes)
 
         while candidates:
-            # Sample k candidates
             sample_size = min(k, len(candidates))
             sampled = random.sample(list(candidates), sample_size)
 
-            # Find compatible candidates
             compatible = []
             for v in sampled:
                 if all(graph.has_edge(v, u) for u in clique):
-                    # Estimate benefit: weight + potential neighborhood weight
                     weight = graph.nodes[v]["weight"]
                     neighbor_potential = sum(
                         graph.nodes[n]["weight"]
@@ -1918,12 +1779,10 @@ class MaxWeightCliqueSolver:
             if not compatible:
                 break
 
-            # Select best
             best_v = max(compatible, key=lambda x: x[1])[0]
             clique.add(best_v)
             candidates.remove(best_v)
 
-            # Filter candidates
             candidates = {c for c in candidates if graph.has_edge(best_v, c)}
 
         return clique
@@ -1971,12 +1830,10 @@ class MaxWeightCliqueSolver:
         duplicate_count = 0
         tested_configs: set[frozenset[int]] = set()
 
-        # Initialize with greedy clique
         current_clique = self._greedy_construct()
         best_clique = current_clique.copy()
         best_weight = self._calculate_weight(best_clique)
 
-        # SCC data structures
         scc_timestamp: dict[int, int] = {v: 0 for v in self.graph.nodes()}
         conf_change: dict[int, int] = {v: 1 for v in self.graph.nodes()}
         current_step = 0
@@ -1989,7 +1846,6 @@ class MaxWeightCliqueSolver:
             iteration += 1
             current_step += 1
 
-            # Check stopping criteria
             if max_iterations and iteration > max_iterations:
                 stopping_reason = StoppingReason.MAX_ITERATIONS
                 break
@@ -1997,10 +1853,8 @@ class MaxWeightCliqueSolver:
                 stopping_reason = StoppingReason.TIME_LIMIT
                 break
 
-            # Try Add, Drop, or Swap operations
             operation_done = False
 
-            # Try Add
             add_candidates = []
             for v in self.graph.nodes():
                 if v not in current_clique:
@@ -2012,7 +1866,6 @@ class MaxWeightCliqueSolver:
                             add_candidates.append((v, self.graph.nodes[v]["weight"]))
 
             if add_candidates:
-                # Select best add
                 best_add = max(add_candidates, key=lambda x: x[1])[0]
                 current_clique.add(best_add)
                 self._scc_update_add(best_add, scc_timestamp, conf_change, current_step)
@@ -2020,12 +1873,10 @@ class MaxWeightCliqueSolver:
                 total_operations += 1
 
             if not operation_done:
-                # Try Swap
                 swap_candidates = []
                 for u in current_clique:
                     for v in self.graph.nodes():
                         if v not in current_clique and v != u:
-                            # Check if swap is valid
                             test_clique = (current_clique - {u}) | {v}
                             if self._is_valid_clique(test_clique):
                                 gain = (
@@ -2048,7 +1899,6 @@ class MaxWeightCliqueSolver:
                     total_operations += 1
 
             if not operation_done:
-                # Try Drop (only if no improvement possible)
                 if current_clique:
                     drop_v = min(
                         current_clique, key=lambda v: self.graph.nodes[v]["weight"]
@@ -2059,7 +1909,6 @@ class MaxWeightCliqueSolver:
                     )
                     total_operations += 1
 
-            # Check if improved
             configurations_tested += 1
             frozen = frozenset(current_clique)
             if frozen in tested_configs:
@@ -2076,13 +1925,12 @@ class MaxWeightCliqueSolver:
             else:
                 unimprove_steps += 1
 
-            # Walk perturbation if stuck
             if unimprove_steps >= max_unimprove_steps:
                 current_clique = self._walk_perturbation(
                     current_clique, walk_perturbation_strength
                 )
                 unimprove_steps = 0
-                # Reset SCC
+
                 conf_change = {v: 1 for v in self.graph.nodes()}
 
         return RandomizedAlgorithmResult(
@@ -2164,12 +2012,10 @@ class MaxWeightCliqueSolver:
         if not clique:
             return self._greedy_construct()
 
-        # Remove some vertices
         n_remove = max(1, int(len(clique) * strength))
         vertices_to_keep = random.sample(list(clique), max(1, len(clique) - n_remove))
         new_clique = set(vertices_to_keep)
 
-        # Rebuild from remaining
         candidates = [v for v in self.graph.nodes() if v not in new_clique]
         random.shuffle(candidates)
 
@@ -2211,7 +2057,6 @@ class MaxWeightCliqueSolver:
         total_operations = 0
         configurations_tested = 0
 
-        # Initialize
         working_graph = self.graph.copy()
         initial_clique, _, _ = self._initialize_wlmc(True)
         best_clique = initial_clique.copy()
@@ -2224,7 +2069,6 @@ class MaxWeightCliqueSolver:
         while working_graph.number_of_nodes() > 0:
             iteration += 1
 
-            # Check stopping criteria
             if max_iterations and iteration > max_iterations:
                 stopping_reason = StoppingReason.MAX_ITERATIONS
                 break
@@ -2232,7 +2076,6 @@ class MaxWeightCliqueSolver:
                 stopping_reason = StoppingReason.TIME_LIMIT
                 break
 
-            # Apply exact reductions
             reduced, vertex_map, removed = self._apply_mwc_redu_rules(
                 working_graph, best_weight, is_first_iteration
             )
@@ -2243,14 +2086,12 @@ class MaxWeightCliqueSolver:
             if working_graph.number_of_nodes() == 0:
                 break
 
-            # Peeling: remove low-score vertices
             n_vertices = working_graph.number_of_nodes()
             n_peel = max(1, int(n_vertices * peel_fraction))
 
             if n_vertices > 50000:
                 n_peel = int(n_vertices * 0.1)
 
-            # Compute scores (inclusive neighborhood weight)
             scores = []
             for v in working_graph.nodes():
                 inclusive_neighbors = set(working_graph.neighbors(v)) | {v}
@@ -2259,7 +2100,6 @@ class MaxWeightCliqueSolver:
                 )
                 scores.append((v, score))
 
-            # Sort by score and peel lowest
             scores.sort(key=lambda x: x[1])
             to_peel = [v for v, _ in scores[:n_peel]]
 
@@ -2269,16 +2109,13 @@ class MaxWeightCliqueSolver:
 
             configurations_tested += 1
 
-        # Solve remaining graph if small enough
         if working_graph.number_of_nodes() > 0:
             if working_graph.number_of_nodes() <= 30:
-                # Exact solve
                 remaining_solver = MaxWeightCliqueSolver(working_graph)
                 result = remaining_solver.exhaustive_search()
-                # Map back to original
+
                 remaining_clique = result.clique
             else:
-                # Greedy solve
                 remaining_solver = MaxWeightCliqueSolver(working_graph)
                 result = remaining_solver.greedy_heuristic()
                 remaining_clique = result.clique
@@ -2331,7 +2168,6 @@ class MaxWeightCliqueSolver:
                 break
             changed = False
 
-            # Domination reduction
             nodes_to_remove = []
             for u in list(reduced.nodes()):
                 if u in nodes_to_remove:
@@ -2345,7 +2181,6 @@ class MaxWeightCliqueSolver:
                     v_weight = reduced.nodes[v]["weight"]
                     v_neighbors = set(reduced.neighbors(v))
 
-                    # v dominates u if v has higher weight and u's neighbors ⊆ v's neighbors ∪ {v}
                     if v_weight >= u_weight and u_neighbors.issubset(v_neighbors | {v}):
                         nodes_to_remove.append(u)
                         changed = True
@@ -2356,7 +2191,6 @@ class MaxWeightCliqueSolver:
                     removed.append(vertex_map.get(node, node))
                     reduced.remove_node(node)
 
-            # Low weight/degree removal
             if reduced.number_of_nodes() > 0:
                 for v in list(reduced.nodes()):
                     if v not in reduced:
@@ -2396,7 +2230,6 @@ class MaxWeightCliqueSolver:
         total_operations = 0
         configurations_tested = 0
 
-        # Initialize
         initial_clique, _, reduced = self._initialize_wlmc(True)
         best_clique = initial_clique.copy()
         best_weight = self._calculate_weight(best_clique)
@@ -2425,22 +2258,18 @@ class MaxWeightCliqueSolver:
                     best_clique = current.copy()
                 return
 
-            # Two-stage MaxSAT upper bound
-            # Phase 1: Binary MaxSAT (IS partition bound)
             ub, partition = self._binary_maxsat_bound(candidates, current_weight)
 
             if ub <= best_weight:
-                return  # Prune
+                return
 
-            # Phase 2: Ordered MaxSAT (refined bound) - only if phase 1 doesn't prune
             ub = self._ordered_maxsat_bound(
                 candidates, partition, current_weight, best_weight
             )
 
             if ub <= best_weight:
-                return  # Prune
+                return
 
-            # Branch
             for i, v in enumerate(candidates):
                 total_operations += 1
 
@@ -2452,7 +2281,6 @@ class MaxWeightCliqueSolver:
                     ]
                     tsm_search(new_current, new_candidates, new_weight)
 
-        # Order vertices
         ordered = sorted(
             reduced.nodes(), key=lambda v: self.graph.nodes[v]["weight"], reverse=True
         )
@@ -2485,7 +2313,6 @@ class MaxWeightCliqueSolver:
                     remaining.remove(v)
             partition.append(is_set)
 
-        # Upper bound: current + max weight from each IS
         ub = current_weight
         for is_set in partition:
             if is_set:
@@ -2511,25 +2338,21 @@ class MaxWeightCliqueSolver:
             if is_set:
                 ub += max(self.graph.nodes[v]["weight"] for v in is_set)
 
-        # Simple refinement: check if any candidate can be removed
-        # because its contribution is already covered
         for v in candidates:
             v_weight = self.graph.nodes[v]["weight"]
-            # Find IS sets not conflicting with v
+
             non_conflicting = []
             for is_set in partition:
                 conflicts = any(self.graph.has_edge(v, u) for u in is_set)
                 if not conflicts:
                     non_conflicting.append(is_set)
 
-            # If v's weight can be covered by non-conflicting sets
             covered = sum(
                 max(self.graph.nodes[u]["weight"] for u in is_set)
                 for is_set in non_conflicting
                 if is_set
             )
             if covered >= v_weight:
-                # v can be "integrated" - potentially tighter bound
                 pass
 
         return ub
@@ -2567,14 +2390,13 @@ def compare_solutions(
 
 def main() -> None:
     """Test the algorithms on a small example."""
-    # Create a simple test graph
+
     G: nx.Graph = nx.Graph()
     G.add_node(0, weight=10.0)
     G.add_node(1, weight=20.0)
     G.add_node(2, weight=15.0)
     G.add_node(3, weight=5.0)
 
-    # Add edges to form a clique of {0, 1, 2}
     G.add_edges_from([(0, 1), (0, 2), (1, 2), (1, 3)])
 
     print("Test Graph:")
@@ -2584,7 +2406,6 @@ def main() -> None:
 
     solver = MaxWeightCliqueSolver(G)
 
-    # Run exhaustive search
     print("\n" + "=" * 60)
     print("EXHAUSTIVE SEARCH")
     print("=" * 60)
@@ -2594,7 +2415,6 @@ def main() -> None:
     print(f"Basic operations: {exact_result.basic_operations}")
     print(f"Configurations tested: {exact_result.configurations_tested}")
 
-    # Run greedy heuristic
     print("\n" + "=" * 60)
     print("GREEDY HEURISTIC")
     print("=" * 60)
@@ -2604,7 +2424,6 @@ def main() -> None:
     print(f"Basic operations: {greedy_result.basic_operations}")
     print(f"Configurations tested: {greedy_result.configurations_tested}")
 
-    # Compare
     print("\n" + "=" * 60)
     print("COMPARISON")
     print("=" * 60)

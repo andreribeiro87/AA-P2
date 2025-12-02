@@ -38,16 +38,13 @@ class BenchmarkGraphLoader:
         graph = nx.read_graphml(filepath)
         graph = nx.convert_node_labels_to_integers(graph)
 
-        # Ensure weights exist
         for node in graph.nodes():
             if "weight" not in graph.nodes[node]:
-                # Assign random weight if not present
                 weight = random.uniform(
                     self.default_weight_range[0], self.default_weight_range[1]
                 )
                 graph.nodes[node]["weight"] = weight
             else:
-                # Convert to float if needed
                 graph.nodes[node]["weight"] = float(graph.nodes[node]["weight"])
 
         return graph
@@ -78,9 +75,7 @@ class BenchmarkGraphLoader:
             for line in f:
                 line = line.strip()
                 if not line or line.startswith("c"):
-                    # Comment line - check for weight information
                     if "weight" in line.lower():
-                        # Try to parse weight from comment (format may vary)
                         parts = line.split()
                         for i, part in enumerate(parts):
                             if part.isdigit() and i + 1 < len(parts):
@@ -93,17 +88,15 @@ class BenchmarkGraphLoader:
                     continue
 
                 if line.startswith("p"):
-                    # Problem line: p edge n_vertices n_edges
                     parts = line.split()
                     if len(parts) >= 4:
                         n_vertices = int(parts[2])
                         n_edges = int(parts[3])
-                        # Initialize graph with vertices
+
                         for v in range(1, n_vertices + 1):
-                            graph.add_node(v - 1)  # Convert to 0-indexed
+                            graph.add_node(v - 1)
 
                 elif line.startswith("n"):
-                    # Node weight line: n vertex weight
                     parts = line.split()
                     if len(parts) >= 3:
                         try:
@@ -114,19 +107,16 @@ class BenchmarkGraphLoader:
                             pass
 
                 elif line.startswith("e"):
-                    # Edge line: e v1 v2
                     parts = line.split()
                     if len(parts) >= 3:
-                        v1 = int(parts[1]) - 1  # Convert to 0-indexed
+                        v1 = int(parts[1]) - 1
                         v2 = int(parts[2]) - 1
                         graph.add_edge(v1, v2)
 
-        # Assign weights
         for node in graph.nodes():
-            if node + 1 in weights:  # Convert back to 1-indexed for lookup
+            if node + 1 in weights:
                 graph.nodes[node]["weight"] = weights[node + 1]
             else:
-                # Assign random weight if not provided
                 graph.nodes[node]["weight"] = random.uniform(
                     self.default_weight_range[0], self.default_weight_range[1]
                 )
@@ -162,7 +152,6 @@ class BenchmarkGraphLoader:
         if len(lines) < 4:
             raise ValueError(f"Invalid SW format file: {filepath} - insufficient lines")
 
-        # Parse header
         try:
             is_directed = int(lines[0]) == 1
             has_edge_weights = int(lines[1]) == 1
@@ -171,14 +160,11 @@ class BenchmarkGraphLoader:
         except (ValueError, IndexError) as e:
             raise ValueError(f"Invalid SW format header in {filepath}") from e
 
-        # Initialize vertices with zero weight (will accumulate from edges or assign random)
         for v in range(n_vertices):
             graph.add_node(v, weight=0.0)
 
-        # Track edge weights per vertex to compute vertex weights
         vertex_edge_weights: dict[int, float] = {v: 0.0 for v in range(n_vertices)}
 
-        # Parse edges
         edge_lines = lines[4:]
         edges_added = 0
 
@@ -191,38 +177,30 @@ class BenchmarkGraphLoader:
                 v1 = int(parts[0])
                 v2 = int(parts[1])
 
-                # Skip self-loops
                 if v1 == v2:
                     continue
 
-                # Parse edge weight if present
                 edge_weight = 1.0
                 if has_edge_weights and len(parts) >= 3:
                     edge_weight = float(parts[2])
 
-                # Add edge (undirected)
                 if not graph.has_edge(v1, v2):
                     graph.add_edge(v1, v2)
                     edges_added += 1
 
-                # Accumulate edge weights for vertex weight calculation
                 vertex_edge_weights[v1] += abs(edge_weight)
                 vertex_edge_weights[v2] += abs(edge_weight)
 
             except (ValueError, IndexError):
                 continue
 
-        # Assign vertex weights
-        # Strategy: Use accumulated edge weights, or assign random if no edges
         for node in graph.nodes():
             accumulated_weight = vertex_edge_weights.get(node, 0.0)
             if accumulated_weight > 0:
-                # Normalize to reasonable range and add base weight
                 graph.nodes[node]["weight"] = (
                     accumulated_weight * 10.0 + random.uniform(1.0, 10.0)
                 )
             else:
-                # Isolated vertex - assign random weight
                 graph.nodes[node]["weight"] = random.uniform(
                     self.default_weight_range[0], self.default_weight_range[1]
                 )
@@ -263,27 +241,24 @@ class BenchmarkGraphLoader:
         except (ValueError, IndexError) as e:
             raise ValueError(f"Invalid adjacency matrix header in {filepath}") from e
 
-        # Initialize vertices with random weights
         for v in range(n_vertices):
             weight = random.uniform(
                 self.default_weight_range[0], self.default_weight_range[1]
             )
             graph.add_node(v, weight=weight)
 
-        # Parse adjacency matrix
         matrix_lines = lines[2 : 2 + n_vertices]
 
         if len(matrix_lines) < n_vertices:
             raise ValueError(f"Adjacency matrix incomplete in {filepath}")
 
         for i, line in enumerate(matrix_lines):
-            # Parse the row - handle both space-separated and tab-separated
             row = line.split()
 
             if len(row) < n_vertices:
                 raise ValueError(f"Row {i} has insufficient columns in {filepath}")
 
-            for j in range(i + 1, n_vertices):  # Only upper triangle (undirected)
+            for j in range(i + 1, n_vertices):
                 try:
                     value = int(row[j])
                     if value == 1:
@@ -306,29 +281,22 @@ class BenchmarkGraphLoader:
         if len(lines) < 4:
             return "unknown"
 
-        # SW format: first two lines are 0 or 1 (boolean flags)
         try:
             line0 = int(lines[0])
             line1 = int(lines[1])
             line2 = int(lines[2])
             line3 = int(lines[3])
 
-            # SW format: line0 and line1 are boolean (0 or 1)
-            # line2 is vertex count, line3 is edge count
             if line0 in (0, 1) and line1 in (0, 1) and line2 > 0 and line3 >= 0:
-                # Check if line 5+ looks like edges (two or three space-separated numbers)
                 if len(lines) > 4:
                     edge_line = lines[4].split()
                     if len(edge_line) >= 2 and len(edge_line) <= 3:
                         return "sw"
 
-            # Adjacency matrix format: line0 is vertex count, line1 is edge count
-            # line2+ is the matrix (many space-separated values per line)
-            if line0 > 1:  # More than 1 vertex
-                # Check if third line looks like a matrix row
+            if line0 > 1:
                 if len(lines) > 2:
                     row = lines[2].split()
-                    if len(row) >= line0:  # Row length matches vertex count
+                    if len(row) >= line0:
                         return "adjacency_matrix"
 
         except ValueError:
@@ -356,14 +324,12 @@ class BenchmarkGraphLoader:
         elif suffix in [".clq", ".dimacs", ".col"]:
             return self.load_dimacs(filepath)
         elif suffix == ".txt":
-            # Auto-detect TXT format
             txt_format = self._detect_txt_format(filepath)
             if txt_format == "sw":
                 return self.load_sw_txt(filepath)
             elif txt_format == "adjacency_matrix":
                 return self.load_adjacency_matrix(filepath)
             else:
-                # Try SW first, then adjacency matrix
                 try:
                     return self.load_sw_txt(filepath)
                 except Exception:
@@ -375,7 +341,6 @@ class BenchmarkGraphLoader:
                             f"Tried SW and adjacency matrix formats."
                         ) from e
         else:
-            # Try different formats in order
             try:
                 return self.load_graphml(filepath)
             except Exception:
@@ -415,16 +380,13 @@ class BenchmarkGraphLoader:
         if not directory.exists():
             return []
 
-        # Get all graph files
         if recursive:
             all_files = list(directory.rglob(pattern))
         else:
             all_files = list(directory.glob(pattern))
 
-        # Filter for common graph file extensions
         extensions = {".graphml", ".clq", ".wclq", ".dimacs", ".col", ".txt"}
 
-        # Filenames to exclude (documentation/metadata files)
         excluded_filenames = {"readme.txt", "license.txt", "changelog.txt", "notes.txt"}
 
         graph_files = [
@@ -435,11 +397,9 @@ class BenchmarkGraphLoader:
             and f.name.lower() not in excluded_filenames
         ]
 
-        # Filter by vertex count if specified (parse from filename)
         if min_vertices is not None or max_vertices is not None:
             filtered_files = []
             for filepath in graph_files:
-                # Try to extract vertex count from filename (format: graph_n{count}_d*.ext)
                 name = filepath.stem
                 match = re.search(r"_n(\d+)_", name)
                 if match:
@@ -450,7 +410,6 @@ class BenchmarkGraphLoader:
                         continue
                     filtered_files.append(filepath)
                 else:
-                    # If filename doesn't match pattern, include it (don't filter)
                     filtered_files.append(filepath)
             graph_files = filtered_files
 
@@ -473,7 +432,6 @@ class BenchmarkGraphLoader:
                 graph = self.load_graph(filepath)
                 yield (filepath, graph)
             except Exception as e:
-                # Skip files that can't be loaded
                 continue
 
     def load_directory(
@@ -501,7 +459,6 @@ class BenchmarkGraphLoader:
                 graph = self.load_graph(filepath)
                 graphs.append((filepath, graph))
             except Exception as e:
-                # Skip files that can't be loaded
                 continue
 
         return graphs
@@ -532,12 +489,11 @@ def main() -> None:
     """Test the graph loader."""
     loader = BenchmarkGraphLoader()
 
-    # Test loading from a directory
     test_dir = Path("experiments/graphs")
     if test_dir.exists():
         graphs = loader.load_directory(test_dir, pattern="*.graphml")
         print(f"Loaded {len(graphs)} graphs from {test_dir}")
-        for filepath, graph in graphs[:3]:  # Show first 3
+        for filepath, graph in graphs[:3]:
             print(
                 f"  {filepath.name}: {graph.number_of_nodes()} vertices, "
                 f"{graph.number_of_edges()} edges"

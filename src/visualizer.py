@@ -17,7 +17,6 @@ import numpy as np
 from src.benchmark import BenchmarkResult
 
 
-# Algorithm display names and categories
 ALGORITHM_INFO = {
     "exhaustive": {
         "name": "Exhaustive Search",
@@ -88,18 +87,14 @@ class GraphVisualizer:
         """
         fig, ax = plt.subplots(figsize=(10, 8))
 
-        # Get positions from node attributes (x, y coordinates)
         pos = {
             node: (graph.nodes[node]["x"], graph.nodes[node]["y"])
             for node in graph.nodes()
         }
 
-        # Separate nodes into clique and non-clique
         clique_nodes = list(clique)
         other_nodes = [n for n in graph.nodes() if n not in clique]
 
-        # Draw edges
-        # Clique internal edges (bold red)
         clique_edges = [(u, v) for u, v in graph.edges() if u in clique and v in clique]
         nx.draw_networkx_edges(
             graph,
@@ -111,7 +106,6 @@ class GraphVisualizer:
             ax=ax,
         )
 
-        # Other edges (thin gray)
         other_edges = [(u, v) for u, v in graph.edges() if (u, v) not in clique_edges]
         nx.draw_networkx_edges(
             graph,
@@ -123,8 +117,6 @@ class GraphVisualizer:
             ax=ax,
         )
 
-        # Draw nodes
-        # Clique nodes (red)
         if clique_nodes:
             clique_weights = [graph.nodes[n]["weight"] for n in clique_nodes]
             nx.draw_networkx_nodes(
@@ -137,7 +129,6 @@ class GraphVisualizer:
                 ax=ax,
             )
 
-        # Other nodes (light blue)
         if other_nodes:
             other_weights = [graph.nodes[n]["weight"] for n in other_nodes]
             nx.draw_networkx_nodes(
@@ -150,7 +141,6 @@ class GraphVisualizer:
                 ax=ax,
             )
 
-        # Draw labels
         labels = {
             node: f"{node}\n({graph.nodes[node]['weight']:.1f})"
             for node in graph.nodes()
@@ -159,7 +149,6 @@ class GraphVisualizer:
             graph, pos, labels, font_size=8, font_weight="bold", ax=ax
         )
 
-        # Add legend
         clique_weight = sum(graph.nodes[n]["weight"] for n in clique)
         legend_elements = [
             mpatches.Patch(color="red", label=f"Clique (weight={clique_weight:.2f})"),
@@ -305,7 +294,6 @@ class ResultsVisualizer:
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        # Group by density for multiple lines
         densities: dict[float, list[tuple]] = {}
         for r in alg_results:
             d = r.get("density", 0.0)
@@ -313,7 +301,6 @@ class ResultsVisualizer:
                 densities[d] = []
             densities[d].append((r.get("n_vertices", 0), r.get("time_seconds", 0)))
 
-        # Sort densities and assign colors
         sorted_densities = sorted(densities.keys())
         colors = plt.cm.viridis(np.linspace(0.2, 0.8, len(sorted_densities)))
 
@@ -340,7 +327,6 @@ class ResultsVisualizer:
         ax.legend(loc="upper left")
         ax.grid(True, alpha=0.3)
 
-        # Use log scale if range is large
         times_all = [r.get("time_seconds", 0) for r in alg_results]
         if max(times_all) / (min(times_all) + 1e-10) > 100:
             ax.set_yscale("log")
@@ -384,7 +370,6 @@ class ResultsVisualizer:
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        # Group by density for multiple lines
         densities: dict[float, list[tuple]] = {}
         for r in alg_results:
             d = r.get("density", 0.0)
@@ -392,7 +377,6 @@ class ResultsVisualizer:
                 densities[d] = []
             densities[d].append((r.get("n_vertices", 0), r.get("operations", 0)))
 
-        # Sort densities and assign colors
         sorted_densities = sorted(densities.keys())
         colors = plt.cm.plasma(np.linspace(0.2, 0.8, len(sorted_densities)))
 
@@ -417,7 +401,6 @@ class ResultsVisualizer:
         ax.legend(loc="upper left")
         ax.grid(True, alpha=0.3)
 
-        # Use log scale if range is large
         ops_all = [r.get("operations", 0) for r in alg_results]
         if ops_all and max(ops_all) / (min(ops_all) + 1) > 100:
             ax.set_yscale("log")
@@ -462,7 +445,6 @@ class ResultsVisualizer:
             if r.get("algorithm") == algorithm2
         }
 
-        # Find common graph instances
         common_keys = set(alg1_results.keys()) & set(alg2_results.keys())
 
         if not common_keys:
@@ -480,7 +462,6 @@ class ResultsVisualizer:
 
         fig, ax = plt.subplots(figsize=(12, 6))
 
-        # Group by density
         densities: dict[float, list[tuple]] = {}
         for key in common_keys:
             n, d = key
@@ -539,7 +520,6 @@ class ResultsVisualizer:
         ax.legend()
         ax.grid(True, alpha=0.3, axis="y")
 
-        # Use log scale if needed
         all_times = alg1_times + alg2_times
         if all_times and max(all_times) / (min(all_times) + 1e-10) > 100:
             ax.set_yscale("log")
@@ -584,7 +564,6 @@ class ResultsVisualizer:
             if r.get("algorithm") == algorithm2
         }
 
-        # Find common graph instances
         common_keys = set(alg1_results.keys()) & set(alg2_results.keys())
 
         if not common_keys:
@@ -602,7 +581,6 @@ class ResultsVisualizer:
 
         fig, ax = plt.subplots(figsize=(12, 6))
 
-        # Group by density
         densities: dict[float, list[tuple]] = {}
         for key in common_keys:
             n, d = key
@@ -659,7 +637,6 @@ class ResultsVisualizer:
         ax.legend()
         ax.grid(True, alpha=0.3, axis="y")
 
-        # Use log scale if needed
         all_ops = alg1_ops + alg2_ops
         if all_ops and max(all_ops) / (min(all_ops) + 1) > 100:
             ax.set_yscale("log")
@@ -717,7 +694,6 @@ class ResultsVisualizer:
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        # Plot algorithm 1
         data1 = sorted(
             [(r.get("n_vertices", 0), r.get(metric_key, 0)) for r in alg1_results]
         )
@@ -732,7 +708,6 @@ class ResultsVisualizer:
             label=info1["name"],
         )
 
-        # Plot algorithm 2
         data2 = sorted(
             [(r.get("n_vertices", 0), r.get(metric_key, 0)) for r in alg2_results]
         )
@@ -757,7 +732,6 @@ class ResultsVisualizer:
         ax.legend()
         ax.grid(True, alpha=0.3)
 
-        # Use log scale if needed
         all_values = list(m1) + list(m2)
         if all_values and max(all_values) / (min(all_values) + 1e-10) > 100:
             ax.set_yscale("log")
@@ -787,7 +761,6 @@ class ResultsVisualizer:
         """
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Get unique algorithms
         algorithms = set(r.get("algorithm") for r in results)
 
         print(f"\n{'=' * 60}")
@@ -796,12 +769,10 @@ class ResultsVisualizer:
         print(f"{'=' * 60}\n")
 
         for alg in sorted(algorithms):
-            # Time chart
             ResultsVisualizer.plot_individual_algorithm_time(
                 results, alg, output_path=output_dir / f"{alg}_time.png", show=False
             )
 
-            # Operations chart
             ResultsVisualizer.plot_individual_algorithm_operations(
                 results,
                 alg,
@@ -828,11 +799,9 @@ class ResultsVisualizer:
         """
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Get unique algorithms
         algorithms = sorted(set(r.get("algorithm") for r in results))
 
         if comparison_pairs is None:
-            # Generate meaningful pairs based on categories
             comparison_pairs = ResultsVisualizer._generate_comparison_pairs(algorithms)
 
         print(f"\n{'=' * 60}")
@@ -844,7 +813,6 @@ class ResultsVisualizer:
             if alg1 not in algorithms or alg2 not in algorithms:
                 continue
 
-            # Time comparison (bar chart)
             ResultsVisualizer.plot_pairwise_time_comparison(
                 results,
                 alg1,
@@ -853,7 +821,6 @@ class ResultsVisualizer:
                 show=False,
             )
 
-            # Operations comparison (bar chart)
             ResultsVisualizer.plot_pairwise_operations_comparison(
                 results,
                 alg1,
@@ -862,7 +829,6 @@ class ResultsVisualizer:
                 show=False,
             )
 
-            # Time comparison (line chart)
             ResultsVisualizer.plot_pairwise_line_comparison(
                 results,
                 alg1,
@@ -872,7 +838,6 @@ class ResultsVisualizer:
                 show=False,
             )
 
-            # Operations comparison (line chart)
             ResultsVisualizer.plot_pairwise_line_comparison(
                 results,
                 alg1,
@@ -896,7 +861,6 @@ class ResultsVisualizer:
         """
         pairs = []
 
-        # Define categories
         categories = {
             "exact": ["exhaustive", "wlmc", "tsm_mwc"],
             "reduction": ["mwc_redu", "max_clique_weight", "max_clique_dyn_weight"],
@@ -910,39 +874,30 @@ class ResultsVisualizer:
             ],
         }
 
-        # Filter to only available algorithms
         available = {
             cat: [a for a in algs if a in algorithms]
             for cat, algs in categories.items()
         }
 
-        # Key comparisons
         key_comparisons = [
-            # Baseline comparisons
             ("exhaustive", "greedy"),
             ("exhaustive", "mwc_redu"),
             ("greedy", "fast_wclq"),
             ("greedy", "mwc_peel"),
-            # Exact algorithm comparisons
             ("wlmc", "tsm_mwc"),
             ("exhaustive", "wlmc"),
-            # Heuristic comparisons
             ("fast_wclq", "scc_walk"),
             ("fast_wclq", "mwc_peel"),
             ("scc_walk", "mwc_peel"),
-            # Reduction comparisons
             ("mwc_redu", "max_clique_weight"),
             ("max_clique_weight", "max_clique_dyn_weight"),
-            # Randomized comparisons
             ("random_construction", "random_greedy_hybrid"),
             ("iterative_random_search", "monte_carlo"),
             ("monte_carlo", "las_vegas"),
-            # Cross-category comparisons
             ("greedy", "random_greedy_hybrid"),
             ("mwc_redu", "greedy"),
         ]
 
-        # Add pairs that exist in the data
         for alg1, alg2 in key_comparisons:
             if alg1 in algorithms and alg2 in algorithms:
                 pairs.append((alg1, alg2))
@@ -967,7 +922,6 @@ class ResultsVisualizer:
             print("No data for category summary")
             return
 
-        # Group by category
         categories = {
             "Exact": ["exhaustive", "wlmc", "tsm_mwc"],
             "Reduction": ["mwc_redu", "max_clique_weight", "max_clique_dyn_weight"],
@@ -990,7 +944,6 @@ class ResultsVisualizer:
 
         fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 
-        # Aggregate data by category
         cat_times: dict[str, list[float]] = {cat: [] for cat in categories}
         cat_ops: dict[str, list[float]] = {cat: [] for cat in categories}
 
@@ -1002,7 +955,6 @@ class ResultsVisualizer:
                     cat_ops[cat].append(r.get("operations", 0))
                     break
 
-        # Plot average time by category
         ax1 = axes[0]
         cats_with_data = [c for c in categories if cat_times[c]]
         avg_times = [
@@ -1018,7 +970,6 @@ class ResultsVisualizer:
         if avg_times and max(avg_times) / (min(avg_times) + 1e-10) > 100:
             ax1.set_yscale("log")
 
-        # Plot average operations by category
         ax2 = axes[1]
         avg_ops = [
             sum(cat_ops[c]) / len(cat_ops[c]) if cat_ops[c] else 0
@@ -1110,7 +1061,6 @@ class ResultsVisualizer:
         ax.legend(loc="upper left", fontsize=8, ncol=2)
         ax.grid(True, alpha=0.3)
 
-        # Use log scale if needed
         all_values = [r.get(metric_key, 0) for r in results]
         if all_values and max(all_values) / (min(all_values) + 1e-10) > 100:
             ax.set_yscale("log")
@@ -1144,15 +1094,12 @@ class ResultsVisualizer:
         print("GENERATING ALL VISUALIZATIONS")
         print(f"{'=' * 60}\n")
 
-        # 1. Individual algorithm charts
         ResultsVisualizer.plot_all_individual_charts(results, output_dir / "individual")
 
-        # 2. Pairwise comparison charts
         ResultsVisualizer.plot_all_pairwise_comparisons(
             results, output_dir / "pairwise"
         )
 
-        # 3. Summary charts
         summary_dir = output_dir / "summary"
         summary_dir.mkdir(parents=True, exist_ok=True)
 
@@ -1181,10 +1128,6 @@ class ResultsVisualizer:
         print(f"  - Summary charts: {output_dir}/summary/")
         print(f"{'=' * 60}\n")
 
-    # ================================================================================
-    # LEGACY METHODS - Kept for backward compatibility with BenchmarkResult
-    # ================================================================================
-
     @staticmethod
     def plot_execution_time(
         results: list[BenchmarkResult],
@@ -1199,7 +1142,7 @@ class ResultsVisualizer:
             output_path: Path to save figure
             show: Whether to display the plot
         """
-        # Group by density
+
         densities: dict[float, list[BenchmarkResult]] = {}
         for result in results:
             density = result.edge_density_percent
@@ -1209,10 +1152,9 @@ class ResultsVisualizer:
 
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
-        # Plot exact algorithm
         for density in sorted(densities.keys()):
             results_at_density = sorted(densities[density], key=lambda r: r.n_vertices)
-            # Filter out None values
+
             data_points = [
                 (r.n_vertices, r.exact_time_seconds)
                 for r in results_at_density
@@ -1229,12 +1171,10 @@ class ResultsVisualizer:
         )
         ax1.legend()
         ax1.grid(True, alpha=0.3)
-        # ax1.set_yscale('log')
 
-        # Plot greedy algorithm
         for density in sorted(densities.keys()):
             results_at_density = sorted(densities[density], key=lambda r: r.n_vertices)
-            # Filter out None values
+
             data_points = [
                 (r.n_vertices, r.greedy_time_seconds)
                 for r in results_at_density
@@ -1251,7 +1191,6 @@ class ResultsVisualizer:
         )
         ax2.legend()
         ax2.grid(True, alpha=0.3)
-        # ax2.set_yscale('log')
 
         plt.tight_layout()
 
@@ -1278,7 +1217,7 @@ class ResultsVisualizer:
             output_path: Path to save figure
             show: Whether to display the plot
         """
-        # Group by density
+
         densities: dict[float, list[BenchmarkResult]] = {}
         for result in results:
             density = result.edge_density_percent
@@ -1288,10 +1227,9 @@ class ResultsVisualizer:
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        # Plot for each density
         for density in sorted(densities.keys()):
             results_at_density = sorted(densities[density], key=lambda r: r.n_vertices)
-            # Filter out None values
+
             data_points = [
                 (r.n_vertices, r.exact_operations)
                 for r in results_at_density
@@ -1310,7 +1248,6 @@ class ResultsVisualizer:
         )
         ax.legend()
         ax.grid(True, alpha=0.3)
-        # ax.set_yscale('log')
 
         plt.tight_layout()
 
@@ -1339,12 +1276,10 @@ class ResultsVisualizer:
         """
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        # Extract data
         results_sorted = sorted(results, key=lambda r: r.n_vertices)
         vertices = [r.n_vertices for r in results_sorted]
         configs = [r.exact_configurations or 0 for r in results_sorted]
 
-        # Plot configurations tested
         ax.plot(
             vertices,
             configs,
@@ -1355,7 +1290,6 @@ class ResultsVisualizer:
             color="darkblue",
         )
 
-        # Plot theoretical 2^n line for reference
         import numpy as np
 
         v_range = np.array(vertices)
@@ -1377,7 +1311,6 @@ class ResultsVisualizer:
         )
         ax.legend()
         ax.grid(True, alpha=0.3)
-        # ax.set_yscale('log')
 
         plt.tight_layout()
 
@@ -1404,7 +1337,7 @@ class ResultsVisualizer:
             output_path: Path to save figure
             show: Whether to display the plot
         """
-        # Group by density
+
         densities: dict[float, list[BenchmarkResult]] = {}
         for result in results:
             density = result.edge_density_percent
@@ -1414,10 +1347,9 @@ class ResultsVisualizer:
 
         fig, ax = plt.subplots(figsize=(10, 6))
 
-        # Plot for each density
         for density in sorted(densities.keys()):
             results_at_density = sorted(densities[density], key=lambda r: r.n_vertices)
-            # Filter out None values
+
             data_points = [
                 (r.n_vertices, r.precision_percent)
                 for r in results_at_density
@@ -1462,7 +1394,7 @@ class ResultsVisualizer:
             output_path: Path to save figure
             show: Whether to display the plot
         """
-        # Filter results that have random algorithm data
+
         random_results = [r for r in results if r.random_time_seconds is not None]
 
         if not random_results:
@@ -1471,7 +1403,6 @@ class ResultsVisualizer:
 
         fig, axes = plt.subplots(2, 2, figsize=(14, 10))
 
-        # Extract data
         vertices = [r.n_vertices for r in random_results]
         random_times = [r.random_time_seconds for r in random_results]
         exact_times = [
@@ -1490,7 +1421,6 @@ class ResultsVisualizer:
             if r.random_precision_percent is not None
         ]
 
-        # Plot 1: Execution time comparison
         ax1 = axes[0, 0]
         ax1.plot(vertices, random_times, "o-", label="Randomized", color="green")
         if exact_times:
@@ -1512,7 +1442,6 @@ class ResultsVisualizer:
         ax1.grid(True, alpha=0.3)
         ax1.set_yscale("log")
 
-        # Plot 2: Precision
         ax2 = axes[0, 1]
         if random_precision:
             prec_vertices = [
@@ -1542,7 +1471,6 @@ class ResultsVisualizer:
         ax2.grid(True, alpha=0.3)
         ax2.set_ylim((0.0, 105.0))
 
-        # Plot 3: Configuration efficiency
         ax3 = axes[1, 0]
         total_configs = [
             r.random_configurations
@@ -1579,7 +1507,6 @@ class ResultsVisualizer:
         ax3.grid(True, alpha=0.3)
         ax3.set_yscale("log")
 
-        # Plot 4: Duplicate rate
         ax4 = axes[1, 1]
         duplicates = [
             r.random_duplicates
@@ -1705,12 +1632,10 @@ class ResultsVisualizer:
             print("No randomized algorithm results to plot")
             return
 
-        # Count stopping reasons
         stopping_reasons = Counter(r.random_stopping_reason for r in random_results)
 
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
-        # Pie chart of stopping reasons
         if stopping_reasons:
             labels = list(stopping_reasons.keys())
             sizes = list(stopping_reasons.values())
@@ -1723,7 +1648,6 @@ class ResultsVisualizer:
                 "Stopping Reasons Distribution", fontsize=14, fontweight="bold"
             )
 
-        # Bar chart by graph size
         ax2_data: dict[str, list[int]] = {}
         for r in random_results:
             reason = r.random_stopping_reason or "unknown"
@@ -1785,7 +1709,6 @@ class ResultsVisualizer:
             results, output_dir / "heuristic_precision.png", show=False
         )
 
-        # Add randomized algorithm plots if data is available
         has_random_data = any(r.random_time_seconds is not None for r in results)
         if has_random_data:
             ResultsVisualizer.plot_randomized_performance(
@@ -1823,7 +1746,6 @@ class ResultsVisualizer:
 
         colors = plt.cm.tab10(range(len(results_by_algorithm)))
 
-        # Plot 1: Solution quality (weight) vs graph size
         ax1 = axes[0, 0]
         for (alg_name, results), color in zip(results_by_algorithm.items(), colors):
             if results:
@@ -1836,7 +1758,6 @@ class ResultsVisualizer:
         ax1.legend()
         ax1.grid(True, alpha=0.3)
 
-        # Plot 2: Execution time vs graph size
         ax2 = axes[0, 1]
         for (alg_name, results), color in zip(results_by_algorithm.items(), colors):
             if results:
@@ -1850,7 +1771,6 @@ class ResultsVisualizer:
         ax2.grid(True, alpha=0.3)
         ax2.set_yscale("log")
 
-        # Plot 3: Operations count vs graph size
         ax3 = axes[1, 0]
         for (alg_name, results), color in zip(results_by_algorithm.items(), colors):
             if results:
@@ -1864,7 +1784,6 @@ class ResultsVisualizer:
         ax3.grid(True, alpha=0.3)
         ax3.set_yscale("log")
 
-        # Plot 4: Solution quality relative to optimal (if available)
         ax4 = axes[1, 1]
         optimal_alg = None
         for alg_name in results_by_algorithm.keys():
@@ -1967,7 +1886,6 @@ class ResultsVisualizer:
         else:
             ax1 = axes
 
-        # Plot weight vs iterations
         ax1.plot(iterations, weights, "b-", linewidth=2)
         ax1.fill_between(iterations, 0, weights, alpha=0.3)
         ax1.set_xlabel("Iteration", fontsize=12)
@@ -1975,7 +1893,6 @@ class ResultsVisualizer:
         ax1.set_title(f"{algorithm_name} Convergence", fontsize=14, fontweight="bold")
         ax1.grid(True, alpha=0.3)
 
-        # Annotate final value
         if weights:
             ax1.annotate(
                 f"Final: {weights[-1]:.2f}",
@@ -1986,7 +1903,6 @@ class ResultsVisualizer:
                 arrowprops=dict(arrowstyle="->", color="red"),
             )
 
-        # Plot weight vs time if available
         if times:
             ax2.plot(times, weights, "g-", linewidth=2)
             ax2.fill_between(times, 0, weights, alpha=0.3, color="green")
@@ -2050,7 +1966,6 @@ class ResultsVisualizer:
                 linewidth=0.5,
             )
 
-        # Add legend
         handles = [
             plt.scatter([], [], c=[color_map[alg]], s=100, label=alg)
             for alg in algorithms
@@ -2102,7 +2017,6 @@ class ResultsVisualizer:
 
         colors = plt.cm.tab10(range(len(results_by_algorithm)))
 
-        # Plot 1: Time scalability
         for (alg_name, results), color in zip(results_by_algorithm.items(), colors):
             if results:
                 vertices = sorted(set(r.get("n_vertices", 0) for r in results))
@@ -2123,7 +2037,6 @@ class ResultsVisualizer:
         ax1.grid(True, alpha=0.3)
         ax1.set_yscale("log")
 
-        # Plot 2: Operations scalability
         for (alg_name, results), color in zip(results_by_algorithm.items(), colors):
             if results:
                 vertices = sorted(set(r.get("n_vertices", 0) for r in results))
@@ -2175,7 +2088,6 @@ class ResultsVisualizer:
 
         fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
-        # Group by density
         densities_data: dict[float, list[BenchmarkResult]] = {}
         for r in results:
             d = r.edge_density_percent
@@ -2185,7 +2097,6 @@ class ResultsVisualizer:
 
         densities = sorted(densities_data.keys())
 
-        # Plot 1: Average precision by density
         ax1 = axes[0]
         avg_precisions = []
         for d in densities:
@@ -2206,7 +2117,6 @@ class ResultsVisualizer:
         ax1.grid(True, alpha=0.3, axis="y")
         ax1.set_ylim((0, 105))
 
-        # Plot 2: Average execution time by density
         ax2 = axes[1]
         avg_exact_times = []
         avg_greedy_times = []
@@ -2254,7 +2164,6 @@ class ResultsVisualizer:
         ax2.legend()
         ax2.grid(True, alpha=0.3, axis="y")
 
-        # Plot 3: Clique size distribution by density
         ax3 = axes[2]
         clique_sizes: dict[float, list[int]] = {}
         for d in densities:
@@ -2301,7 +2210,7 @@ class ResultsVisualizer:
 
 def main() -> None:
     """Generate sample visualizations."""
-    # Create a sample graph
+
     G: nx.Graph = nx.Graph()
     G.add_node(0, x=100, y=100, weight=10.0)
     G.add_node(1, x=200, y=150, weight=20.0)
@@ -2311,7 +2220,6 @@ def main() -> None:
 
     G.add_edges_from([(0, 1), (0, 2), (1, 2), (1, 3), (2, 4)])
 
-    # Visualize with a clique
     clique = {0, 1, 2}
 
     output_dir = Path("experiments/plots")
